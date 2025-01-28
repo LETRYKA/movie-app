@@ -7,11 +7,11 @@ const Header = (props: any) => {
     const { } = props;
 
     return (
-        <div className="header w-full h-20 bg-gradient-to-b from-[#0E1012]/90 to-[black]/0 flex justify-between z-50 pr-24 pl-24">
+        <div className="w-full h-20 bg-gradient-to-b from-[#0E1012]/90 to-[black]/0 flex justify-between z-50 pr-10 pl-10 lg:pl-24 lg:pr-24">
             <div className="flex flex-row h-full w-auto justify-start items-center gap-10 mt-2">
                 <img src="/imgs/logo.png" width={79} height={48} />
                 <Select>
-                    <SelectTrigger id="genreSelector" className="w-[180px]">
+                    <SelectTrigger className="hidden w-[180px] lg:flex">
                         <Clapperboard width={18} className="mr-2" />
                         <SelectValue placeholder="Genre" />
                     </SelectTrigger>
@@ -21,11 +21,11 @@ const Header = (props: any) => {
                         <SelectItem value="system">System</SelectItem>
                     </SelectContent>
                 </Select>
-                <Search id="searchBar" color="white" className="cursor-pointer" />
+                <Search color="white" className="hidden cursor-pointer lg:flex" />
             </div>
             <div className="flex flex-row h-full w-auto justify-start items-center mt-2">
-                <Menu id="menu" className="hidden stroke-white mr-5 cursor-pointer" />
-                <p id="userGreeting" className="text-base text-white mr-4">Hello Username!</p>
+                <Menu className="flex stroke-white mr-5 cursor-pointer lg:hidden" />
+                <p className="hidden text-base text-white mr-4 lg:flex">Hello Username!</p>
                 <Avatar className="relative z-30">
                     <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback>CN</AvatarFallback>

@@ -31,3 +31,12 @@ npm install @supabase/supabase-js @supabase/ssr
 npm install axios
 ```
 ###
+
+
+## Disclaimer
+
+> [!IMPORTANT]
+>
+> movie-app does not host any files, it merely links to 3rd party services.  
+> Legal issues should be taken up with the file hosts and providers.  
+> movie-app is not responsible for any media files shown by the video providers.
