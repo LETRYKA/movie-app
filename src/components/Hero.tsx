@@ -6,11 +6,12 @@ const Hero = (props: any) => {
     const { } = props;
 
     return (
-        <Carousel>
+        <Carousel className="relative">
+            <div className="bg-fade-gradient-v absolute bottom-0 w-full -mt-10 h-40 z-10"></div>
             <CarouselContent className="flex">
                 <CarouselItem className="m-0 p-0">
                     <div id="card-container" className="relative w-full h-[967px] bg-[url(/imgs/cover.jpg)] bg-cover bg-top flex justify-start items-center">
-                        <div className="card-child ml-28 z-10">
+                        <div className="card-child ml-48 z-10">
                             <img src="/imgs/title.png" className="w-80" />
                             <p id="card-about" className="text-base text-white w-[40%]">Tras la caída del Imperio Galáctico, la anarquía se ha esparcido en la Galaxia. Un pistolero solitario se abre paso por los bordes exteriores, ganándose su lugar como cazarrecompensas.</p>
                             <div className="flex flex-row gap-4 mt-8">

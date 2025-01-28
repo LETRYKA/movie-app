@@ -25,3 +25,9 @@ npm i @next/font
 npm install @supabase/supabase-js @supabase/ssr
 ```
 ###
+
+###
+```bash
+npm install axios
+```
+###
