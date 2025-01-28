@@ -21,7 +21,7 @@ const Slider = (props: any) => {
                                     <div className="p-1">
                                         <Card>
                                             <CardContent className="flex items-center justify-center h-48 p-6">
-                                                <span className="text-2xl font-semibold">{index + 1}</span>
+                                                 <span className="text-2xl font-semibold">{index + 1}</span>
                                             </CardContent>
                                         </Card>
                                     </div>
