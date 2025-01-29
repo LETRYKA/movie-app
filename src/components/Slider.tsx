@@ -1,8 +1,9 @@
-import { Play, Info, ChevronRight, Star } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ChevronRight, Star } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Card, CardContent } from "./ui/card";
-import { Key, ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from 'react';
-import { useState } from 'react';
+import { Skeleton } from "@/components/ui/skeleton";
+import axios from 'axios';
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -16,36 +17,74 @@ interface Movie {
     backdrop_path: string;
 }
 
-const Slider = (props: { movieData: Movie[] }) => {
-    const { movieData } = props;
+const Slider = (props: { movieData: Movie[]; slideTitle: string; }) => {
+    const { movieData, slideTitle } = props;
+
+    const [detailedMovieData, setDetailedMovieData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const fetchDetailedData = async () => {
+        try {
+            setIsLoading(true);
+            const requests = movieData.map((movie) =>
+                axios.get(`${process.env.TMDB_BASE_URL}/movie/${movie.id}`, {
+                    headers: {
+                        Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
+                    },
+                    params: {
+                        language: "en-US",
+                        append_to_response: "images,credits,videos",
+                        include_image_language: "en",
+                    },
+                })
+            );
+
+            const responses = await Promise.all(requests);
+            const movies = responses.map((res) => res.data);
+            setDetailedMovieData(movies);
+
+            console.log("Detailed Movies:", movies);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchDetailedData();
+    }, [movieData]);
 
     return (
         <div>
-            <div className="w-full flex justify-center items-center pb-20" >
+            <div className="w-full flex justify-center items-center pb-5" >
                 <div className="w-full flex justify-start flex-col overflow-hidden ml-[4%]">
                     <div className="flex flex-row justify-between">
-                        <h1 className="text-xl text-white font-bold mb-5 pl-2">Popular Movies</h1>
+                        <h1 className="text-xl text-white font-bold mb-5 pl-2">{slideTitle}</h1>
                         <h1 className="text-base text-slate-400 font-medium flex flex-row cursor-pointer mr-10">See more <ChevronRight width={18} className="ml-1" /></h1>
                     </div>
                     <Carousel className="w-full relative">
                         <CarouselContent className='pl-2'>
-                            {movieData.map((movie) => (
+                            {detailedMovieData.map((movie) => (
                                 <CarouselItem key={movie.id} className="basis-4/12 md:basis-2/5 lg:basis-1/5">
                                     <div className="p-1">
-                                        <Card className="overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w780/${movie.backdrop_path})` }}>
-                                            <CardContent className="card flex items-center justify-center h-48 p-6">
-                                            </CardContent>
-                                        </Card>
+                                        {isLoading ? (
+                                            <Skeleton className="w-full h-48 bg-gray-700 rounded-md" />) : (
+                                            <Card className="overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w780/${movie?.images?.backdrops?.[0]?.file_path || movie.backdrop_path})` }} >
+                                                <CardContent className="card flex items-center justify-center h-48 p-6">
+                                                </CardContent>
+                                            </Card>
+                                        )}
                                         <div className='mt-3 flex flex-col'>
                                             <p className="text-white text-start text-lg font-medium">
-                                                {movie.title}
+                                                {isLoading ? (<Skeleton className="w-full h-5 sm:h-6 bg-gray-700 rounded-md" />) : (movie.title)}
                                             </p>
                                             <div className='flex flex-row'>
                                                 <p className="text-white text-start text-base font-medium flex flex-row items-center ">
                                                     <Star className='fill-[#f5c518] stroke-none w-4 mr-2' /> {(movie.vote_average).toFixed(1)}
                                                 </p>
                                                 <p className="text-slate-500 text-start text-base font-medium flex flex-row items-center ml-2">
-                                                    | <span className='ml-2 mt-[4px]'>Action Movie</span>
+                                                    | <span className='ml-2 text-sm'>{movie?.genres?.[0]?.name}</span>
                                                 </p>
                                             </div>
                                         </div>

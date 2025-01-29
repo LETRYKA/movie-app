@@ -9,7 +9,7 @@ const Header = (props: any) => {
     return (
         <div className="w-full h-20 bg-gradient-to-b from-[#0E1012]/90 to-[black]/0 flex justify-between z-50 pr-10 pl-10 lg:pl-24 lg:pr-24">
             <div className="flex flex-row h-full w-auto justify-start items-center gap-10 mt-2">
-                <img src="/imgs/logo.png" width={79} height={48} />
+                <a href="/"><img src="/imgs/logo.png" width={79} height={48} /></a>
                 <Select>
                     <SelectTrigger className="hidden w-[180px] lg:flex">
                         <Clapperboard width={18} className="mr-2" />

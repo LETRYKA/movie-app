@@ -8,14 +8,13 @@ import axios from 'axios';
 
 const Movie = (props: any) => {
     const { } = props;
-
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [popularMovieData, setPopularMovieData] = useState([]);
 
     const fetchData = async () => {
         try {
-            setIsLoading(true);
+            setIsLoading(false);
             const response = await axios.get(
                 `${process.env.TMDB_BASE_URL}/movie/popular?language=en-US&page=1`,
                 {
@@ -26,7 +25,7 @@ const Movie = (props: any) => {
             );
             setPopularMovieData(response.data.results);
             console.log(response.data.results)
-            setErrorMessage('');
+            setErrorMessage('Error while fetching main data');
             setIsLoading(false);
         } catch (err) {
             setIsLoading(false);
@@ -69,7 +68,7 @@ const Movie = (props: any) => {
                     <div className="absolute w-full h-full bg-custom-gradient z-0"></div>
                 </div>
             </div>
-            <Slider movieData={popularMovieData} />
+            <Slider movieData={popularMovieData} setIsLoading={setIsLoading} />
         </div>
     );
 
