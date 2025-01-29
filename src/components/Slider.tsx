@@ -8,7 +8,15 @@ const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
-const Slider = (props: { movieData: []; }) => {
+interface Movie {
+    id: number;
+    title: string;
+    posterPath: string;
+    vote_average: number;
+    backdrop_path: string;
+}
+
+const Slider = (props: { movieData: Movie[] }) => {
     const { movieData } = props;
 
     return (
@@ -21,7 +29,7 @@ const Slider = (props: { movieData: []; }) => {
                     </div>
                     <Carousel className="w-full relative">
                         <CarouselContent className='pl-2'>
-                            {movieData.map((movie: { id: Key | undefined; poster_path: any; title: string; genre_id: number; vote_average: number; }) => (
+                            {movieData.map((movie) => (
                                 <CarouselItem key={movie.id} className="basis-4/12 md:basis-2/5 lg:basis-1/5">
                                     <div className="p-1">
                                         <Card className="overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w780/${movie.backdrop_path})` }}>

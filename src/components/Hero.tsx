@@ -2,7 +2,17 @@ import { Button } from "@/components/ui/button"
 import { Play, Info } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
-const Hero = (props: { movieData: []; }) => {
+
+interface Movie {
+    id: number;
+    title: string;
+    posterPath: string;
+    vote_average: number;
+    overview: string;
+    backdrop_path: string;
+}
+
+const Hero = (props: { movieData: Movie[] }) => {
     const { movieData } = props;
 
     const firstMovie = movieData[0];

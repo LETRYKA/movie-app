@@ -1,11 +1,9 @@
 'use client';
 
+import { useEffect, useState } from "react";
 import Hero from "@/components/Hero";
 import Slider from "@/components/Slider";
-import { useEffect, useState } from "react";
 import axios from 'axios';
-
-import { useParams } from "next/navigation";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -15,7 +13,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [popularMovieData, setPopularMovieData] = useState([]);
-  const embedUrl = `https://embed.su/embed/tv/tt0816692`;
+  // const embedUrl = `https://embed.su/embed/tv/tt0816692`;
   // https://embed.su
 
   const fetchData = async () => {
