@@ -2,6 +2,11 @@ import { Play, Info, ChevronRight, Star } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Card, CardContent } from "./ui/card";
 import { Key, ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from 'react';
+import { useState } from 'react';
+
+const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
+const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
+const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
 const Slider = (props: { movieData: []; }) => {
     const { movieData } = props;

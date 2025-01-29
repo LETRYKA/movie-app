@@ -8,7 +8,8 @@ import axios from 'axios';
 import { useParams } from "next/navigation";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
-const TMDB_API_TOKEN = process.env.TMDB_API_KEY;
+const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
+const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +38,53 @@ export default function Home() {
       console.log(err)
     }
   };
+
+
+  // const fetchPopularMovies = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://api.themoviedb.org/3/movie/popular`, // Fetching popular movies
+  //       {
+  //         params: {
+  //           api_key: process.env.TMDB_API_KEY, // Use your API key
+  //           language: "en-US",
+  //           page: 1,
+  //           append_to_response: "images",
+  //           include_image_language: "en",
+  //         },
+  //       }
+  //     );
+
+  //     // Extract movie IDs and fetch detailed data for each movie
+  //     const movies = response.data.results;
+
+  //     // Fetch detailed movie data (including images) for each popular movie
+  //     const movieDetailsPromises = movies.map((movie: any) =>
+  //       axios.get(`https://api.themoviedb.org/3/movie/${movie.id}`, {
+  //         params: {
+  //           api_key: process.env.TMDB_API_KEY,
+  //           language: "en-US",
+  //           append_to_response: "images",
+  //           include_image_language: "en",
+  //         },
+  //       })
+  //     );
+
+  //     // Resolve all movie details requests
+  //     const movieDetailsResponses = await Promise.all(movieDetailsPromises);
+
+  //     // Extract data
+  //     const detailedMovies = movieDetailsResponses.map(res => res.data);
+
+  //     console.log(detailedMovies); // Logging the full movie details
+
+  //   } catch (error) {
+  //     console.error("Error fetching movie data:", error);
+  //   }
+  // };
+
+  // fetchPopularMovies();
+
 
 
   useEffect(() => {
