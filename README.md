@@ -32,6 +32,12 @@ npm install axios
 ```
 ###
 
+###
+```bash
+npm i react-youtube
+```
+###
+
 
 ## Disclaimer
 

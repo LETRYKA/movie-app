@@ -4,6 +4,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Card, CardContent } from "./ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -19,9 +20,10 @@ interface Movie {
 
 const Slider = (props: { movieData: Movie[]; slideTitle: string; }) => {
     const { movieData, slideTitle } = props;
-
-    const [detailedMovieData, setDetailedMovieData] = useState([]);
+    const [detailedMovieData, setDetailedMovieData] = useState<[{}]>([]);
     const [isLoading, setIsLoading] = useState(false);
+
+    const router = useRouter();
 
     const fetchDetailedData = async () => {
         try {
@@ -40,10 +42,10 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; }) => {
             );
 
             const responses = await Promise.all(requests);
-            const movies = responses.map((res) => res.data);
-            setDetailedMovieData(movies);
+            const movieDetailedData = responses.map((res) => res.data);
+            setDetailedMovieData(movieDetailedData);
 
-            console.log("Detailed Movies:", movies);
+            console.log("Slider detailed movie", movieDetailedData);
         } catch (error) {
             console.error(error);
         } finally {
@@ -66,7 +68,7 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; }) => {
                     <Carousel className="w-full relative">
                         <CarouselContent className='pl-2'>
                             {detailedMovieData.map((movie) => (
-                                <CarouselItem key={movie.id} className="basis-4/12 md:basis-2/5 lg:basis-1/5">
+                                <CarouselItem key={movie.id} onClick={() => router.push(`/info/movie/${movie.id}`)} className="basis-4/12 md:basis-2/5 lg:basis-1/5">
                                     <div className="p-1">
                                         {isLoading ? (
                                             <Skeleton className="w-full h-48 bg-gray-700 rounded-md" />) : (
