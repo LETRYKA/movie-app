@@ -38,6 +38,12 @@ npm i react-youtube
 ```
 ###
 
+###
+```bash
+npm install embla-carousel-autoplay --save
+```
+###
+
 
 ## Disclaimer
 

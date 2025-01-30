@@ -1,26 +1,19 @@
-import { useState, useEffect } from 'react';
-import { ChevronRight, Star } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { Card, CardContent } from "./ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import axios from 'axios';
+import { ChevronRight, Star } from 'lucide-react';
+import { SliderType } from '@/types/SliderType'
+import { Card, CardContent } from "./ui/card";
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
+const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
-
-interface Movie {
-    id: number;
-    title: string;
-    posterPath: string;
-    vote_average: number;
-    backdrop_path: string;
-}
 
 const Slider = (props: { movieData: Movie[]; slideTitle: string; }) => {
     const { movieData, slideTitle } = props;
-    const [detailedMovieData, setDetailedMovieData] = useState<[{}]>([]);
+    const [detailedMovieData, setDetailedMovieData] = useState<SliderType>([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -67,7 +60,7 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; }) => {
                     </div>
                     <Carousel className="w-full relative">
                         <CarouselContent className='pl-2'>
-                            {detailedMovieData.map((movie) => (
+                            {detailedMovieData.map((movie: SSlider) => (
                                 <CarouselItem key={movie.id} onClick={() => router.push(`/info/movie/${movie.id}`)} className="basis-4/12 md:basis-2/5 lg:basis-1/5">
                                     <div className="p-1">
                                         {isLoading ? (
