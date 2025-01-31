@@ -77,17 +77,22 @@ export default function Home() {
       setTopRatedSeriesData(topRatedSeries.data.results);
 
       const koreanMovies = await axios.get(
-        `${process.env.TMDB_BASE_URL}/trending/tv/week?language=en-US&page=1`,
+        `${process.env.TMDB_BASE_URL}/discover/tv`,
         {
           headers: {
             Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
           },
+          params: {
+            include_adult: 'true',
+            include_null_first_air_dates: 'false',
+            language: 'ko-KR',
+            page: '1',
+            sort_by: 'vote_count.desc',
+            with_original_language: 'ko'
+          },
         }
       );
-      const filteredKoreanMovies = koreanMovies.data.results.filter((movie) =>
-        movie.original_language && movie.original_language.includes('ko')
-      );
-      setTrendingKD(filteredKoreanMovies);
+      setTrendingKD(koreanMovies.data.results);
 
       setIsLoading(false);
     } catch (err) {
