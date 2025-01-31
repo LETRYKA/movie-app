@@ -18,18 +18,18 @@ interface Movie {
     backdrop_path: string;
 }
 
-const Slider = (props: { movieData: Movie[]; slideTitle: string; }) => {
+const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; }) => {
     const { movieData, slideTitle } = props;
-    const [detailedMovieData, setDetailedMovieData] = useState([]);
+    const [detailedMovieData, setDetailedMovieData] = useState<[{}]>([]);
     const [isLoading, setIsLoading] = useState(false);
-
     const router = useRouter();
 
     const fetchDetailedData = async () => {
         try {
             setIsLoading(true);
-            const requests = movieData.map((movie) =>
-                axios.get(`${process.env.TMDB_BASE_URL}/movie/${movie.id}`, {
+
+            const requests = movieData.map((tv) =>
+                axios.get(`${process.env.TMDB_BASE_URL}/${tv.media_type === 'movie' ? 'movie' : 'tv'}/${tv.id}`, {
                     headers: {
                         Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
                     },
@@ -42,16 +42,17 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; }) => {
             );
 
             const responses = await Promise.all(requests);
-            const movieDetailedData = responses.map((res) => res.data);
-            setDetailedMovieData(movieDetailedData);
-
-            // console.log("Slider detailed movie", movieDetailedData);
+            const tvDetailedData = responses.map((res) => res.data);
+            setDetailedMovieData(tvDetailedData);
+            console.log(`SDARA`, tvDetailedData)
         } catch (error) {
-            console.error(error);
+            console.error("Error fetching TV series details:", error);
         } finally {
             setIsLoading(false);
         }
     };
+
+
 
     useEffect(() => {
         fetchDetailedData();
@@ -66,11 +67,11 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; }) => {
                         <h1 className="text-base text-slate-400 font-medium flex flex-row cursor-pointer mr-10">See more <ChevronRight width={18} className="ml-1" /></h1>
                     </div>
                     <Carousel className="w-full relative">
-                        <CarouselContent className='pl-2'>
+                        <CarouselContent className='pl-2 pt-2'>
                             {detailedMovieData.map((movie) => (
-                                <CarouselItem key={movie.id} onClick={() => router.push(`/info/movie/${movie.id}`)} className="basis-4/12 md:basis-2/5 lg:basis-1/6">
+                                <CarouselItem key={movie.id} onClick={() => router.push(`/info/movie/${movie.id}`)} className="basis-4/12 md:basis-2/5 lg:basis-[13%]">
                                     <div className="p-1">
-                                        <Card className="h-40 overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w780/${movie?.images?.backdrops?.[0]?.file_path || movie.backdrop_path})` }} >
+                                        <Card className="h-96 overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w780/${movie?.images?.posters?.[0]?.file_path})` }} >
                                             <CardContent className="card flex items-center justify-center h-48 p-6">
                                             </CardContent>
                                         </Card>
@@ -91,14 +92,14 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; }) => {
                                 </CarouselItem>
                             ))}
                         </CarouselContent>
-                        <CarouselNext className="mr-20 -mt-10 z-20" />
+                        <CarouselNext className="mr-20 -mt-5 z-20" />
                     </Carousel>
-                    <div className="absolute w-60 h-60 bg-fade-gradient-hr mt-7 right-0 z-10"></div>
+                    <div className="absolute w-60 h-[440px] bg-fade-gradient-hr mt-11 right-0 z-10"></div>
                 </div>
-            </div >
+            </div>
         </div>
     );
 
 };
 
-export default Slider;
+export default SliderSeries;

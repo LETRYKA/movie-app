@@ -54,30 +54,30 @@ const Hero = (props: { movieData: Movie[] }) => {
     return (
         <Carousel className="relative h-[600px] sm:h-[867px]" plugins={[
             Autoplay({
-                delay: 4000,
+                delay: 6000,
             }),
         ]}>
             <div className="bg-fade-gradient-v absolute bottom-0 w-full -mt-10 h-40 z-10"></div>
             <CarouselContent className="flex">
                 <CarouselItem className="m-0 p-0">
-                    <div className="relative w-full pr-14 pl-14 sm:p-0 h-[600px] sm:h-[867px] bg-cover bg-top flex justify-center sm:justify-start items-center">
-                        <div className="absolute w-full h-full inset-0 bg-red-800 flex justify-center items-center">
+                    <div className="relative w-full pr-14 pl-14 sm:p-0 h-[600px] sm:h-[867px] bg-[url(/imgs/cover.jpg)] bg-cover bg-top flex justify-center sm:justify-start items-center">
+                        {/* <div className="absolute relative w-screen h-screen inset-0 bg-red-800 flex justify-center items-center border">
                             <YouTube
-                                videoId={detailedMovieData?.[1]?.videos?.results?.[3]?.key}
-                                className='w-full h-full border-none -mt-[600px]'
+                                videoId={detailedMovieData?.[19]?.videos?.results?.[0]?.key}
+                                className='absolute inset-0 w-screen h-[150%] border-none -top-20'
                                 opts={{
                                     width: "100%",
-                                    height: "160%",
+                                    height: "100%",
                                     playerVars: {
                                         autoplay: 1,
                                         controls: 0,
                                         mute: 1,
                                         loop: 1,
+                                        vq: 'large',
                                     }
                                 }}
                             />
-                        </div>
-                        {/* <YouTube videoId={detailedMovieData?.[0]?.videos?.results?.[0]?.key} allowFullScreen="" loading="lazy" opts={{ playerVars: { autoplay: 1 } }} className="absolute w-[150vw] h-[200vh] top-0 left-0 object-cover border-none transition-opacity duration-500 ease-in opacity-100" /> */}
+                        </div> */}
                         <div className="sm:ml-[8%] z-10 mt-36 sm:mt-16">
                             <img src="/imgs/title.png" className="w-[70%] -mt-4 sm:w-96" />
                             <div className="text-sm sm:text-base text-white w-full sm:w-[40%]">

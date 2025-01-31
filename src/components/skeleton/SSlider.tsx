@@ -11,7 +11,7 @@ const SSlide = (props: { movieData: Movie[]; slideTitle: string; }) => {
     return (
         <div>
             <div className="w-full flex justify-center items-center pb-5">
-                <div className="w-full flex justify-start flex-col overflow-hidden ml-[4%]">
+                <div className="w-full flex justify-start flex-col overflow-hidden ml-[5.5%]">
                     <div className="flex flex-row justify-between">
                         <h1 className="text-xl text-white font-bold mb-5 pl-2">{slideTitle}</h1>
                         <h1 className="text-base text-slate-400 font-medium flex flex-row cursor-pointer mr-10">
@@ -21,9 +21,9 @@ const SSlide = (props: { movieData: Movie[]; slideTitle: string; }) => {
                     <Carousel className="w-full relative">
                         <CarouselContent className='pl-2'>
                             {movieData.map((movie) => (
-                                <CarouselItem key={movie.id} className="basis-4/12 md:basis-2/5 lg:basis-1/5">
+                                <CarouselItem key={movie.id} className="basis-4/12 md:basis-2/5 lg:basis-1/6">
                                     <div className="p-1">
-                                        <Skeleton className="w-full h-48 bg-gray-700 rounded-md" />
+                                        <Skeleton className="h-40 w-full bg-gray-700 rounded-md" />
                                         <div className="mt-3 flex flex-col">
                                             <Skeleton className="w-full h-5 sm:h-6 bg-gray-700 rounded-md" />
                                             <Skeleton className="w-20 h-4 mt-2 bg-gray-700 rounded-md" />
