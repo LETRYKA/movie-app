@@ -51,7 +51,7 @@ const DetailedTab = (props: any) => {
   }, [movieData]);
 
   return (
-    <div className='w-full flex justify-center items-center px-8 sm:px-10 lg:px-24 mb-20'>
+    <div className='relative w-full flex justify-center items-center px-8 sm:px-10 lg:px-24 mb-20 z-10 bg-[#1b1d29]'>
       <Tabs defaultValue="casts" className="w-full">
         <TabsList className="grid w-full sm:w-[400px] grid-cols-2 bg-[#101116] text-white">
           <TabsTrigger value="casts">Casts</TabsTrigger>

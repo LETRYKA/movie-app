@@ -20,6 +20,7 @@ const Movie = (props: any) => {
     const [showTrailer, setShowTrailer] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [onLoad, setOnLoad] = useState(false);
     const params = useParams();
     const router = useRouter();
 
@@ -76,8 +77,24 @@ const Movie = (props: any) => {
         return response;
     }
 
+    const getTrailer = () => {
+        const trailers = infoMovie?.videos?.results?.filter(video => video.type === 'Trailer');
+        const trailerKey = trailers?.[0]?.key;
+        return trailerKey
+    }
+
+    const handleLoad = () => {
+        setOnLoad(true)
+    }
+
     useEffect(() => {
         fetchInfo();
+        fetchInfo();
+        const timeoutId = setTimeout(() => {
+            handleLoad();
+        }, 2000);
+
+        return () => clearTimeout(timeoutId);
     }, []);
 
     useEffect(() => {
@@ -103,7 +120,20 @@ const Movie = (props: any) => {
             </div>)}
             {/* Page */}
             <div className='h-[800px] sm:h-auto'>
-                <div className="relative w-full pr-14 pl-14 sm:p-0 h-[600px] sm:h-[967px] bg-cover bg-top flex justify-center sm:justify-start items-center bg-fixed" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original/${infoMovie?.backdrop_path})` }}>
+                <div className="relative overflow-hidden w-full pr-14 pl-14 sm:p-0 h-[600px] sm:h-[967px] bg-cover bg-top flex justify-center sm:justify-start items-center bg-fixed" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original/${infoMovie?.backdrop_path})` }}>
+                    {!onLoad && (
+                        <div></div>
+                    )}
+                    <iframe
+                        width="100%"
+                        height="100%"
+                        src={`https://www.youtube.com/embed/${getTrailer()}?autoplay=1&mute=1&controls=0&fs=1&loop=1&playlist=${getTrailer()}`}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                        onLoad={clearTimeout}
+                        className={`scale-150 absolute top-0 hidden lg:flex lg:-mt-20 z-0 transition-opacity ${onLoad ? 'opacity-100' : 'opacity-0'}`}
+                    />
                     <div className="bg-fade-gradient-v absolute bottom-0 w-full -mt-10 h-40 z-10"></div>
                     <div className="flex flex-col sm:ml-[8%] z-10 mt-[600px] sm:mt-40 lg:mt-16 justify-center items-center sm:justify-start sm:items-start">
                         <img src={`https://image.tmdb.org/t/p/w780/${infoMovie?.images?.logos?.[1]?.file_path || infoMovie?.images?.logos?.[0]?.file_path}`} className="w-80 -mt-4 sm:w-96 mb-8" />

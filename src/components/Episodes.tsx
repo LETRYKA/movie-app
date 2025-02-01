@@ -51,7 +51,7 @@ const Episodes = (props: any) => {
     }, [seriesData]);
 
     return (
-        <div className='w-full flex justify-center items-center mb-20 px-8 sm:px-10 lg:px-24'>
+        <div className='relative w-full flex justify-center items-center mb-20 px-8 sm:px-10 lg:px-24 bg-[#1b1d29] z-20 border'>
             <Tabs defaultValue="season-1" className="w-full">
                 {episodesData.map((season, index) => (
                     <TabsList key={season._id} className="ml-2 mb-2 bg-[#101116] text-white">
@@ -67,7 +67,7 @@ const Episodes = (props: any) => {
                                 <Carousel className="w-full max-w-full">
                                     <CarouselContent className="-ml-1">
                                         {season.episodes.map((episode, episodeIndex) => (
-                                            <CarouselItem key={episode.id} className="md:basis-[35%] lg:basis-[27%] xl:basis-[23%] pl-2">
+                                            <CarouselItem key={episode.id} className="sm:basis-[56%] md:basis-[35%] lg:basis-[27%] xl:basis-[23%] pl-2">
                                                 <div className="p-1">
                                                     <Card style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${episode?.still_path})` }} className="group transform-transition duration-300 ease-in-out hover:scale-105 w-full h-auto flex justify-center items-center aspect-[4/2] bg-cover bg-center border-[#353843] cursor-pointer">
                                                         <CardContent className="flex items-center justify-center p-6 relative w-full h-full">

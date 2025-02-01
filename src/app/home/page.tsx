@@ -3,7 +3,7 @@
 import SliderSeries from "@/components/SliderSeries";
 import SSlide from "@/components/skeleton/SSlider";
 import { useEffect, useState } from "react";
-import CatCard from "@/components/catCard";
+import CatCard from "@/components/CatCard";
 import Slider from "@/components/Slider";
 import Hero from "@/components/Hero";
 import axios from 'axios';

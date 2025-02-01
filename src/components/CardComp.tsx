@@ -66,7 +66,7 @@ const CardComp = (props: any) => {
             <h1 className="text-xl text-white font-semibold mb-3 pl-4">{slideTitle}</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 p-4">
                 {detailedMovieData.slice(0, 12).map((movie, index) => (
-                    <Card key={movie.id} onClick={() => router.push(series ? `/info/series/${movie.id}` : `/info/movie/${movie.id}`)} className="cursor-pointer bg-slate-800 shadow-md bg-cover bg-center h-48 relative overflow-hidden border-[#353843] rounded-lg transition-transform duration-300 ease-in-out hover:scale-105" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w780/${movie?.images?.backdrops?.[0]?.file_path || movie.backdrop_path})` }}>
+                    <Card key={movie.id} onClick={() => router.push(series ? `/info/series/${movie.id}` : `/info/movie/${movie.id}`)} className="aspect-[4/2] h-auto cursor-pointer bg-slate-800 shadow-md bg-cover bg-center relative overflow-hidden border-[#353843] rounded-lg transition-transform duration-300 ease-in-out hover:scale-105" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w780/${movie?.images?.backdrops?.[0]?.file_path || movie.backdrop_path})` }}>
                         <CardHeader>
                             <div className="absolute inset-0 w-full h-full group flex justify-end items-start">
                                 <div className="absolute -bottom-3 transition duration-300 ease-in-out opacity-0 group-hover:opacity-100 bg-fade-gradient-black w-full h-full"></div>
