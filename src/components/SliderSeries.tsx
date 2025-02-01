@@ -85,7 +85,7 @@ const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; }) => {
                                                             <p className="text-white text-start text-lg font-bold flex flex-row items-center -mb-1 z-10">
                                                                 {tv.name}
                                                             </p>
-                                                            <p className="text-slate-300 text-start text-xs font-medium flex flex-row items-center mb-10 z-10">
+                                                            <p className="text-slate-300 text-start text-xs font-medium flex flex-row items-center mb-14 z-10">
                                                                 {tv.number_of_episodes} EP | {releaseDate(tv)}
                                                             </p>
                                                         </div>

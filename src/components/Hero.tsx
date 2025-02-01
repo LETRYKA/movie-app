@@ -70,7 +70,7 @@ const Hero = (props: { movieData: Movie[] }) => {
                                     />
                                     <p className="text-sm sm:text-base text-white w-full sm:w-[40%]">{movie?.overview}</p>
                                     <div className="flex flex-row gap-4 mt-8">
-                                        <Button onClick={() => router.push(`/watch/${movie.id}`)} variant="outline" className="pt-5 pb-5 pl-8 pr-8 text-base font-bold text-[#1A1D29] flex items-center">
+                                        <Button onClick={() => router.push(`/watch/movie/${movie.id}`)} variant="outline" className="pt-5 pb-5 pl-8 pr-8 text-base font-bold text-[#1A1D29] flex items-center">
                                             <Play className="fill-[#1A1D29]" />PLAY
                                         </Button>
                                         <Button onClick={() => router.push(`/info/movie/${movie.id}`)} variant="outline" className="pt-5 pb-5 pl-8 pr-8 text-base font-bold text-[white] flex items-center bg-transparent hover:bg-[black]/40 hover:text-[white]">
