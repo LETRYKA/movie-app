@@ -21,9 +21,9 @@ const SSlide = (props: { movieData: Movie[]; slideTitle: string; }) => {
                     <Carousel className="w-full relative">
                         <CarouselContent className='pl-2'>
                             {movieData.map((movie) => (
-                                <CarouselItem key={movie.id} className="basis-4/12 md:basis-2/5 lg:basis-1/6">
+                                <CarouselItem key={movie.id} className="basis-[80%] sm:basis-[50%] md:basis-[35%] lg:basis-[27%] xl:basis-[19%]">
                                     <div className="p-1">
-                                        <Skeleton className="h-40 w-full bg-gray-700 rounded-md" />
+                                        <Skeleton className="aspect-[4/2] h-auto w-full bg-gray-700 rounded-lg" />
                                         <div className="mt-3 flex flex-col">
                                             <Skeleton className="w-full h-5 sm:h-6 bg-gray-700 rounded-md" />
                                             <Skeleton className="w-20 h-4 mt-2 bg-gray-700 rounded-md" />

@@ -1,13 +1,12 @@
-import { useState, useEffect } from 'react';
-import { ChevronRight, Star } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { ChevronRight, Star, Play } from 'lucide-react';
 import { Card, CardContent } from "./ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
+const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
 interface Movie {
@@ -19,7 +18,7 @@ interface Movie {
 }
 
 const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; }) => {
-    const { movieData, slideTitle } = props;
+    const { movieData, slideTitle, type } = props;
     const [detailedMovieData, setDetailedMovieData] = useState<[{}]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -52,7 +51,11 @@ const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; }) => {
         }
     };
 
-
+    const releaseDate = (tv) => {
+        const get = tv.last_air_date
+        const response = get?.split('-', 1)
+        return response;
+    }
 
     useEffect(() => {
         fetchDetailedData();
@@ -60,44 +63,59 @@ const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; }) => {
 
     return (
         <div>
-            <div className="w-full flex justify-center items-center pb-5">
+            <div className="w-full flex justify-center items-center pb-5 overflow-hidden">
                 <div className="w-full flex justify-start flex-col overflow-hidden ml-[5.5%]">
                     <div className="flex flex-row justify-between">
-                        <h1 className="text-xl text-white font-semibold mb-3 pl-2">{slideTitle}</h1>
+                        <div className="h-6 ml-2 mb-3 flex flex-row justify-center items-center">
+                            <div className="w-[2px] h-full bg-red-500"></div>
+                            <h1 className="text-xl text-white font-semibold ml-2">{slideTitle}</h1>
+                        </div>
                         <h1 className="text-base text-slate-400 font-medium flex flex-row cursor-pointer mr-10">See more <ChevronRight width={18} className="ml-1" /></h1>
                     </div>
                     <Carousel className="w-full relative">
                         <CarouselContent className='pl-2 pt-2'>
-                            {detailedMovieData.map((movie) => (
-                                <CarouselItem key={movie.id} onClick={() => router.push(`/info/movie/${movie.id}`)} className="basis-4/12 md:basis-2/5 lg:basis-[13%]">
+                            {detailedMovieData.map((tv) => (
+                                <CarouselItem key={tv.id} onClick={() => router.push(`/info/series/${tv.id}`)} className={`${type ? 'basis-[80%]' : 'basis-[48%]'} ${type ? 'sm:basis-[50%]' : 'sm:basis-[30%]'} ${type ? 'md:basis-[35%]' : 'md:basis-[18%]'} ${type ? 'lg:basis-[27%]' : 'lg:basis-[28%]'} ${type ? 'xl:basis-[19%]' : 'xl:basis-[13%]'}`}>
                                     <div className="p-1">
-                                        <Card className="h-96 overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w780/${movie?.images?.posters?.[0]?.file_path})` }} >
-                                            <CardContent className="card flex items-center justify-center h-48 p-6">
+                                        <Card className={`${type ? ('h-auto') : ('h-auto')} ${type ? 'aspect-[4/2]' : 'aspect-[7/10]'} overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105`} style={{ backgroundImage: type ? `url(https://image.tmdb.org/t/p/w780/${tv?.images?.backdrops?.[0]?.file_path})` : `url(https://image.tmdb.org/t/p/w780/${tv?.images?.posters?.[0]?.file_path})` }} >
+                                            <CardContent className="card flex relative items-center justify-center h-48">
+                                                {type && <div className="absolute w-full h-full flex flex-col justify-center items-center overflow-hidden group">
+                                                    <div className="absolute w-full h-full flex justify-center transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 bg-fade-gradient-black z-0 -mb-3">
+                                                        <div className="absolute bottom-3 flex flex-col justify-center items-center">
+                                                            <p className="text-white text-start text-lg font-bold flex flex-row items-center -mb-1 z-10">
+                                                                {tv.name}
+                                                            </p>
+                                                            <p className="text-slate-300 text-start text-xs font-medium flex flex-row items-center mb-10 z-10">
+                                                                {tv.number_of_episodes} EP | {releaseDate(tv)}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>}
                                             </CardContent>
                                         </Card>
-                                        <div className='mt-3 flex flex-col'>
+                                        {!type && <div className='mt-3 flex flex-col'>
                                             <p className="text-white text-start text-lg font-medium">
-                                                {movie.title}
+                                                {tv.name}
                                             </p>
-                                            <div className='flex flex-row'>
-                                                <p className="text-white text-start text-base font-medium flex flex-row items-center ">
-                                                    <Star className='fill-[#f5c518] stroke-none w-4 mr-2' /> {(movie.vote_average).toFixed(1)}
+                                            <div className='flex flex-row -mt-[2px]'>
+                                                <p className="text-white text-start text-sm font-medium flex flex-row items-center ">
+                                                    <Star className='fill-[#f5c518] stroke-none w-[14px] mr-[4px]' /> {(tv.vote_average).toFixed(1)}
                                                 </p>
                                                 <p className="text-slate-500 text-start text-base font-medium flex flex-row items-center ml-2">
-                                                    | <span className='ml-2 text-sm'>{movie?.genres?.[0]?.name}</span>
+                                                    | <span className='ml-2 text-sm'>{tv?.genres?.[0]?.name}</span>
                                                 </p>
                                             </div>
-                                        </div>
+                                        </div>}
                                     </div>
                                 </CarouselItem>
                             ))}
                         </CarouselContent>
-                        <CarouselNext className="mr-20 -mt-5 z-20" />
+                        <CarouselNext className="mr-14 sm:mr-20 -mt-5 z-20" />
                     </Carousel>
-                    <div className="absolute w-60 h-[440px] bg-fade-gradient-hr mt-11 right-0 z-10"></div>
+                    <div className={`hidden sm:flex absolute w-24 ${type ? 'h-[16%]' : 'h-[30%]'} bg-fade-gradient-hr mt-11 sm:mr-0 right-0 z-10`}></div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 
 };

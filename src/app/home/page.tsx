@@ -112,9 +112,9 @@ export default function Home() {
       <Hero movieData={playingMovieData} />
       {isLoading ? (<SSlide />) :
         (<Slider movieData={popularMovieData} slideTitle="Trending movies" />)}
-      <div className="w-full flex justify-center items-center mb-10 pr-[30px] pl-[30px] lg:pl-48 lg:pr-48">
-        <div className="w-full grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-4">
-          <CatCard logo={"/imgs/disney.jpg"} video={"/imgs/disney-v.mp4"} />
+      <div className="w-full flex justify-center items-center mb-12 mt-5 px-[30px] md:px-[50px] lg:px-[70px] xl:px-24">
+        <div className="w-full grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-1 sm:gap-4">
+          <CatCard logo={"/imgs/disney.jpg"} video={"/imgs/disney-vv.mp4"} />
           <CatCard logo={"/imgs/starwars.jpg"} video={"/imgs/starwars-v.mp4"} />
           <CatCard logo={"/imgs/marvel.jpg"} video={"/imgs/marvel-v.mp4"} />
           <CatCard logo={"/imgs/pixar.jpg"} video={"/imgs/pixar-v.mp4"} />
@@ -123,9 +123,9 @@ export default function Home() {
         </div>
       </div>
       <Slider movieData={topRatedMovieData} slideTitle="Top Rated Movies" />
-      <SliderSeries movieData={trendingSeriesData} slideTitle="Series Trending this Week" />
+      <SliderSeries movieData={trendingSeriesData} slideTitle="Trending Series" />
       <SliderSeries movieData={topRatedSeriesData} slideTitle="Top Rated Series" />
-      <SliderSeries movieData={trendingKD} slideTitle="Kdramas" />
+      <SliderSeries movieData={trendingKD} slideTitle="Kdramas" type={true} />
     </div>
   );
 }

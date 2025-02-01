@@ -12,6 +12,7 @@ export default {
 			backgroundImage: {
 				'custom-gradient': 'linear-gradient(193deg, rgba(2,0,36,0) 0%, rgba(26,29,41,0.79) 54%, rgba(26,29,41,1) 100%)',
 				'fade-gradient-v': 'linear-gradient(180deg, rgba(27,29,41,0) 40%, rgba(27,29,41,1) 100%)',
+				'fade-gradient-black': 'linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%)',
 				'fade-gradient-hr': 'linear-gradient(90deg, rgba(27,29,41,0) 40%, rgba(27,29,41,1) 100%)',
 			},
 			colors: {

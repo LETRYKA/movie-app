@@ -1,13 +1,12 @@
-import { useState, useEffect } from 'react';
-import { ChevronRight, Star } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { ChevronRight, Star } from 'lucide-react';
 import { Card, CardContent } from "./ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
+const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
 interface Movie {
@@ -62,15 +61,18 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; }) => {
             <div className="w-full flex justify-center items-center pb-5">
                 <div className="w-full flex justify-start flex-col overflow-hidden ml-[5.5%]">
                     <div className="flex flex-row justify-between">
-                        <h1 className="text-xl text-white font-semibold mb-3 pl-2">{slideTitle}</h1>
+                        <div className="h-6 ml-2 mb-5 flex flex-row justify-center items-center">
+                            <div className="w-[2px] h-full bg-red-500"></div>
+                            <h1 className="text-xl text-white font-semibold ml-2">{slideTitle}</h1>
+                        </div>
                         <h1 className="text-base text-slate-400 font-medium flex flex-row cursor-pointer mr-10">See more <ChevronRight width={18} className="ml-1" /></h1>
                     </div>
                     <Carousel className="w-full relative">
                         <CarouselContent className='pl-2'>
                             {detailedMovieData.map((movie) => (
-                                <CarouselItem key={movie.id} onClick={() => router.push(`/info/movie/${movie.id}`)} className="basis-4/12 md:basis-2/5 lg:basis-1/6">
-                                    <div className="p-1">
-                                        <Card className="h-40 overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w780/${movie?.images?.backdrops?.[0]?.file_path || movie.backdrop_path})` }} >
+                                <CarouselItem key={movie.id} onClick={() => router.push(`/info/movie/${movie.id}`)} className="basis-[80%] sm:basis-[50%] md:basis-[35%] lg:basis-[27%] xl:basis-[19%]">
+                                    <div className="">
+                                        <Card className="aspect-[4/2] h-auto overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w780/${movie?.images?.backdrops?.[0]?.file_path || movie.backdrop_path})` }} >
                                             <CardContent className="card flex items-center justify-center h-48 p-6">
                                             </CardContent>
                                         </Card>
@@ -78,9 +80,9 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; }) => {
                                             <p className="text-white text-start text-lg font-medium">
                                                 {movie.title}
                                             </p>
-                                            <div className='flex flex-row'>
-                                                <p className="text-white text-start text-base font-medium flex flex-row items-center ">
-                                                    <Star className='fill-[#f5c518] stroke-none w-4 mr-2' /> {(movie.vote_average).toFixed(1)}
+                                            <div className='flex flex-row -mt-[2px]'>
+                                                <p className="text-white text-start text-sm font-medium flex flex-row items-center">
+                                                    <Star className='fill-[#f5c518] w-[14px] stroke-none mr-1' /> {(movie.vote_average).toFixed(1)}
                                                 </p>
                                                 <p className="text-slate-500 text-start text-base font-medium flex flex-row items-center ml-2">
                                                     | <span className='ml-2 text-sm'>{movie?.genres?.[0]?.name}</span>
@@ -93,7 +95,7 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; }) => {
                         </CarouselContent>
                         <CarouselNext className="mr-20 -mt-10 z-20" />
                     </Carousel>
-                    <div className="absolute w-60 h-60 bg-fade-gradient-hr mt-7 right-0 z-10"></div>
+                    <div className="absolute w-24 h-60 bg-fade-gradient-hr mt-7 right-0 z-10"></div>
                 </div>
             </div >
         </div>

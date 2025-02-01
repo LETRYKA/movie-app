@@ -4,11 +4,12 @@ import { MovieDetailType } from '@/types/MovieDetailType';
 import { Play, Plus, UsersRound } from 'lucide-react';
 import DetailedTab from '@/components/DetailedTab';
 import { Button } from '@/components/ui/button';
+import CardComp from '@/components/CardComp';
+import Episodes from '@/components/Episodes';
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import YouTube from 'react-youtube';
-import CardComp from "@/components/CardComp"
 import axios from 'axios';
 
 
@@ -26,7 +27,7 @@ const Movie = (props: any) => {
         try {
             setIsLoading(true);
             const response = await axios.get(
-                `${process.env.TMDB_BASE_URL}/movie/${params.id}`,
+                `${process.env.TMDB_BASE_URL}/tv/${params.id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
@@ -38,7 +39,9 @@ const Movie = (props: any) => {
                     },
                 }
             );
+            console.log("SERIES", response.data)
             setInfoMovie(response.data);
+
         } catch (err) {
             setIsLoading(false);
             setErrorMessage("Failed to fetch movie details.");
@@ -50,7 +53,7 @@ const Movie = (props: any) => {
         try {
             setIsLoading(true);
             const similar = await axios.get(
-                `${process.env.TMDB_BASE_URL}/movie/${infoMovie.id}/recommendations?language=en-US&page=1`,
+                `${process.env.TMDB_BASE_URL}/tv/${infoMovie.id}/recommendations?language=en-US&page=1`,
                 {
                     headers: {
                         Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
@@ -68,42 +71,14 @@ const Movie = (props: any) => {
     };
 
     const releaseDate = () => {
-        const get = infoMovie?.release_date
+        const get = infoMovie?.last_air_date
         const response = get?.split('-', 1)
         return response;
     }
 
-    const runTime = () => {
-        const get = infoMovie?.runtime;
-        if (typeof get !== 'number' || get <= 0) {
-            return '';
-        }
-        const hr = (get / 60).toFixed(2).toString().split('.', 1);
-        const min = (get % 60).toFixed(2).toString().split('.', 1);
-        const runtime = (`${hr} h ${min} min`)
-        return runtime;
-    }
-
-    const certificateHandler = () => {
-        if (!infoMovie?.release_dates?.results) return "";
-
-        const results = infoMovie.release_dates.results;
-        const usRelease = results.find((r) => r.iso_3166_1 === "US");
-        if (!usRelease) return "N/A";
-
-        const certification = usRelease.release_dates[0].certification;
-        return certification;
-    };
-
     useEffect(() => {
         fetchInfo();
     }, []);
-
-    useEffect(() => {
-        if (infoMovie) {
-            fetchData();
-        }
-    }, [infoMovie]);
 
     useEffect(() => {
         if (showTrailer) {
@@ -112,6 +87,12 @@ const Movie = (props: any) => {
             document.body.style.overflow = "auto";
         }
     }, [showTrailer]);
+
+    useEffect(() => {
+        if (infoMovie) {
+            fetchData();
+        }
+    }, [infoMovie]);
 
     return (
         <div className='relative'>
@@ -128,7 +109,7 @@ const Movie = (props: any) => {
                         <img src={`https://image.tmdb.org/t/p/w780/${infoMovie?.images?.logos?.[1]?.file_path || infoMovie?.images?.logos?.[0]?.file_path}`} className="w-80 -mt-4 sm:w-96 mb-8" />
                         <div className='flex flex-row justify-start items-center gap-2'>
                             <div className='flex justify-center items-center w-0 h-0 bg-[#32343e] p-3 pl-5 pr-5 rounded-md'>
-                                <p className='text-white text-sm font-semibold'>{certificateHandler()}+</p>
+                                <p className='text-white text-sm font-semibold'>{infoMovie?.release_dates?.results?.[41]?.release_dates?.[0]?.certification}+</p>
                             </div>
                             <div className='flex justify-center items-center w-0 h-0 bg-[#32343e] p-3 pl-5 pr-5 rounded-md'>
                                 <p className='text-white text-sm font-bold'>HD</p>
@@ -136,7 +117,7 @@ const Movie = (props: any) => {
                             <div className='flex justify-center items-center w-0 h-0 bg-[#32343e] p-3 pl-5 pr-5 rounded-md'>
                                 <p className='text-white text-sm font-medium'>CC</p>
                             </div>
-                            <p className='text-white text-sm font-medium'>{releaseDate()} • {(runTime())}</p>
+                            <p className='text-white text-sm font-medium'>{releaseDate()} • {infoMovie?.number_of_seasons} Seasons</p>
                         </div>
                         <p className='text-slate-400 text-sm font-medium mt-2'>{infoMovie?.genres?.[0]?.name} | {infoMovie?.genres?.[1]?.name} | {infoMovie?.genres?.[2]?.name}</p>
                         <div className="flex flex-row gap-4 mt-8">
@@ -150,8 +131,9 @@ const Movie = (props: any) => {
                     <div className="absolute w-full h-full bg-custom-gradient z-0"></div>
                 </div>
             </div>
-            <DetailedTab movieData={infoMovie} />
-            <CardComp movieData={similarMovies} slideTitle="Similar Movies" />
+            <Episodes seriesData={infoMovie} />
+            <DetailedTab movieData={infoMovie} series={true} />
+            <CardComp movieData={similarMovies} series={true} slideTitle="Similar Movies" />
         </div>
     );
 

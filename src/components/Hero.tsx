@@ -60,7 +60,7 @@ const Hero = (props: { movieData: Movie[] }) => {
             <div className="bg-fade-gradient-v absolute bottom-0 w-full -mt-10 h-40 z-10"></div>
             <CarouselContent className="flex">
                 <CarouselItem className="m-0 p-0">
-                    <div className="relative w-full pr-14 pl-14 sm:p-0 h-[600px] sm:h-[867px] bg-[url(/imgs/cover.jpg)] bg-cover bg-top flex justify-center sm:justify-start items-center">
+                    <div className="relative w-full pr-14 pl-14 sm:p-0 h-[600px] sm:h-[867px] bg-[url('/imgs/cover.jpg')] bg-fixed bg-cover bg-top flex justify-center sm:justify-start items-center">
                         {/* <div className="absolute relative w-screen h-screen inset-0 bg-red-800 flex justify-center items-center border">
                             <YouTube
                                 videoId={detailedMovieData?.[19]?.videos?.results?.[0]?.key}
@@ -93,7 +93,7 @@ const Hero = (props: { movieData: Movie[] }) => {
                     </div>
                 </CarouselItem>
                 <CarouselItem className="m-0 p-0">
-                    <div className="relative w-full pr-14 pl-14 sm:p-0 h-[600px] sm:h-[867px] bg-[url(/imgs/cover.jpg)] bg-cover bg-top flex justify-center sm:justify-start items-center" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${firstMovie?.backdrop_path})` }}>
+                    <div className="relative w-full pr-14 pl-14 sm:p-0 h-[600px] sm:h-[867px] bg-fixed bg-cover bg-top flex justify-center sm:justify-start items-center" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${firstMovie?.backdrop_path})` }}>
                         <div className="sm:ml-[8%] z-10 mt-36 sm:mt-16">
                             <img src={`https://image.tmdb.org/t/p/w780/${firstMovie?.images?.logos?.[0]?.file_path}`} className="w-[60%] mb-8 sm:w-96" />
                             <p className="text-sm sm:text-base text-white w-full sm:w-[40%]">{firstMovie?.overview}</p>
@@ -106,7 +106,7 @@ const Hero = (props: { movieData: Movie[] }) => {
                     </div>
                 </CarouselItem>
                 <CarouselItem className="m-0 p-0">
-                    <div className="relative w-full pr-14 pl-14 sm:p-0 h-[600px] sm:h-[867px] bg-[url(/imgs/cover.jpg)] bg-cover bg-top flex justify-center sm:justify-start items-center" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${secondMovie?.backdrop_path})` }}>
+                    <div className="relative w-full pr-14 pl-14 sm:p-0 h-[600px] sm:h-[867px] bg-fixed bg-cover bg-top flex justify-center sm:justify-start items-center" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${secondMovie?.backdrop_path})` }}>
                         <div className="sm:ml-[8%] z-10 mt-36 sm:mt-16">
                             <img src={`https://image.tmdb.org/t/p/w780/${secondMovie?.images?.logos?.[0]?.file_path}`} className="w-[60%] mb-8 sm:w-96" />
                             <p className="text-sm sm:text-base text-white w-full sm:w-[40%]">{secondMovie?.overview}</p>
