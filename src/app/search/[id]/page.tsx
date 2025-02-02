@@ -10,7 +10,7 @@ const SearchPage = () => {
     const params = useParams()
     const router = useRouter()
 
-    const inputHandler = (e) => {
+    const inputHandler = (e: any) => {
         setInputValue(e.target.value)
     }
 
@@ -20,13 +20,14 @@ const SearchPage = () => {
             const result = search.toString().replaceAll("%20", " ");
             return result
         }
+        return '';
     }
 
     useEffect(() => {
         setInputValue(searchSpellCheck());
     }, []);
 
-    const searchHandler = (inputValue) => {
+    const searchHandler = (inputValue: any) => {
         if (inputValue) {
             if (inputValue.length > 0) {
                 router.push(`/search/${inputValue}`)

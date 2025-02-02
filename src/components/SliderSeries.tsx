@@ -15,11 +15,22 @@ interface Movie {
     posterPath: string;
     vote_average: number;
     backdrop_path: string;
+    name?: string;
+    media_type: 'movie' | 'tv';
+    number_of_episodes?: number;
+    genres?: Array<{ name: string }>;
+    images?: {
+        backdrops?: Array<{ file_path: string }>;
+        posters?: Array<{ file_path: string }>;
+    };
+    last_air_date: number;
+    slideTitle: string;
+    type?: boolean
 }
 
-const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; }) => {
+const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; type?: boolean }) => {
     const { movieData, slideTitle, type } = props;
-    const [detailedMovieData, setDetailedMovieData] = useState<[{}]>([]);
+    const [detailedMovieData, setDetailedMovieData] = useState<Movie[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
@@ -43,7 +54,7 @@ const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; }) => {
             const responses = await Promise.all(requests);
             const tvDetailedData = responses.map((res) => res.data);
             setDetailedMovieData(tvDetailedData);
-            console.log(`SDARA`, tvDetailedData)
+            console.log(`Detailed Data:`, tvDetailedData)
         } catch (error) {
             console.error("Error fetching TV series details:", error);
         } finally {
@@ -51,10 +62,10 @@ const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; }) => {
         }
     };
 
-    const releaseDate = (tv) => {
-        const get = tv.last_air_date
-        const response = get?.split('-', 1)
-        return response;
+    const releaseDate = (tv: Movie) => {
+        const get = tv.last_air_date;
+        const response = get.toString().split('-', 1);
+        return response ? response[0] : "";
     }
 
     useEffect(() => {
@@ -77,7 +88,7 @@ const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; }) => {
                             {detailedMovieData.map((tv) => (
                                 <CarouselItem key={tv.id} onClick={() => router.push(`/info/series/${tv.id}`)} className={`${type ? 'basis-[80%]' : 'basis-[36%]'} ${type ? 'sm:basis-[50%]' : 'sm:basis-[23%]'} ${type ? 'md:basis-[35%]' : 'md:basis-[23%]'} ${type ? 'lg:basis-[27%]' : 'lg:basis-[18%]'} ${type ? 'xl:basis-[19%]' : 'xl:basis-[13%]'}`}>
                                     <div className="p-1">
-                                        <Card className={`${type ? ('h-auto') : ('h-auto')} ${type ? 'aspect-[4/2]' : 'aspect-[7/10]'} overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105`} style={{ backgroundImage: type ? `url(https://image.tmdb.org/t/p/w780/${tv?.images?.backdrops?.[0]?.file_path})` : `url(https://image.tmdb.org/t/p/w780/${tv?.images?.posters?.[0]?.file_path})` }} >
+                                        <Card className={`${type ? ('h-auto') : ('h-auto')} ${type ? 'aspect-[4/2]' : 'aspect-[7/10]'} overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105`} style={{ backgroundImage: type ? `url(https://image.tmdb.org/t/p/w780/${tv?.images?.backdrops?.[0]?.file_path || 'default.jpg'})` : `url(https://image.tmdb.org/t/p/w780/${tv?.images?.posters?.[0]?.file_path || 'default.jpg'})` }} >
                                             <CardContent className="card flex relative items-center justify-center h-48">
                                                 {type && <div className="absolute w-full h-full flex flex-col justify-center items-center overflow-hidden group">
                                                     <div className="absolute w-full h-full flex justify-center transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 bg-fade-gradient-black z-0 -mb-3">
@@ -117,7 +128,6 @@ const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; }) => {
             </div>
         </div >
     );
-
 };
 
 export default SliderSeries;

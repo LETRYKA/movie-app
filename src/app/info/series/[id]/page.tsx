@@ -1,6 +1,4 @@
 "use client"
-
-import { MovieDetailType } from '@/types/MovieDetailType';
 import { Play, Plus, UsersRound } from 'lucide-react';
 import DetailedTab from '@/components/DetailedTab';
 import { Button } from '@/components/ui/button';
@@ -9,14 +7,26 @@ import Episodes from '@/components/Episodes';
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-import YouTube from 'react-youtube';
 import axios from 'axios';
 
+interface MovieResponse {
+    id: number;
+    backdrop_path: string;
+    release_date: string;
+    runtime: number;
+    genres: { name: string }[];
+    images: { logos: { file_path: string }[] };
+    release_dates: { results: { iso_3166_1: string, release_dates: { certification: string }[] }[] };
+    videos: { results: { type: string, key: string }[] };
+    overview: string;
+    number_of_seasons: number;
+    last_air_date: number;
+}
 
-const Movie = (props: any) => {
+const Movie = (props: {}) => {
     const { } = props;
-    const [infoMovie, setInfoMovie] = useState<MovieDetailType>();
-    const [similarMovies, setSimilarMovies] = useState([]);
+    const [infoMovie, setInfoMovie] = useState<MovieResponse | null>(null);
+    const [similarMovies, setSimilarMovies] = useState<any[]>([]);
     const [showTrailer, setShowTrailer] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +50,7 @@ const Movie = (props: any) => {
                     },
                 }
             );
-            console.log("SERIES", response.data)
+            console.log("SERIES", response.data);
             setInfoMovie(response.data);
 
         } catch (err) {
@@ -54,7 +64,7 @@ const Movie = (props: any) => {
         try {
             setIsLoading(true);
             const similar = await axios.get(
-                `${process.env.TMDB_BASE_URL}/tv/${infoMovie.id}/recommendations?language=en-US&page=1`,
+                `${process.env.TMDB_BASE_URL}/tv/${infoMovie?.id}/recommendations?language=en-US&page=1`,
                 {
                     headers: {
                         Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
@@ -72,29 +82,30 @@ const Movie = (props: any) => {
     };
 
     const releaseDate = () => {
-        const get = infoMovie?.last_air_date
-        const response = get?.split('-', 1)
+        const get = infoMovie?.last_air_date;
+        const response = get?.toString().split('-', 1);
         return response;
-    }
+    };
 
     const getTrailer = () => {
         const trailers = infoMovie?.videos?.results?.filter(video => video.type === 'Trailer');
         const trailerKey = trailers?.[0]?.key;
-        return trailerKey
-    }
+        return trailerKey;
+    };
 
     const handleLoad = () => {
-        setOnLoad(true)
-    }
+        setOnLoad(true);
+    };
 
     useEffect(() => {
         fetchInfo();
-        fetchInfo();
+
         const timeoutId = setTimeout(() => {
             handleLoad();
-        }, 3000);
-
-        return () => clearTimeout(timeoutId);
+        }, 2000);
+        return () => {
+            clearTimeout(timeoutId);
+        };
     }, []);
 
     useEffect(() => {
@@ -138,7 +149,6 @@ const Movie = (props: any) => {
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
-                        onLoad={clearTimeout}
                         className={`scale-150 absolute top-0 hidden lg:flex lg:-mt-20 z-0 transition-opacity ${onLoad ? 'opacity-100' : 'opacity-0'}`}
                     />
                     <div className="bg-fade-gradient-v absolute bottom-0 w-full -mt-10 h-40 z-10"></div>
@@ -156,7 +166,11 @@ const Movie = (props: any) => {
                             </div>
                             <p className='text-white text-sm font-medium'>{releaseDate()} • {infoMovie?.number_of_seasons} Seasons</p>
                         </div>
-                        <p className='text-slate-400 text-sm font-medium mt-2'>{`${infoMovie?.genres?.[0]?.name}`}  {infoMovie?.genres?.[1]?.name.length > 0 ? `| ${infoMovie?.genres?.[1]?.name}` : ""} {infoMovie?.genres?.[2]?.name.length > 0 ? `| ${infoMovie?.genres?.[2]?.name}` : ""}</p>
+                        <p className='text-slate-400 text-sm font-medium mt-2'>
+                            {infoMovie?.genres?.[0]?.name}
+                            {infoMovie?.genres?.[1]?.name && infoMovie?.genres?.[1]?.name.length > 0 ? `| ${infoMovie.genres[1].name}` : ""}
+                            {infoMovie?.genres?.[2]?.name && infoMovie?.genres?.[2]?.name.length > 0 ? `| ${infoMovie.genres[2].name}` : ""}
+                        </p>
                         <div className="flex flex-row gap-4 mt-8">
                             <Button onClick={() => router.push(`/watch/series/${infoMovie?.id}/1/1`)} variant="outline" className="pt-5 pb-5 pl-8 pr-8 text-base font-bold text-[#1A1D29] flex items-center"><Play className="fill-[#1A1D29]" />PLAY</Button>
                             <Button onClick={() => { setShowTrailer(true); window.scrollTo({ top: 0, behavior: "smooth" }) }} variant="outline" className="hidden sm:flex pt-5 pb-5 pl-8 pr-8 text-base font-bold text-[white] items-center bg-transparent hover:bg-[black]/40 hover:text-[white]">TRAILER</Button>
@@ -173,7 +187,6 @@ const Movie = (props: any) => {
             <CardComp movieData={similarMovies} series={true} slideTitle="Similar Movies" />
         </div>
     );
-
 };
 
 export default Movie;

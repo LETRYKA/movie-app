@@ -12,7 +12,7 @@ const Header = (props: any) => {
     const [inputValue, setInputValue] = useState();
     const router = useRouter();
 
-    const inputHandler = (e) => {
+    const inputHandler = (e: any) => {
         setInputValue(e.target.value)
     }
 
@@ -20,7 +20,7 @@ const Header = (props: any) => {
         setShowInput(prev => !prev);
     };
 
-    const searchHandler = (inputValue) => {
+    const searchHandler = (inputValue: any) => {
         if (inputValue) {
             if (inputValue.length > 0) {
                 router.push(`/search/${inputValue}`)
