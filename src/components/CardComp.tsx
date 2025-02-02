@@ -103,7 +103,14 @@ const CardComp = (props: any) => {
     };
 
     const releaseDate = (movie) => {
-        const get = movie.type === "Scripted" ? movie.last_air_date : movie?.release_date
+        let get = "";
+        if (movie.type && movie.type.length) {
+            get = movie.last_air_date
+            console.log('test')
+        } else {
+            get = movie?.release_date
+            console.log('test2')
+        }
         const response = get?.split('-', 1)
         return response;
     }
@@ -113,10 +120,14 @@ const CardComp = (props: any) => {
         if (typeof get !== 'number' || get <= 0) {
             return '';
         }
-        const hr = (get / 60).toFixed(2).toString().split('.', 1);
-        const min = (get % 60).toFixed(2).toString().split('.', 1);
-        const runtime = (`${hr}h ${min}min`)
-        return runtime;
+        const hr = parseInt((get / 60).toFixed(2).toString().split('.', 1));
+        const min = parseInt((get % 60).toFixed(2).toString().split('.', 1));
+
+        if (hr > 0) {
+            return (`${hr} h ${min} min`)
+        } else {
+            return (`${min} min`)
+        }
     }
 
     if (!search) {

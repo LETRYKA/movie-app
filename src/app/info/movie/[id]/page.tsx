@@ -80,10 +80,14 @@ const Movie = (props: any) => {
         if (typeof get !== 'number' || get <= 0) {
             return '';
         }
-        const hr = (get / 60).toFixed(2).toString().split('.', 1);
-        const min = (get % 60).toFixed(2).toString().split('.', 1);
-        const runtime = (`${hr} h ${min} min`)
-        return runtime;
+        const hr = parseInt((get / 60).toFixed(2).toString().split('.', 1));
+        const min = parseInt((get % 60).toFixed(2).toString().split('.', 1));
+
+        if (hr > 0) {
+            return (`${hr} h ${min} min`)
+        } else {
+            return (`${min} min`)
+        }
     }
 
     const certificateHandler = () => {
@@ -91,7 +95,7 @@ const Movie = (props: any) => {
 
         const results = infoMovie.release_dates.results;
         const usRelease = results.find((r) => r.iso_3166_1 === "US");
-        if (!usRelease) return "N/A";
+        if (!usRelease) return "";
 
         const certification = usRelease.release_dates[0].certification;
         return certification;
@@ -148,7 +152,7 @@ const Movie = (props: any) => {
             </div>)}
             {/* Page */}
             <div className='h-[800px] sm:h-auto'>
-                <div className="relative w-full sm:overflow-hidden pr-14 pl-14 sm:p-0 h-[600px] sm:h-[967px] bg-cover bg-top flex justify-center sm:justify-start items-center bg-fixed" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original/${infoMovie?.backdrop_path})` }}>
+                <div className="relative w-full sm:overflow-hidden pr-14 pl-14 sm:p-0 h-[600px] sm:h-[967px] bg-cover bg-top md:bg-fixed flex justify-center sm:justify-start bg-pos items-center" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original/${infoMovie?.backdrop_path})` }}>
                     {!onLoad && (
                         <div></div>
                     )}
@@ -177,7 +181,7 @@ const Movie = (props: any) => {
                             </div>
                             <p className='text-white text-sm font-medium'>{releaseDate()} • {(runTime())}</p>
                         </div>
-                        <p className='text-slate-400 text-sm font-medium mt-2'>{infoMovie?.genres?.[0]?.name} | {infoMovie?.genres?.[1]?.name} | {infoMovie?.genres?.[2]?.name}</p>
+                        <p className='text-slate-400 text-sm font-medium mt-2'>{`${infoMovie?.genres?.[0]?.name}`}  {infoMovie?.genres?.[1]?.name.length > 0 ? `| ${infoMovie?.genres?.[1]?.name}` : ""} {infoMovie?.genres?.[2]?.name.length > 0 ? `| ${infoMovie?.genres?.[2]?.name}` : ""}</p>
                         <div className="flex flex-row gap-4 mt-8">
                             <Button onClick={() => router.push(`/watch/movie/${infoMovie?.id}`)} variant="outline" className="pt-5 pb-5 pl-8 pr-8 text-base font-bold text-[#1A1D29] flex items-center"><Play className="fill-[#1A1D29]" />PLAY</Button>
                             <Button onClick={() => { setShowTrailer(true); window.scrollTo({ top: 0, behavior: "smooth" }) }} variant="outline" className="hidden sm:flex pt-5 pb-5 pl-8 pr-8 text-base font-bold text-[white] items-center bg-transparent hover:bg-[black]/40 hover:text-[white]">TRAILER</Button>

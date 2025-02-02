@@ -2,10 +2,15 @@
 
 ###
 ```bash
-npx shadcn@latest init
+npm install @supabase/supabase-js @supabase/ssr
 ```
 ###
 
+###
+```bash
+npm install embla-carousel-autoplay --save
+```
+###
 
 ###
 ```bash
@@ -13,16 +18,9 @@ pnpm install lucide-react
 ```
 ###
 
-
 ###
 ```bash
-npm i @next/font
-```
-###
-
-###
-```bash
-npm install @supabase/supabase-js @supabase/ssr
+npx shadcn@latest init
 ```
 ###
 
@@ -34,13 +32,7 @@ npm install axios
 
 ###
 ```bash
-npm i react-youtube
-```
-###
-
-###
-```bash
-npm install embla-carousel-autoplay --save
+npm i @next/font
 ```
 ###
 
@@ -49,6 +41,6 @@ npm install embla-carousel-autoplay --save
 
 > [!IMPORTANT]
 >
-> movie-app does not host any files, it merely links to 3rd party services.  
+> This app does not host any files, it merely links to 3rd party services.  
 > Legal issues should be taken up with the file hosts and providers.  
-> movie-app is not responsible for any media files shown by the video providers.
+> this app is not responsible for any media files shown by the video providers.

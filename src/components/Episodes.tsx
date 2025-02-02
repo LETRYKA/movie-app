@@ -72,7 +72,7 @@ const Episodes = (props: any) => {
                                             <CarouselItem key={episode.id} className="sm:basis-[56%] md:basis-[35%] lg:basis-[27%] xl:basis-[23%] pl-2">
                                                 <div className="p-1">
                                                     <Card onClick={() => router.push(`/watch/series/${seriesData.id}/${season.season_number}/${episode.episode_number}`)}
-                                                        style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${episode?.still_path})` }} className="group transform-transition duration-300 ease-in-out hover:scale-105 w-full h-auto flex justify-center items-center aspect-[4/2] bg-cover bg-center border-[#353843] cursor-pointer">
+                                                        style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${episode?.still_path})` }} className="bg-slate-700 group transform-transition duration-300 ease-in-out hover:scale-105 w-full h-auto flex justify-center items-center aspect-[4/2] bg-cover bg-center border-[#353843] cursor-pointer">
                                                         <CardContent className="flex items-center justify-center p-6 relative w-full h-full">
                                                             <Play strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-310 ease-in-out stroke-none fill-white w-8 h-8 opacity-0 group-hover:opacity-100" />
                                                             <p className="absolute right-4 bottom-3 text-white text-sm font-medium bg-black/40 rounded-lg py-1 px-2">{episode.runtime} min</p>
