@@ -92,7 +92,7 @@ const Movie = (props: any) => {
         fetchInfo();
         const timeoutId = setTimeout(() => {
             handleLoad();
-        }, 2000);
+        }, 3000);
 
         return () => clearTimeout(timeoutId);
     }, []);
@@ -114,8 +114,15 @@ const Movie = (props: any) => {
     return (
         <div className='relative'>
             {/* Trailer */}
-            {showTrailer && (<div className='absolute top-0 w-full h-full flex justify-center items-center z-50 backdrop-blur-[4px]'>
-                <YouTube videoId={infoMovie?.videos?.results?.[0]?.key} className='z-10' opts={{ width: "850", height: "480", playerVars: { autoplay: 1 } }} />
+            {showTrailer && (<div className='absolute top-0 w-full h-screen flex justify-center items-center z-50 backdrop-blur-[4px]'>
+                <iframe
+                    width="60%"
+                    height="60%"
+                    src={`https://www.youtube.com/embed/${getTrailer()}?autoplay=1&controls=1&fs=1`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className='z-50' />
                 <div onClick={() => setShowTrailer(false)} className='absolute w-full h-full bg-black z-0 opacity-50'></div>
             </div>)}
             {/* Page */}
