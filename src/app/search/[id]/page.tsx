@@ -41,7 +41,7 @@ const SearchPage = () => {
     console.log(inputValue)
 
     return (
-        <div className='w-full h-screen flex flex-col justify-center items-center'>
+        <div className='w-full h-full flex flex-col items-center'>
             <div className='w-[80%] flex flex-col justify-center mt-40'>
                 <div className='w-full h-16 bg-[#090b13] rounded-xl flex justify-between items-center p-4'>
                     <input onChange={inputHandler} type='text' value={inputValue} className='w-full h-full bg-[#090b13] outline-none text-white text-base font-regular pl-4'></input>
@@ -49,8 +49,8 @@ const SearchPage = () => {
                 </div>
                 <p className='text-slate-500 mt-4'>Results of your search: <span className='text-white font-bold'>{`"${searchSpellCheck()}"`}</span></p>
             </div>
-            <div className='w-[93%] mt-10'>
-                <CardComp movieData={inputValue} slideTitle="" search={true} />
+            <div className='w-[80%] h-auto mt-10 mb-20'>
+                <CardComp movieData={searchSpellCheck()} slideTitle="" search={true} />
             </div>
         </div>
     )

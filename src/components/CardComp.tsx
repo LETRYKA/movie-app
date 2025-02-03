@@ -1,5 +1,6 @@
 "use client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DataType } from "@/types/DataType";
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react'
 import { Star } from 'lucide-react'
@@ -8,7 +9,7 @@ import axios from 'axios';
 
 const CardComp = (props: any) => {
     const { movieData, slideTitle, series, search } = props;
-    const [detailedMovieData, setDetailedMovieData] = useState([]);
+    const [detailedMovieData, setDetailedMovieData] = useState<DataType[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
@@ -40,12 +41,6 @@ const CardComp = (props: any) => {
                 ...tvResponse.data.results.map(item => ({ ...item, type: 'tv' })),
                 ...movieResponse.data.results.map(item => ({ ...item, type: 'movie' }))
             ];
-
-            searchResults.sort((a, b) => {
-                if (a.popularity > b.popularity) return -1;
-                if (a.popularity < b.popularity) return 1;
-                return 0;
-            });
 
             // Detaileddata
             const detailedData = searchResults.map(async (item) => {
@@ -102,7 +97,7 @@ const CardComp = (props: any) => {
         }
     };
 
-    const releaseDate = (movie) => {
+    const releaseDate = (movie: DataType) => {
         let get = "";
         if (movie.type && movie.type.length) {
             get = movie.last_air_date
@@ -115,13 +110,13 @@ const CardComp = (props: any) => {
         return response;
     }
 
-    const runTime = (movie) => {
+    const runTime = (movie: DataType) => {
         const get = movie?.runtime;
         if (typeof get !== 'number' || get <= 0) {
             return '';
         }
-        const hr = parseInt((get / 60).toFixed(2).toString().split('.', 1));
-        const min = parseInt((get % 60).toFixed(2).toString().split('.', 1));
+        const hr = parseInt((get / 60).toFixed(2).toString().split('.')[1]);
+        const min = parseInt((get % 60).toFixed(2).toString().split('.')[1]);
 
         if (hr > 0) {
             return (`${hr} h ${min} min`)
@@ -143,9 +138,9 @@ const CardComp = (props: any) => {
     }
 
     return (
-        <div className='w-full px-8 sm:px-10 lg:px-24 mb-20'>
-            <h1 className="text-xl text-white font-semibold mb-3 pl-4">{slideTitle}</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 p-4">
+        <div className='w-30p'>
+            <h1 className="text-xl text-white font-semibold mb-3">{slideTitle}</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
                 {detailedMovieData.slice(0, 12).map((movie, index) => (
                     <Card key={movie.id} onClick={() => router.push(movie.seasons ? `/info/series/${movie.id}` : `/info/movie/${movie.id}`)} className="aspect-[4/2] h-auto cursor-pointer bg-slate-800 shadow-md bg-cover bg-center relative overflow-hidden border-[#353843] rounded-lg transition-transform duration-300 ease-in-out hover:scale-105" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w780/${movie?.images?.backdrops?.[0]?.file_path || movie.backdrop_path})` }}>
                         <CardHeader>

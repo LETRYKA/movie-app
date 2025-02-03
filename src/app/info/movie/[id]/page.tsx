@@ -178,7 +178,7 @@ const Movie = (props: {}) => {
                     <div className="flex flex-col sm:ml-[8%] z-10 mt-[600px] sm:mt-40 lg:mt-16 justify-center items-center sm:justify-start sm:items-start">
                         <img src={`https://image.tmdb.org/t/p/w780/${infoMovie?.images?.logos?.[1]?.file_path || infoMovie?.images?.logos?.[0]?.file_path}`} className="w-80 -mt-4 sm:w-96 mb-8" />
                         <div className='flex flex-row justify-start items-center gap-2'>
-                            <div className='flex justify-center items-center w-0 h-0 bg-[#32343e] p-3 pl-5 pr-5 rounded-md'>
+                            <div className='flex justify-center items-center w-0 h-0 bg-[#32343e] p-3 px-5 rounded-md'>
                                 <p className='text-white text-sm font-semibold'>{certificateHandler()}+</p>
                             </div>
                             <div className='flex justify-center items-center w-0 h-0 bg-[#32343e] p-3 pl-5 pr-5 rounded-md'>
@@ -206,7 +206,9 @@ const Movie = (props: {}) => {
                 </div>
             </div>
             <DetailedTab movieData={infoMovie} />
-            <CardComp movieData={similarMovies} slideTitle="Similar Movies" />
+            <div className='px-8 sm:px-10 lg:px-24 mb-20'>
+                <CardComp movieData={similarMovies} slideTitle="Similar Movies" />
+            </div>
         </div>
     );
 

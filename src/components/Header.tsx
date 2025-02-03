@@ -5,12 +5,42 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Search, Clapperboard, Menu } from 'lucide-react';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const Header = (props: any) => {
     const { } = props;
+    const [errorMessage, setErrorMessage] = useState('');
+    const [genreData, setGenreData] = useState([])
     const [showInput, setShowInput] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [inputValue, setInputValue] = useState();
     const router = useRouter();
+
+    const fetchGenre = async () => {
+        try {
+            setIsLoading(true);
+            const genre = await axios.get(
+                `${process.env.TMDB_BASE_URL}/genre/movie/list?language=en`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
+                    },
+                    params: {
+                        language: "en-US",
+                        append_to_response: "images,credits,videos",
+                        include_image_language: "en",
+                    },
+                }
+            );
+            setGenreData(genre.data.genres);
+            setIsLoading(false);
+            console.log(`DATA`, genre.data.genres)
+        } catch (err) {
+            setIsLoading(false);
+            setErrorMessage("Failed to fetch popular movies.");
+            console.error(err);
+        }
+    };
 
     const inputHandler = (e: any) => {
         setInputValue(e.target.value)
@@ -31,19 +61,28 @@ const Header = (props: any) => {
         }
     }
 
+    const routeHandler = (genre) => {
+        console.log(`WORKING`)
+        router.push(`/genre/${genre.id}/${genre.name}`)
+    }
+
+    useEffect(() => {
+        fetchGenre();
+    }, []);
+
     return (
         <div className="w-full h-20 bg-gradient-to-b from-[#0E1012]/90 to-[black]/0 flex justify-between z-30 pr-10 pl-10 lg:pl-24 lg:pr-24">
             <div className="flex flex-row h-full w-auto justify-start items-center gap-10 mt-2 z-10">
                 <a href="/home"><img src="/imgs/logo.png" width={79} height={48} /></a>
-                <Select>
+                <Select onValueChange={(value) => router.push(`/genre/${value}`)}>
                     <SelectTrigger className="hidden w-[180px] lg:flex">
                         <Clapperboard width={18} className="mr-2" />
                         <SelectValue placeholder="Genre" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="light">Light</SelectItem>
-                        <SelectItem value="dark">Dark</SelectItem>
-                        <SelectItem value="system">System</SelectItem>
+                        {genreData.map((genre, i) => (
+                            <SelectItem key={i} onSelect={() => router.push(`/genre/${genre.id}/${genre.name}`)} value={genre.id}>{genre.name}</SelectItem>
+                        ))}
                     </SelectContent>
                 </Select>
                 <input type="text" placeholder="Search" onChange={inputHandler} className={`bg-transparent outline-none border-b-2 text-white pb-1 transition-all duration-500 -ml-2 ${showInput ? 'w-72' : 'w-0'}`}></input>

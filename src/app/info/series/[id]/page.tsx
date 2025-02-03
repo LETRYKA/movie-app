@@ -184,7 +184,9 @@ const Movie = (props: {}) => {
             </div>
             <Episodes seriesData={infoMovie} />
             <DetailedTab movieData={infoMovie} series={true} />
-            <CardComp movieData={similarMovies} series={true} slideTitle="Similar Movies" />
+            <div className='px-8 sm:px-10 lg:px-24 mb-20'>
+                <CardComp movieData={similarMovies} series={true} slideTitle="Similar Movies" />
+            </div>
         </div>
     );
 };

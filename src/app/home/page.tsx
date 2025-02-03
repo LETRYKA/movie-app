@@ -3,7 +3,8 @@
 import SliderSeries from "@/components/SliderSeries";
 import SSlide from "@/components/skeleton/SSlider";
 import { useEffect, useState } from "react";
-import CatCard from "@/components/CatCard";
+import { useRouter } from "next/navigation";
+import CatCard from "@/components/catCard";
 import Slider from "@/components/Slider";
 import Hero from "@/components/Hero";
 import axios from 'axios';
@@ -22,6 +23,8 @@ export default function Home() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+  const router = useRouter();
+
   const fetchData = async () => {
     try {
       setIsLoading(true);
@@ -34,7 +37,7 @@ export default function Home() {
         }
       );
       setPopularMovieData(popular.data.results);
-      console.log(popular.data.results)
+      console.log(`TEEEEE`, popular.data.results)
 
       const nowPlaying = await axios.get(
         `${process.env.TMDB_BASE_URL}/movie/now_playing?language=en-US&page=1`,
@@ -114,12 +117,12 @@ export default function Home() {
         (<Slider movieData={popularMovieData} slideTitle="Trending movies" />)}
       <div className="w-full flex justify-center items-center mb-12 mt-5 px-[30px] md:px-[50px] lg:px-[70px] xl:px-24">
         <div className="w-full grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-1 sm:gap-4">
-          <CatCard logo={"/imgs/disney.jpg"} video={"/imgs/disney-vv.mp4"} />
-          <CatCard logo={"/imgs/starwars.jpg"} video={"/imgs/starwars-v.mp4"} />
-          <CatCard logo={"/imgs/marvel.jpg"} video={"/imgs/marvel-v.mp4"} />
-          <CatCard logo={"/imgs/pixar.jpg"} video={"/imgs/pixar-v.mp4"} />
-          <CatCard logo={"/imgs/ngeo.jpg"} video={"/imgs/ngeo-v.mp4"} />
-          <CatCard logo={"/imgs/star.jpg"} video={"/imgs/star-v.mp4"} />
+          <CatCard onClick={() => router.push(`/collection/106768/disney`)} logo={"/imgs/disney.jpg"} video={"/imgs/disney-vv.mp4"} />
+          <CatCard onClick={() => router.push(`/collection/10/star-wars`)} logo={"/imgs/starwars.jpg"} video={"/imgs/starwars-v.mp4"} />
+          <CatCard onClick={() => router.push(`/collection/86311/marvel`)} logo={"/imgs/marvel.jpg"} video={"/imgs/marvel-v.mp4"} />
+          <CatCard onClick={() => router.push(`/collection/10/pixar`)} logo={"/imgs/pixar.jpg"} video={"/imgs/pixar-v.mp4"} />
+          <CatCard onClick={() => router.push(`/collection/10/national-geographic`)} logo={"/imgs/ngeo.jpg"} video={"/imgs/ngeo-v.mp4"} />
+          <CatCard onClick={() => router.push(`/collection/10/star`)} logo={"/imgs/star.jpg"} video={"/imgs/star-v.mp4"} />
         </div>
       </div>
       <Slider movieData={topRatedMovieData} slideTitle="Top Rated Movies" />
