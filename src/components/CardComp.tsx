@@ -1,5 +1,6 @@
 "use client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import CardCompSkeleton from "./skeleton/CardCompSkeleton";
 import { DataType } from "@/types/DataType";
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react'
@@ -8,7 +9,7 @@ import React from 'react'
 import axios from 'axios';
 
 const CardComp = (props: any) => {
-    const { movieData, slideTitle, series, search } = props;
+    const { movieData, slideTitle, series, search, vertical } = props;
     const [detailedMovieData, setDetailedMovieData] = useState<DataType[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -85,10 +86,10 @@ const CardComp = (props: any) => {
                     },
                 })
             );
-
             const responses = await Promise.all(requests);
             const movieDetailedData = responses.map((res) => res.data);
             setDetailedMovieData(movieDetailedData);
+            console.log(movieDetailedData)
 
         } catch (error) {
             console.error(error);
@@ -115,13 +116,13 @@ const CardComp = (props: any) => {
         if (typeof get !== 'number' || get <= 0) {
             return '';
         }
-        const hr = parseInt((get / 60).toFixed(2).toString().split('.')[1]);
-        const min = parseInt((get % 60).toFixed(2).toString().split('.')[1]);
+        const hr = parseInt((get / 60).toFixed(2).toString().split('.', 1));
+        const min = parseInt((get % 60).toFixed(2).toString().split('.', 1));
 
         if (hr > 0) {
-            return (`${hr} h ${min} min`)
+            return (`${hr}h ${min}min`)
         } else {
-            return (`${min} min`)
+            return (`${min}min`)
         }
     }
 
@@ -138,33 +139,38 @@ const CardComp = (props: any) => {
     }
 
     return (
-        <div className='w-30p'>
-            <h1 className="text-xl text-white font-semibold mb-3">{slideTitle}</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
-                {detailedMovieData.slice(0, 12).map((movie, index) => (
-                    <Card key={movie.id} onClick={() => router.push(movie.seasons ? `/info/series/${movie.id}` : `/info/movie/${movie.id}`)} className="aspect-[4/2] h-auto cursor-pointer bg-slate-800 shadow-md bg-cover bg-center relative overflow-hidden border-[#353843] rounded-lg transition-transform duration-300 ease-in-out hover:scale-105" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w780/${movie?.images?.backdrops?.[0]?.file_path || movie.backdrop_path})` }}>
-                        <CardHeader>
-                            <div className="absolute inset-0 w-full h-full group flex justify-end items-start">
-                                <div className="absolute -bottom-3 transition duration-300 ease-in-out opacity-0 group-hover:opacity-100 bg-fade-gradient-black w-full h-full"></div>
-                                <div className="absolute w-full transition duration-300 ease-in-out opacity-0 group-hover:opacity-100 bottom-0 flex justify-center items-center flex-col">
-                                    <p className="text-white text-lg font-bold z-10 text-center">
-                                        {movie.type ? movie.name : movie.title}
-                                    </p>
-                                    <p className="text-slate-300 text-start text-xs font-medium mb-4 z-10">
-                                        {`${releaseDate(movie)} |`} {movie.seasons ? `${movie?.seasons?.[0]?.episode_count} EP` : runTime(movie)}
+        <div> {isLoading ? (<CardCompSkeleton vertical={vertical} />) :
+            (<div className='w-30p'>
+                <h1 className="text-xl text-white font-semibold mb-3">{slideTitle}</h1>
+                <div className={`grid ${vertical ? "grid-cols-2" : "grid-cols-1"}
+            ${vertical ? "sm:grid-cols-3" : "sm:grid-cols-2"}
+            ${vertical ? "lg:grid-cols-4" : "lg:grid-cols-3"}
+            ${vertical ? "2xl:grid-cols-5" : "2xl:grid-cols-4"} gap-6`}>
+                    {detailedMovieData.map((movie, index) => (
+                        <Card key={movie.id} onClick={() => router.push(movie.seasons ? `/info/series/${movie.id}` : `/info/movie/${movie.id}`)} className={`${vertical ? 'aspect-[7/10]' : 'aspect-[4/2]'} h-auto cursor-pointer bg-slate-800 shadow-md bg-cover bg-center relative overflow-hidden border-[#353843] rounded-lg transition-transform duration-300 ease-in-out hover:scale-105`} style={{ backgroundImage: vertical ? `url(https://image.tmdb.org/t/p/w780/${movie?.images?.posters?.[0]?.file_path || movie.backdrop_path})` : `url(https://image.tmdb.org/t/p/w780/${movie?.images?.backdrops?.[0]?.file_path || movie.backdrop_path})` }}>
+                            <CardHeader>
+                                <div className="absolute inset-0 w-full h-full group flex justify-end items-start">
+                                    <div className="absolute -bottom-3 transition duration-300 ease-in-out opacity-0 group-hover:opacity-100 bg-fade-gradient-black w-full h-full"></div>
+                                    <div className="absolute w-full transition duration-300 ease-in-out opacity-0 group-hover:opacity-100 bottom-0 flex justify-center items-center flex-col">
+                                        <p className="text-white text-lg font-bold z-10 text-center">
+                                            {movie.type ? movie.name : movie.title}
+                                        </p>
+                                        <p className="text-slate-300 text-start text-xs font-medium mb-4 z-10">
+                                            {`${releaseDate(movie)} |`} {movie.seasons ? `${movie?.seasons?.[0]?.episode_count} EP` : runTime(movie)}
+                                        </p>
+                                    </div>
+                                    <p className="transition duration-300 ease-in-out opacity-0 group-hover:opacity-100 text-white text-start text-base font-medium flex flex-row items-center mt-3 mr-3 bg-black/20 px-2 rounded-lg">
+                                        <Star className='fill-[#f5c518] stroke-none w-4 mr-2' /> {(movie.vote_average).toFixed(1)}
                                     </p>
                                 </div>
-                                <p className="transition duration-300 ease-in-out opacity-0 group-hover:opacity-100 text-white text-start text-base font-medium flex flex-row items-center mt-3 mr-3 bg-black/20 px-2 rounded-lg">
-                                    <Star className='fill-[#f5c518] stroke-none w-4 mr-2' /> {(movie.vote_average).toFixed(1)}
-                                </p>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
-        </div>
+                            </CardHeader>
+                            <CardContent>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+            </div >)}
+        </div >
     )
 }
 

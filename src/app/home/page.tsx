@@ -1,7 +1,6 @@
 'use client';
 
 import SliderSeries from "@/components/SliderSeries";
-import SSlide from "@/components/skeleton/SSlider";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import CatCard from "@/components/catCard";
@@ -97,7 +96,9 @@ export default function Home() {
       );
       setTrendingKD(koreanMovies.data.results);
 
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 300);
     } catch (err) {
       setIsLoading(false);
       setErrorMessage("Failed to fetch popular movies.");
@@ -113,8 +114,8 @@ export default function Home() {
     <div>
       {errorMessage && <div className="error-message text-red-500">{errorMessage}</div>}
       <Hero movieData={playingMovieData} />
-      {isLoading ? (<SSlide />) :
-        (<Slider movieData={popularMovieData} slideTitle="Trending movies" />)}
+
+      <Slider movieData={popularMovieData} slideTitle="Trending movies" />
       <div className="w-full flex justify-center items-center mb-12 mt-5 px-[30px] md:px-[50px] lg:px-[70px] xl:px-24">
         <div className="w-full grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-1 sm:gap-4">
           <CatCard onClick={() => router.push(`/collection/106768/disney`)} logo={"/imgs/disney.jpg"} video={"/imgs/disney-vv.mp4"} />

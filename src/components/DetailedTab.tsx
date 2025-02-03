@@ -1,6 +1,7 @@
 "use client"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import DetailedTabSkeleton from "./skeleton/DetailedTabSkeleton"
 import { useState, useEffect } from 'react'
 import { Star } from 'lucide-react'
 import React from 'react'
@@ -29,6 +30,7 @@ const DetailedTab = (props: any) => {
         }
       );
       setDetailedMovieData(response.data);
+      setIsLoading(false)
     } catch (err) {
       setIsLoading(false);
       setErrorMessage("Failed to fetch movie details.");
@@ -51,62 +53,64 @@ const DetailedTab = (props: any) => {
   }, [movieData]);
 
   return (
-    <div className='relative w-full flex justify-center items-center px-8 sm:px-10 lg:px-24 mb-20 z-10 bg-[#1b1d29]'>
-      <Tabs defaultValue="casts" className="w-full">
-        <TabsList className="grid w-full sm:w-[400px] grid-cols-2 bg-[#101116] text-white">
-          <TabsTrigger value="casts">Casts</TabsTrigger>
-          <TabsTrigger value="reviews">Reviews</TabsTrigger>
-        </TabsList>
-        <TabsContent value="casts">
-          <Card className='bg-transparent border-0 shadow-none'>
-            <CardHeader>
-              <CardTitle className='text-white'>Top Casts</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-4 mb-3">
-              {detailedMovieData?.credits?.cast?.slice(0, 6).map((movie, index) => (
-                <div key={movie.id} className='flex flex-row justify-start items-center gap-3'>
-                  <div className='bg-cover bg-center w-12 h-12 rounded-full' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.profile_path})` }}></div>
-                  <div className='flex flex-col'>
-                    <p className='text-white font-semibold text-sm'>{movie.character}</p>
-                    <p className='text-slate-400 font-medium text-xs'>{movie.name}</p>
+    <div> {isLoading ? (<DetailedTabSkeleton />) :
+      (<div className='relative w-full flex justify-center items-center px-8 sm:px-10 lg:px-24 mb-20 z-10 bg-[#1b1d29]'>
+        <Tabs defaultValue="casts" className="w-full">
+          <TabsList className="grid w-full sm:w-[400px] grid-cols-2 bg-[#101116] text-white">
+            <TabsTrigger value="casts">Casts</TabsTrigger>
+            <TabsTrigger value="reviews">Reviews</TabsTrigger>
+          </TabsList>
+          <TabsContent value="casts">
+            <Card className='bg-transparent border-0 shadow-none'>
+              <CardHeader>
+                <CardTitle className='text-white'>Top Casts</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-4 mb-3">
+                {detailedMovieData?.credits?.cast?.slice(0, 6).map((movie, index) => (
+                  <div key={movie.id} className='flex flex-row justify-start items-center gap-3'>
+                    <div className='bg-cover bg-center w-12 h-12 rounded-full' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.profile_path})` }}></div>
+                    <div className='flex flex-col'>
+                      <p className='text-white font-semibold text-sm'>{movie.character}</p>
+                      <p className='text-slate-400 font-medium text-xs'>{movie.name}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="reviews">
-          <Card className='bg-transparent border-0'>
-            {/* <Card className='bg-[#101116] border-[#353843]'> */}
-            <CardHeader>
-              <CardTitle className='text-white'>Reviews</CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-              {detailedMovieData?.reviews?.results?.slice(0, 2).map((movie, index) => (
-                <div key={movie.id} className='w-full'>
-                  <div className='w-full h-auto border border-[#353843] rounded-lg flex flex-col justfiy-center items-center'>
-                    <div className='w-[90%] lg:w-[95%] mt-4 flex flex-row justify-between'>
-                      <div className='flex flex-row gap-3'>
-                        <div className='bg-cover bg-center w-10 h-10 rounded-full' style={{ backgroundImage: `url(https://tr.rbxcdn.com/180DAY-4ab626f2df7ffe788a3b06500d127a99/420/420/Hat/Webp/noFilter)` }}></div>
-                        <div className='flex flex-col'>
-                          <p className='text-white font-semibold text-sm'>{movie.author}</p>
-                          <p className='text-slate-400 font-medium text-sm'>{reviewDate(movie)}</p>
+                ))}
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="reviews">
+            <Card className='bg-transparent border-0'>
+              {/* <Card className='bg-[#101116] border-[#353843]'> */}
+              <CardHeader>
+                <CardTitle className='text-white'>Reviews</CardTitle>
+              </CardHeader>
+              <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+                {detailedMovieData?.reviews?.results?.slice(0, 2).map((movie, index) => (
+                  <div key={movie.id} className='w-full'>
+                    <div className='w-full h-auto border border-[#353843] rounded-lg flex flex-col justfiy-center items-center'>
+                      <div className='w-[90%] lg:w-[95%] mt-4 flex flex-row justify-between'>
+                        <div className='flex flex-row gap-3'>
+                          <div className='bg-cover bg-center w-10 h-10 rounded-full' style={{ backgroundImage: `url(https://tr.rbxcdn.com/180DAY-4ab626f2df7ffe788a3b06500d127a99/420/420/Hat/Webp/noFilter)` }}></div>
+                          <div className='flex flex-col'>
+                            <p className='text-white font-semibold text-sm'>{movie.author}</p>
+                            <p className='text-slate-400 font-medium text-sm'>{reviewDate(movie)}</p>
+                          </div>
                         </div>
+                        {movie.author_details?.rating ? (<p className='flex flex-row items-center font-bold text-white text-base'><Star className='fill-[#f5c518] stroke-none w-4 mr-1' /> {(movie.author_details?.rating)}<span className='text-slate-500 font-medium ml-1 text-sm'>/10</span></p>)
+                          : (<p className='text-slate-500 font-medium ml-1 text-sm'>No rating</p>)
+                        }
                       </div>
-                      {movie.author_details?.rating ? (<p className='flex flex-row items-center font-bold text-white text-base'><Star className='fill-[#f5c518] stroke-none w-4 mr-1' /> {(movie.author_details?.rating)}<span className='text-slate-500 font-medium ml-1 text-sm'>/10</span></p>)
-                        : (<p className='text-slate-500 font-medium ml-1 text-sm'>No rating</p>)
-                      }
-                    </div>
-                    <div className='w-[90%] lg:w-[95%] my-5 h-auto border border-[#353843] rounded-lg p-5'>
-                      <p className='text-slate-400 text-sm leading-relaxed'>{movie.content}</p>
+                      <div className='w-[90%] lg:w-[95%] my-5 h-auto border border-[#353843] rounded-lg p-5'>
+                        <p className='text-slate-400 text-sm leading-relaxed'>{movie.content}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+                ))}
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </div>)}
     </div>
   )
 }
