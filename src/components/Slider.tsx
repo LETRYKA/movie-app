@@ -22,8 +22,8 @@ interface Movie {
     };
 }
 
-const Slider = (props: { movieData: Movie[]; slideTitle: string; }) => {
-    const { movieData, slideTitle } = props;
+const Slider = (props: { movieData: Movie[]; slideTitle: string; category: string; }) => {
+    const { movieData, slideTitle, category } = props;
     const [detailedMovieData, setDetailedMovieData] = useState<Movie[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -60,14 +60,16 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; }) => {
     return (
         <div>
             {isLoading ? (<SSlider />) :
-                (<div className="w-full flex justify-center items-center pb-5">
+                (<div className="w-full flex justify-center items-center">
                     <div className="w-full flex justify-start flex-col overflow-hidden ml-[5.5%]">
                         <div className="flex flex-row justify-between">
                             <div className="h-6 ml-2 mb-5 flex flex-row justify-center items-center">
                                 <div className="w-[2px] h-full bg-red-500"></div>
                                 <h1 className="text-xl text-white font-semibold ml-2">{slideTitle}</h1>
                             </div>
-                            <h1 className="text-base text-slate-400 font-medium flex flex-row cursor-pointer mr-10">
+                            <h1
+                                onClick={() => router.push(`/more/${category}/1`)}
+                                className="text-base text-slate-400 font-medium flex flex-row cursor-pointer mr-10">
                                 See more <ChevronRight width={18} className="ml-1" />
                             </h1>
                         </div>
@@ -82,7 +84,7 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; }) => {
                                         <Card
                                             className="aspect-[4/2] h-auto overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105"
                                             style={{
-                                                backgroundImage: `url(https://image.tmdb.org/t/p/w780/${movie?.images?.backdrops?.[0]?.file_path || movie.backdrop_path || 'default.jpg'})`,
+                                                backgroundImage: `url(${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${movie?.images?.backdrops?.[0]?.file_path || movie.backdrop_path || 'default.jpg'})`,
                                             }}>
                                             <CardContent className="card flex items-center justify-center h-48 p-6" />
                                         </Card>

@@ -116,8 +116,8 @@ const CardComp = (props: any) => {
         if (typeof get !== 'number' || get <= 0) {
             return '';
         }
-        const hr = parseInt((get / 60).toFixed(2).toString().split('.', 1));
-        const min = parseInt((get % 60).toFixed(2).toString().split('.', 1));
+        const hr = parseInt((get / 60).toFixed(2).toString().split('.', 1)[0]);
+        const min = parseInt((get % 60).toFixed(2).toString().split('.', 1)[0]);
 
         if (hr > 0) {
             return (`${hr}h ${min}min`)
@@ -147,7 +147,7 @@ const CardComp = (props: any) => {
             ${vertical ? "lg:grid-cols-4" : "lg:grid-cols-3"}
             ${vertical ? "2xl:grid-cols-5" : "2xl:grid-cols-4"} gap-6`}>
                     {detailedMovieData.map((movie, index) => (
-                        <Card key={movie.id} onClick={() => router.push(movie.seasons ? `/info/series/${movie.id}` : `/info/movie/${movie.id}`)} className={`${vertical ? 'aspect-[7/10]' : 'aspect-[4/2]'} h-auto cursor-pointer bg-slate-800 shadow-md bg-cover bg-center relative overflow-hidden border-[#353843] rounded-lg transition-transform duration-300 ease-in-out hover:scale-105`} style={{ backgroundImage: vertical ? `url(https://image.tmdb.org/t/p/w780/${movie?.images?.posters?.[0]?.file_path || movie.backdrop_path})` : `url(https://image.tmdb.org/t/p/w780/${movie?.images?.backdrops?.[0]?.file_path || movie.backdrop_path})` }}>
+                        <Card key={movie.id} onClick={() => router.push(movie.seasons ? `/info/series/${movie.id}` : `/info/movie/${movie.id}`)} className={`${vertical ? 'aspect-[7/10]' : 'aspect-[4/2]'} h-auto cursor-pointer bg-slate-800 shadow-md bg-cover bg-center relative overflow-hidden border-[#353843] rounded-lg transition-transform duration-300 ease-in-out hover:scale-105`} style={{ backgroundImage: vertical ? `url(${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${movie?.images?.posters?.[0]?.file_path || movie.backdrop_path})` : `url(${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${movie?.images?.backdrops?.[0]?.file_path || movie.backdrop_path})` }}>
                             <CardHeader>
                                 <div className="absolute inset-0 w-full h-full group flex justify-end items-start">
                                     <div className="absolute -bottom-3 transition duration-300 ease-in-out opacity-0 group-hover:opacity-100 bg-fade-gradient-black w-full h-full"></div>

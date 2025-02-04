@@ -138,7 +138,7 @@ const Movie = (props: {}) => {
             </div>)}
             {/* Page */}
             <div className='h-[800px] sm:h-auto'>
-                <div className="relative sm:overflow-hidden w-full pr-14 pl-14 sm:p-0 h-[600px] sm:h-[967px] bg-cover bg-top md:bg-fixed flex justify-center sm:justify-start items-center" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original/${infoMovie?.backdrop_path})` }}>
+                <div className="relative sm:overflow-hidden w-full pr-14 pl-14 sm:p-0 h-[600px] sm:h-[967px] bg-cover bg-top md:bg-fixed flex justify-center sm:justify-start items-center" style={{ backgroundImage: `url(${process.env.TMDB_IMAGE_SERVICE_URL}/original/${infoMovie?.backdrop_path})` }}>
                     {!onLoad && (
                         <div></div>
                     )}
@@ -153,7 +153,7 @@ const Movie = (props: {}) => {
                     />
                     <div className="bg-fade-gradient-v absolute bottom-0 w-full -mt-10 h-40 z-10"></div>
                     <div className="flex flex-col sm:ml-[8%] z-10 mt-[600px] sm:mt-40 lg:mt-16 justify-center items-center sm:justify-start sm:items-start">
-                        <img src={`https://image.tmdb.org/t/p/w780/${infoMovie?.images?.logos?.[1]?.file_path || infoMovie?.images?.logos?.[0]?.file_path}`} className="w-80 -mt-4 sm:w-96 mb-8" />
+                        <img src={`${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${infoMovie?.images?.logos?.[1]?.file_path || infoMovie?.images?.logos?.[0]?.file_path}`} className="w-80 -mt-4 sm:w-96 mb-8" />
                         <div className='flex flex-row justify-start items-center gap-2'>
                             <div className='flex justify-center items-center w-0 h-0 bg-[#32343e] p-3 pl-5 pr-5 rounded-md'>
                                 <p className='text-white text-sm font-semibold'>{infoMovie?.release_dates?.results?.[41]?.release_dates?.[0]?.certification}+</p>

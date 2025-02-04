@@ -66,7 +66,7 @@ const Header = (props: any) => {
     }, []);
 
     return (
-        <div className="w-full h-20 bg-gradient-to-b from-[#0E1012]/90 to-[black]/0 flex justify-between z-30 pr-10 pl-10 lg:pl-24 lg:pr-24">
+        <div className="w-full h-20 bg-gradient-to-b from-[#0E1012]/50 to-[black]/0 flex justify-between z-30 pr-10 pl-10 lg:pl-24 lg:pr-24">
             <div className="flex flex-row h-full w-auto justify-start items-center gap-10 mt-2 z-10">
                 <a href="/home"><img src="/imgs/logo.png" width={79} height={48} /></a>
                 <Select onValueChange={(value) => router.push(`/genre/${value}/1`)}>

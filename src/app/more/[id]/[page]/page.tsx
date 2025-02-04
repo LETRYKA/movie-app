@@ -19,7 +19,7 @@ const Genre = () => {
     const params = useParams();
 
     const { id, page } = useParams();
-    const genreId = params.id;
+    const category = params.id;
     const router = useRouter();
     const [genreData, setGenreData] = useState<DataType[]>([]);
     const [errorMessage, setErrorMessage] = useState('');
@@ -35,7 +35,7 @@ const Genre = () => {
         try {
             setIsLoading(true);
             const genre = await axios.get(
-                `${process.env.TMDB_BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${currentPage}&sort_by=popularity.desc&with_genres=${genreId}`,
+                `${process.env.TMDB_BASE_URL}/movie/${category}?language=en-US&page=${currentPage}`,
                 {
                     headers: {
                         Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
@@ -59,7 +59,7 @@ const Genre = () => {
     };
 
     const handlePageChange = (pageNumber: number) => {
-        router.push(`/genre/${genreId}/${pageNumber}`);
+        router.push(`/more/${category}/${pageNumber}`);
     };
 
     useEffect(() => {

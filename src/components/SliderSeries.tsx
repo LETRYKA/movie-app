@@ -29,8 +29,8 @@ interface Movie {
     type?: boolean
 }
 
-const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; type?: boolean }) => {
-    const { movieData, slideTitle, type } = props;
+const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; type?: boolean; category: string; }) => {
+    const { movieData, slideTitle, type, category } = props;
     const [detailedMovieData, setDetailedMovieData] = useState<Movie[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -76,24 +76,28 @@ const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; type?: bo
     return (
         <div>
             {isLoading ? (<SliderSeriesSkeleton type={type} />) :
-                (<div className="w-full flex justify-center items-center pb-5 overflow-hidden">
+                (<div className="w-full flex justify-center items-center overflow-hidden">
                     <div className="w-full flex justify-start flex-col overflow-hidden ml-[5.5%]">
                         <div className="flex flex-row justify-between">
                             <div className="h-6 ml-2 mb-3 flex flex-row justify-center items-center">
                                 <div className="w-[2px] h-full bg-red-500"></div>
                                 <h1 className="text-xl text-white font-semibold ml-2">{slideTitle}</h1>
                             </div>
-                            <h1 className="text-base text-slate-400 font-medium flex flex-row cursor-pointer mr-10">See more <ChevronRight width={18} className="ml-1" /></h1>
+                            <h1
+                                onClick={() => router.push(`/more/series/${category}/1`)}
+                                className="text-base text-slate-400 font-medium flex flex-row cursor-pointer mr-10">
+                                See more <ChevronRight width={18} className="ml-1" />
+                            </h1>
                         </div>
                         <Carousel className="w-full relative">
                             <CarouselContent className='pl-2 pt-2'>
                                 {detailedMovieData.map((tv) => (
                                     <CarouselItem key={tv.id} onClick={() => router.push(`/info/series/${tv.id}`)} className={`${type ? 'basis-[80%]' : 'basis-[36%]'} ${type ? 'sm:basis-[50%]' : 'sm:basis-[23%]'} ${type ? 'md:basis-[35%]' : 'md:basis-[23%]'} ${type ? 'lg:basis-[27%]' : 'lg:basis-[18%]'} ${type ? 'xl:basis-[19%]' : 'xl:basis-[13%]'}`}>
                                         <div className="p-1">
-                                            <Card className={`${type ? ('h-auto') : ('h-auto')} ${type ? 'aspect-[4/2]' : 'aspect-[7/10]'} overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105`} style={{ backgroundImage: type ? `url(https://image.tmdb.org/t/p/w780/${tv?.images?.backdrops?.[0]?.file_path || 'default.jpg'})` : `url(https://image.tmdb.org/t/p/w780/${tv?.images?.posters?.[0]?.file_path || 'default.jpg'})` }} >
+                                            <Card className={`${type ? ('h-auto') : ('h-auto')} ${type ? 'aspect-[4/2]' : 'aspect-[7/10]'} bg-slate-700 overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105`} style={{ backgroundImage: type ? `url(${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${tv?.images?.backdrops?.[0]?.file_path || 'default.jpg'})` : `url(${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${tv?.images?.posters?.[0]?.file_path || 'default.jpg'})` }} >
                                                 <CardContent className="card flex relative items-center justify-center h-48">
-                                                    {type && <div className="absolute w-full h-full flex flex-col justify-center items-center overflow-hidden group">
-                                                        <div className="absolute w-full h-full flex justify-center transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 bg-fade-gradient-black z-0 -mb-3">
+                                                    {type && <div className="absolute inset-0 w-full h-full flex flex-col justify-center items-center overflow-hidden group">
+                                                        <div className="absolute w-full h-full flex justify-center transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 bg-fade-gradient-black z-0 -mb-2">
                                                             <div className="absolute bottom-3 flex flex-col justify-center items-center">
                                                                 <p className="text-white text-start text-lg font-bold flex flex-row items-center -mb-1 z-10">
                                                                     {tv.name}

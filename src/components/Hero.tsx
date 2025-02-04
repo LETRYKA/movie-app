@@ -40,9 +40,6 @@ const Hero = (props: { movieData: Movie[] }) => {
         }
     };
 
-
-    console.log(`LOADING TEST`, isLoading)
-
     useEffect(() => {
         fetchDetailedData();
     }, [movieData]);

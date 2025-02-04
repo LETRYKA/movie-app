@@ -114,9 +114,8 @@ export default function Home() {
     <div>
       {errorMessage && <div className="error-message text-red-500">{errorMessage}</div>}
       <Hero movieData={playingMovieData} />
-
-      <Slider movieData={popularMovieData} slideTitle="Trending movies" />
-      <div className="w-full flex justify-center items-center mb-12 mt-5 px-[30px] md:px-[50px] lg:px-[70px] xl:px-24">
+      <Slider movieData={popularMovieData} slideTitle="Trending movies" category="popular" />
+      <div className="w-full flex justify-center items-center mb-12 mt-12 px-8 sm:px-10 lg:px-32">
         <div className="w-full grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-1 sm:gap-4">
           <CatCard onClick={() => router.push(`/collection/106768/disney`)} logo={"/imgs/disney.jpg"} video={"/imgs/disney-vv.mp4"} />
           <CatCard onClick={() => router.push(`/collection/10/star-wars`)} logo={"/imgs/starwars.jpg"} video={"/imgs/starwars-v.mp4"} />
@@ -126,10 +125,18 @@ export default function Home() {
           <CatCard onClick={() => router.push(`/collection/10/star`)} logo={"/imgs/star.jpg"} video={"/imgs/star-v.mp4"} />
         </div>
       </div>
-      <Slider movieData={topRatedMovieData} slideTitle="Top Rated Movies" />
-      <SliderSeries movieData={trendingSeriesData} slideTitle="Trending Series" />
-      <SliderSeries movieData={topRatedSeriesData} slideTitle="Top Rated Series" />
-      <SliderSeries movieData={trendingKD} slideTitle="Kdramas" type={true} />
+      <div className="mt-12">
+        <Slider movieData={topRatedMovieData} slideTitle="Top Rated Movies" category="top_rated" />
+      </div>
+      <div className="mt-12">
+        <SliderSeries movieData={trendingSeriesData} slideTitle="Trending Series" category="trending" />
+      </div>
+      <div className="mt-12">
+        <SliderSeries movieData={topRatedSeriesData} slideTitle="Top Rated Series" category="top_rated" />
+      </div>
+      <div className="mt-12 mb-20">
+        <SliderSeries movieData={trendingKD} slideTitle="Kdramas" category="kdrama" type={true} />
+      </div>
     </div>
   );
 }

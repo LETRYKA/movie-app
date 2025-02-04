@@ -75,7 +75,7 @@ const Episodes = (props: any) => {
                                                             <Card
                                                                 onClick={() => router.push(`/watch/series/${seriesData.id}/${season.season_number}/${episode.episode_number}`)}
                                                                 style={{
-                                                                    backgroundImage: `url(https://image.tmdb.org/t/p/original${episode?.still_path})`,
+                                                                    backgroundImage: `url(${process.env.TMDB_IMAGE_SERVICE_URL}/original${episode?.still_path})`,
                                                                 }}
                                                                 className="bg-slate-700 group transform-transition duration-300 ease-in-out hover:scale-105 w-full h-auto flex justify-center items-center aspect-[4/2] bg-cover bg-center border-[#353843] cursor-pointer">
                                                                 <CardContent className="flex items-center justify-center p-6 relative w-full h-full">
