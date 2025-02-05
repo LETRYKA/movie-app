@@ -149,7 +149,7 @@ const Movie = (props: {}) => {
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
-                        className={`scale-150 absolute top-0 hidden lg:flex lg:-mt-20 z-0 transition-opacity ${onLoad ? 'opacity-100' : 'opacity-0'}`}
+                        className={`scale-150 absolute top-0 hidden lg:flex lg:-mt-0 z-0 transition-opacity ${onLoad ? 'opacity-100' : 'opacity-0'}`}
                     />
                     <div className="bg-fade-gradient-v absolute bottom-0 w-full -mt-10 h-40 z-10"></div>
                     <div className="flex flex-col sm:ml-[8%] z-10 mt-[600px] sm:mt-40 lg:mt-16 justify-center items-center sm:justify-start sm:items-start">
