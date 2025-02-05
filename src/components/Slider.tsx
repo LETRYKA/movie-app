@@ -61,7 +61,7 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; category: strin
         <div>
             {isLoading ? (<SSlider />) :
                 (<div className="w-full flex justify-center items-center">
-                    <div className="w-full flex justify-start flex-col overflow-hidden ml-[5.5%]">
+                    <div className="w-full flex justify-start flex-col overflow-hidden">
                         <div className="flex flex-row justify-between">
                             <div className="h-6 ml-2 mb-5 flex flex-row justify-center items-center">
                                 <div className="w-[2px] h-full bg-red-500"></div>
@@ -80,7 +80,7 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; category: strin
                                     <CarouselItem
                                         key={movie.id}
                                         onClick={() => router.push(`/info/movie/${movie.id}`)}
-                                        className="basis-[80%] sm:basis-[50%] md:basis-[35%] lg:basis-[27%] xl:basis-[19%]">
+                                        className="basis-[80%] sm:basis-[50%] md:basis-[35%] lg:basis-[27%] xl:basis-[19%] ml-1 mt-2">
                                         <Card
                                             className="aspect-[4/2] h-auto overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105"
                                             style={{

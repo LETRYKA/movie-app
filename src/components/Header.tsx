@@ -6,14 +6,15 @@ import { Search, Clapperboard, Menu } from 'lucide-react';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import GenreMenu from "./GenreMenu";
 
 const Header = (props: any) => {
     const { } = props;
     const [errorMessage, setErrorMessage] = useState('');
-    const [genreData, setGenreData] = useState([])
     const [showInput, setShowInput] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [inputValue, setInputValue] = useState();
+    const [genreData, setGenreData] = useState([])
     const router = useRouter();
 
     const fetchGenre = async () => {
@@ -54,12 +55,20 @@ const Header = (props: any) => {
         if (inputValue) {
             if (inputValue.length > 0) {
                 router.push(`/search/${inputValue}`)
+                setInputValue("")
             }
             else {
                 return
             }
         }
     }
+
+    const handleKeyDown = (event, inputValue) => {
+        if (event.key === "Enter") {
+            searchHandler(inputValue);
+            inputShow()
+        }
+    };
 
     useEffect(() => {
         fetchGenre();
@@ -69,7 +78,8 @@ const Header = (props: any) => {
         <div className="w-full h-20 bg-gradient-to-b from-[#0E1012]/50 to-[black]/0 flex justify-between z-30 pr-10 pl-10 lg:pl-24 lg:pr-24">
             <div className="flex flex-row h-full w-auto justify-start items-center gap-10 mt-2 z-10">
                 <a href="/home"><img src="/imgs/logo.png" width={79} height={48} /></a>
-                <Select onValueChange={(value) => router.push(`/genre/${value}/1`)}>
+                <GenreMenu />
+                {/* <Select onValueChange={(value) => router.push(`/genre/${value}/1`)}>
                     <SelectTrigger className="hidden w-[180px] lg:flex">
                         <Clapperboard width={18} className="mr-2" />
                         <SelectValue placeholder="Genre" />
@@ -80,8 +90,8 @@ const Header = (props: any) => {
                         ))}
                     </SelectContent>
                 </Select>
-                <input type="text" placeholder="Search" onChange={inputHandler} className={`bg-transparent outline-none border-b-2 text-white pb-1 transition-all duration-500 -ml-2 ${showInput ? 'w-72' : 'w-0'}`}></input>
-                <Search onClick={() => (inputShow(), searchHandler(inputValue))} color="white" className="hidden cursor-pointer lg:flex -ml-6" />
+                <input onKeyDown={(e) => handleKeyDown(e, inputValue)} type="text" placeholder="Search" onChange={inputHandler} className={`bg-transparent outline-none border-b-2 text-white pb-1 transition-all duration-500 -ml-2 ${showInput ? 'w-72' : 'w-0'}`}></input>
+                <Search onClick={() => (inputShow(), searchHandler(inputValue))} color="white" className="hidden cursor-pointer lg:flex -ml-6" /> */}
             </div>
             <div className="flex flex-row h-full w-auto justify-start items-center mt-2">
                 <Menu className="flex stroke-white mr-5 cursor-pointer lg:hidden" />

@@ -7,7 +7,7 @@ const SliderSeriesSkeleton = (props: any) => {
     const { type } = props;
     return (
         <div className="w-full flex justify-center items-center pb-5 overflow-hidden">
-            <div className="w-full flex justify-start flex-col overflow-hidden ml-[5.5%]">
+            <div className="w-full flex justify-start flex-col overflow-hidden">
                 <div className="flex flex-row justify-between">
                     <Skeleton className="text-xl bg-gray-700 w-28 h-8 font-bold mb-5 ml-3"></Skeleton>
                     <h1 className="text-base text-slate-400 font-medium flex flex-row cursor-pointer mr-10">

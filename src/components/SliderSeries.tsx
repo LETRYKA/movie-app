@@ -77,7 +77,7 @@ const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; type?: bo
         <div>
             {isLoading ? (<SliderSeriesSkeleton type={type} />) :
                 (<div className="w-full flex justify-center items-center overflow-hidden">
-                    <div className="w-full flex justify-start flex-col overflow-hidden ml-[5.5%]">
+                    <div className="w-full flex justify-start flex-col overflow-hidden">
                         <div className="flex flex-row justify-between">
                             <div className="h-6 ml-2 mb-3 flex flex-row justify-center items-center">
                                 <div className="w-[2px] h-full bg-red-500"></div>
@@ -92,22 +92,24 @@ const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; type?: bo
                         <Carousel className="w-full relative">
                             <CarouselContent className='pl-2 pt-2'>
                                 {detailedMovieData.map((tv) => (
-                                    <CarouselItem key={tv.id} onClick={() => router.push(`/info/series/${tv.id}`)} className={`${type ? 'basis-[80%]' : 'basis-[36%]'} ${type ? 'sm:basis-[50%]' : 'sm:basis-[23%]'} ${type ? 'md:basis-[35%]' : 'md:basis-[23%]'} ${type ? 'lg:basis-[27%]' : 'lg:basis-[18%]'} ${type ? 'xl:basis-[19%]' : 'xl:basis-[13%]'}`}>
+                                    <CarouselItem key={tv.id} onClick={() => router.push(`/info/series/${tv.id}`)} className={`${type ? 'basis-[80%]' : 'basis-[40%]'} ${type ? 'sm:basis-[50%]' : 'sm:basis-[23%]'} ${type ? 'md:basis-[35%]' : 'md:basis-[23%]'} ${type ? 'lg:basis-[27%]' : 'lg:basis-[18%]'} ${type ? 'xl:basis-[19%]' : 'xl:basis-[13%]'}`}>
                                         <div className="p-1">
-                                            <Card className={`${type ? ('h-auto') : ('h-auto')} ${type ? 'aspect-[4/2]' : 'aspect-[7/10]'} bg-slate-700 overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105`} style={{ backgroundImage: type ? `url(${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${tv?.images?.backdrops?.[0]?.file_path || 'default.jpg'})` : `url(${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${tv?.images?.posters?.[0]?.file_path || 'default.jpg'})` }} >
-                                                <CardContent className="card flex relative items-center justify-center h-48">
-                                                    {type && <div className="absolute inset-0 w-full h-full flex flex-col justify-center items-center overflow-hidden group">
-                                                        <div className="absolute w-full h-full flex justify-center transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 bg-fade-gradient-black z-0 -mb-2">
-                                                            <div className="absolute bottom-3 flex flex-col justify-center items-center">
-                                                                <p className="text-white text-start text-lg font-bold flex flex-row items-center -mb-1 z-10">
-                                                                    {tv.name}
-                                                                </p>
-                                                                <p className="text-slate-300 text-start text-xs font-medium flex flex-row items-center mb-6 z-10">
-                                                                    {tv.number_of_episodes} EP | {releaseDate(tv)}
-                                                                </p>
+                                            <Card className={`${type ? ('h-auto') : ('h-auto')} ${type ? 'aspect-[4/2]' : 'aspect-[7/10]'} bg-slate-700 overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105`} style={{ backgroundImage: type ? `url(${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${tv?.images?.backdrops?.[0]?.file_path || tv?.backdrop_path})` : `url(${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${tv?.images?.posters?.[0]?.file_path || tv?.backdrop_path})` }} >
+                                                <CardContent className="card flex relative items-center justify-center h-full">
+                                                    {type && (
+                                                        <div className="absolute inset-0 w-full h-full flex overflow-hidden group">
+                                                            <div className="w-full h-full flex justify-center transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 bg-fade-gradient-black z-0 -mb-2">
+                                                                <div className="absolute bottom-0 w-full flex flex-col justify-center items-center p-3">
+                                                                    <p className="text-white text-start text-lg font-bold flex flex-row items-center -mb-1 z-10">
+                                                                        {tv.name}
+                                                                    </p>
+                                                                    <p className="text-slate-300 text-start text-xs font-medium flex flex-row items-center mb-3 z-10">
+                                                                        {tv.number_of_episodes} EP | {releaseDate(tv)}
+                                                                    </p>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>}
+                                                    )}
                                                 </CardContent>
                                             </Card>
                                             {!type && <div className='mt-3 flex flex-col'>
@@ -127,9 +129,9 @@ const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; type?: bo
                                     </CarouselItem>
                                 ))}
                             </CarouselContent>
-                            <CarouselNext className="mr-14 sm:mr-20 -mt-5 z-20" />
+                            <CarouselNext className="mr-14 sm:mr-20 -mt-10 sm:-mt-14 md:-mt-20 lg:-mt-10 xl:-mt-5 z-20" />
                         </Carousel>
-                        <div className={`hidden sm:flex absolute w-24 ${type ? 'h-[16%]' : 'h-[30%]'} bg-fade-gradient-hr mt-11 sm:mr-0 right-0 z-10`}></div>
+                        <div className={`hidden sm:flex absolute w-24 ${type ? 'h-[19%]' : 'h-[35%]'} bg-fade-gradient-hr mt-11 sm:mr-0 right-0 z-10`}></div>
                     </div>
                 </div>)}
         </div>

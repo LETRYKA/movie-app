@@ -114,7 +114,9 @@ export default function Home() {
     <div>
       {errorMessage && <div className="error-message text-red-500">{errorMessage}</div>}
       <Hero movieData={playingMovieData} />
-      <Slider movieData={popularMovieData} slideTitle="Trending movies" category="popular" />
+      <div className="ml-[5.5%]">
+        <Slider movieData={popularMovieData} slideTitle="Trending movies" category="popular" />
+      </div>
       <div className="w-full flex justify-center items-center mb-12 mt-12 px-8 sm:px-10 lg:px-32">
         <div className="w-full grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-1 sm:gap-4">
           <CatCard onClick={() => router.push(`/collection/106768/disney`)} logo={"/imgs/disney.jpg"} video={"/imgs/disney-vv.mp4"} />
@@ -125,16 +127,16 @@ export default function Home() {
           <CatCard onClick={() => router.push(`/collection/10/star`)} logo={"/imgs/star.jpg"} video={"/imgs/star-v.mp4"} />
         </div>
       </div>
-      <div className="mt-12">
+      <div className="mt-12 ml-[5.5%]">
         <Slider movieData={topRatedMovieData} slideTitle="Top Rated Movies" category="top_rated" />
       </div>
-      <div className="mt-12">
+      <div className="mt-12 ml-[5.5%]">
         <SliderSeries movieData={trendingSeriesData} slideTitle="Trending Series" category="trending" />
       </div>
-      <div className="mt-12">
+      <div className="mt-12 ml-[5.5%]">
         <SliderSeries movieData={topRatedSeriesData} slideTitle="Top Rated Series" category="top_rated" />
       </div>
-      <div className="mt-12 mb-20">
+      <div className="mt-12 mb-20 ml-[5.5%]">
         <SliderSeries movieData={trendingKD} slideTitle="Kdramas" category="kdrama" type={true} />
       </div>
     </div>

@@ -88,8 +88,8 @@ const Movie = (props: {}) => {
         if (typeof get !== 'number' || get <= 0) {
             return '';
         }
-        const hr = parseInt((get / 60).toFixed(2).toString().split('.')[0]);
-        const min = parseInt((get % 60).toFixed(2).toString().split('.')[1]);
+        const hr = parseInt((get / 60).toFixed(2).toString().split('.', 1)[0]);
+        const min = parseInt((get % 60).toFixed(2).toString().split('.', 1)[0]);
 
         if (hr > 0) {
             return (`${hr} h ${min} min`)
@@ -192,8 +192,8 @@ const Movie = (props: {}) => {
                             </div>
                             <p className='text-slate-400 text-sm font-medium mt-2'>
                                 {infoMovie?.genres?.[0]?.name}
-                                {infoMovie?.genres?.[1]?.name && infoMovie?.genres?.[1]?.name.length > 0 ? `| ${infoMovie.genres[1].name}` : ""}
-                                {infoMovie?.genres?.[2]?.name && infoMovie?.genres?.[2]?.name.length > 0 ? `| ${infoMovie.genres[2].name}` : ""}
+                                {infoMovie?.genres?.[1]?.name && infoMovie?.genres?.[1]?.name.length > 0 ? ` | ${infoMovie.genres[1].name}` : ""}
+                                {infoMovie?.genres?.[2]?.name && infoMovie?.genres?.[2]?.name.length > 0 ? ` | ${infoMovie.genres[2].name}` : ""}
                             </p>
                             <div className="flex flex-row gap-4 mt-8">
                                 <Button onClick={() => router.push(`/watch/movie/${infoMovie?.id}`)} variant="outline" className="pt-5 pb-5 pl-8 pr-8 text-base font-bold text-[#1A1D29] flex items-center"><Play className="fill-[#1A1D29]" />PLAY</Button>

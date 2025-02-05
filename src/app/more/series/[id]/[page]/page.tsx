@@ -87,7 +87,7 @@ const Genre = () => {
         try {
             setIsLoading(true);
             const kdrama = await axios.get(
-                `${process.env.TMDB_BASE_URL}/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=2&sort_by=vote_count.desc&with_original_language=ko`,
+                `${process.env.TMDB_BASE_URL}/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${currentPage}&sort_by=vote_count.desc&with_original_language=ko`,
                 {
                     headers: {
                         Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
@@ -111,10 +111,10 @@ const Genre = () => {
     };
 
     const handlePageChange = (pageNumber: number) => {
-        router.push(`/more/${category}/${pageNumber}`);
+        router.push(`/more/series/${category}/${pageNumber}`);
     };
 
-    console.log(`THIS IS CURRENT PAGE`, currentPage)
+    console.log(`MOVIE DATA`, tvData)
 
     useEffect(() => {
         if (category === "top_rated") {

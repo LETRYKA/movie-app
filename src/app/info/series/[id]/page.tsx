@@ -168,8 +168,8 @@ const Movie = (props: {}) => {
                         </div>
                         <p className='text-slate-400 text-sm font-medium mt-2'>
                             {infoMovie?.genres?.[0]?.name}
-                            {infoMovie?.genres?.[1]?.name && infoMovie?.genres?.[1]?.name.length > 0 ? `| ${infoMovie.genres[1].name}` : ""}
-                            {infoMovie?.genres?.[2]?.name && infoMovie?.genres?.[2]?.name.length > 0 ? `| ${infoMovie.genres[2].name}` : ""}
+                            {infoMovie?.genres?.[1]?.name && infoMovie?.genres?.[1]?.name.length > 0 ? ` | ${infoMovie.genres[1].name}` : ""}
+                            {infoMovie?.genres?.[2]?.name && infoMovie?.genres?.[2]?.name.length > 0 ? ` | ${infoMovie.genres[2].name}` : ""}
                         </p>
                         <div className="flex flex-row gap-4 mt-8">
                             <Button onClick={() => router.push(`/watch/series/${infoMovie?.id}/1/1`)} variant="outline" className="pt-5 pb-5 pl-8 pr-8 text-base font-bold text-[#1A1D29] flex items-center"><Play className="fill-[#1A1D29]" />PLAY</Button>
@@ -182,7 +182,9 @@ const Movie = (props: {}) => {
                     <div className="absolute w-full h-full bg-custom-gradient z-0"></div>
                 </div>
             </div>
-            <Episodes seriesData={infoMovie} />
+            <div className='w-full overflow-hidden'>
+                <Episodes seriesData={infoMovie} />
+            </div>
             <DetailedTab movieData={infoMovie} series={true} />
             <div className='px-8 sm:px-10 lg:px-24 mb-20'>
                 <CardComp movieData={similarMovies} series={true} slideTitle="Similar Movies" />

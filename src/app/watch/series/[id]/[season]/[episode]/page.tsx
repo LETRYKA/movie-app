@@ -11,13 +11,11 @@ const WatchSeries = (props: any) => {
     const embedUrl = "https://embed.su/embed/tv";
     const { id, season, episode } = params;
 
-    console.log(embedUrl, `/`, params.id, `/`, params.season, `/`, params.episode)
-
     return (
         <div>
             <div className='w-full h-screen flex justify-center items-center'>
                 <iframe className="w-full h-full" src={`${embedUrl}/${params.id}/${params.season}/${params.episode}`} allowFullScreen title="Video Embed"></iframe>
-                <button onClick={() => router.back()} className='absolute top-3 left-7 flex flex-row text-white text-base'><ChevronLeft width={18} />Back</button>
+                <button onClick={() => router.push(`../../../../info/series/${params.id}`)} className='absolute top-3 left-7 flex flex-row text-white text-base'><ChevronLeft width={18} />Back</button>
             </div>
         </div>
     )

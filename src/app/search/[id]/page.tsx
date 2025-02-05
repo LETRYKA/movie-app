@@ -38,13 +38,19 @@ const SearchPage = () => {
         }
     }
 
+    const handleKeyDown = (event, inputValue) => {
+        if (event.key === "Enter") {
+            searchHandler(inputValue);
+        }
+    };
+
     console.log(inputValue)
 
     return (
         <div className='w-full h-full flex flex-col items-center'>
             <div className='w-[80%] flex flex-col justify-center mt-40'>
                 <div className='w-full h-16 bg-[#090b13] rounded-xl flex justify-between items-center p-4'>
-                    <input onChange={inputHandler} type='text' value={inputValue} className='w-full h-full bg-[#090b13] outline-none text-white text-base font-regular pl-4'></input>
+                    <input onKeyDown={(e) => handleKeyDown(e, inputValue)} onChange={inputHandler} type='text' value={inputValue} className='w-full h-full bg-[#090b13] outline-none text-white text-base font-regular pl-4'></input>
                     <Search onClick={() => searchHandler(inputValue)} className='stroke-white w-10 cursor-pointer' />
                 </div>
                 <p className='text-slate-500 mt-4'>Results of your search: <span className='text-white font-bold'>{`"${searchSpellCheck()}"`}</span></p>
