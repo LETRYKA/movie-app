@@ -150,16 +150,16 @@ const CardComp = (props: any) => {
                         <Card key={movie.id} onClick={() => router.push(movie.seasons ? `/info/series/${movie.id}` : `/info/movie/${movie.id}`)} className={`${vertical ? 'aspect-[7/10]' : 'aspect-[4/2]'} h-auto cursor-pointer bg-slate-800 shadow-md bg-cover bg-center relative overflow-hidden border-[#353843] rounded-lg transition-transform duration-300 ease-in-out hover:scale-105`} style={{ backgroundImage: vertical ? `url(${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${movie?.images?.posters?.[0]?.file_path || movie.backdrop_path})` : `url(${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${movie?.images?.backdrops?.[0]?.file_path || movie.backdrop_path})` }}>
                             <CardHeader>
                                 <div className="absolute inset-0 w-full h-full group flex justify-end items-start">
-                                    <div className="absolute -bottom-3 transition duration-300 ease-in-out opacity-0 group-hover:opacity-100 bg-fade-gradient-black w-full h-full"></div>
-                                    <div className="absolute w-full transition duration-300 ease-in-out opacity-0 group-hover:opacity-100 bottom-0 flex justify-center items-center flex-col">
-                                        <p className="text-white text-lg font-bold z-10 text-center">
+                                    <div className="absolute -bottom-3 transition duration-300 ease-in-out opacity-100 sm:opacity-0 group-hover:opacity-100 bg-fade-gradient-black w-full h-full"></div>
+                                    <div className="absolute w-full transition duration-300 ease-in-out opacity-100 sm:opacity-0 group-hover:opacity-100 bottom-0 flex justify-center items-center flex-col px-2">
+                                        <p className="text-white text-sm sm:text-lg font-bold z-10 text-center">
                                             {movie.type ? movie.name : movie.title}
                                         </p>
                                         <p className="text-slate-300 text-start text-xs font-medium mb-4 z-10">
                                             {`${releaseDate(movie)} |`} {movie.seasons ? `${movie?.seasons?.[0]?.episode_count} EP` : runTime(movie)}
                                         </p>
                                     </div>
-                                    <p className="transition duration-300 ease-in-out opacity-0 group-hover:opacity-100 text-white text-start text-base font-medium flex flex-row items-center mt-3 mr-3 bg-black/20 px-2 rounded-lg">
+                                    <p className="transition duration-300 ease-in-out opacity-100 sm:opacity-0 group-hover:opacity-100 text-white text-start text-base font-medium flex flex-row items-center mt-3 mr-3 bg-black/20 px-2 rounded-lg">
                                         <Star className='fill-[#f5c518] stroke-none w-4 mr-2' /> {(movie.vote_average).toFixed(1)}
                                     </p>
                                 </div>

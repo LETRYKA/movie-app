@@ -1,6 +1,6 @@
 "use client"
 import HeroSkeleton from '@/components/skeleton/HeroSkeleton';
-import { Play, Plus, UsersRound } from 'lucide-react';
+import { Play, Plus, Star, UsersRound } from 'lucide-react';
 import DetailedTab from '@/components/DetailedTab';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
@@ -178,15 +178,20 @@ const Movie = (props: {}) => {
                         <div className="bg-fade-gradient-v absolute bottom-0 w-full -mt-10 h-40 z-10"></div>
                         <div className="flex flex-col sm:ml-[8%] z-10 mt-[600px] sm:mt-40 lg:mt-16 justify-center items-center sm:justify-start sm:items-start">
                             <img src={`${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${infoMovie?.images?.logos?.[1]?.file_path || infoMovie?.images?.logos?.[0]?.file_path}`} className="w-80 -mt-4 sm:w-96 mb-8" />
-                            <div className='flex flex-row justify-start items-center gap-2'>
-                                <div className='flex justify-center items-center w-0 h-0 bg-[#32343e] p-3 px-5 rounded-md'>
-                                    <p className='text-white text-sm font-semibold'>{certificateHandler()}+</p>
-                                </div>
-                                <div className='flex justify-center items-center w-0 h-0 bg-[#32343e] p-3 pl-5 pr-5 rounded-md'>
-                                    <p className='text-white text-sm font-bold'>HD</p>
-                                </div>
-                                <div className='flex justify-center items-center w-0 h-0 bg-[#32343e] p-3 pl-5 pr-5 rounded-md'>
-                                    <p className='text-white text-sm font-medium'>CC</p>
+                            <div className='flex flex-col sm:flex-row justify-center items-center gap-3'>
+                                <div className='flex flex-row justify-start items-center gap-2'>
+                                    {certificateHandler().length > 0 && <div className='flex justify-center items-center h-0 bg-[#32343e] p-3 px-2 rounded-md'>
+                                        <p className='text-white text-sm font-semibold'>{certificateHandler()}+</p>
+                                    </div>}
+                                    <div className='flex flex-row justify-center items-center h-0 bg-[#32343e] p-3 px-2 rounded-md'>
+                                        <p className='text-white text-sm font-medium flex flex-row justify-center items-center'><Star className='fill-[#f5c518] stroke-none w-3 h-3 mr-1' /> {infoMovie && (infoMovie?.vote_average).toFixed(1)}</p>
+                                    </div>
+                                    <div className='flex justify-center items-center w-0 h-0 bg-[#32343e] p-3 pl-5 pr-5 rounded-md'>
+                                        <p className='text-white text-sm font-bold'>HD</p>
+                                    </div>
+                                    <div className='flex justify-center items-center w-0 h-0 bg-[#32343e] p-3 pl-5 pr-5 rounded-md'>
+                                        <p className='text-white text-sm font-medium'>CC</p>
+                                    </div>
                                 </div>
                                 <p className='text-white text-sm font-medium'>{releaseDate()} • {(runTime())}</p>
                             </div>
@@ -206,7 +211,9 @@ const Movie = (props: {}) => {
                         <div className="absolute w-full h-full bg-custom-gradient z-0"></div>
                     </div>
                 </div>
-                <DetailedTab movieData={infoMovie} />
+                <div className=''>
+                    <DetailedTab movieData={infoMovie} />
+                </div>
                 <div className='px-8 sm:px-10 lg:px-24 mb-20'>
                     <CardComp movieData={similarMovies} slideTitle="Similar Movies" />
                 </div>

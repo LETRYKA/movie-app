@@ -61,12 +61,12 @@ const Hero = (props: { movieData: Movie[] }) => {
                                 <CarouselItem key={i} className="m-0 p-0">
                                     <div className="relative w-full pr-14 pl-14 sm:p-0 h-[600px] sm:h-[867px] bg-fixed bg-cover bg-top flex justify-center sm:justify-start items-center"
                                         style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie?.backdrop_path || '/default.jpg'})`, }}>
-                                        <div className="sm:ml-[8%] z-10 mt-36 sm:mt-16">
+                                        <div className="sm:ml-[8%] z-10 mt-60 sm:mt-16">
                                             <img
                                                 src={`https://image.tmdb.org/t/p/w780/${movie?.images?.logos?.[0]?.file_path || movie?.backdrop_path}`}
                                                 alt={`${movie?.title || 'Movie'} logo`}
                                                 className="w-[60%] mb-8 sm:w-96" />
-                                            <p className="text-sm sm:text-base text-white w-full sm:w-[40%]">{movie?.overview || 'No overview available'}</p>
+                                            <p className="hidden sm:flex text-sm sm:text-base text-white w-full sm:w-[40%]">{movie?.overview || 'No overview available'}</p>
                                             <div className="flex flex-row gap-4 mt-8">
                                                 <Button
                                                     onClick={() => router.push(`/watch/movie/${movie.id}`)}

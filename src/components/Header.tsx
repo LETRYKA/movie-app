@@ -89,9 +89,9 @@ const Header = (props: any) => {
                             <SelectItem key={i} onSelect={() => router.push(`/genre/${genre.id}/${genre.name}`)} value={genre.id}>{genre.name}</SelectItem>
                         ))}
                     </SelectContent>
-                </Select>
+                </Select> */}
                 <input onKeyDown={(e) => handleKeyDown(e, inputValue)} type="text" placeholder="Search" onChange={inputHandler} className={`bg-transparent outline-none border-b-2 text-white pb-1 transition-all duration-500 -ml-2 ${showInput ? 'w-72' : 'w-0'}`}></input>
-                <Search onClick={() => (inputShow(), searchHandler(inputValue))} color="white" className="hidden cursor-pointer lg:flex -ml-6" /> */}
+                <Search onClick={() => (inputShow(), searchHandler(inputValue))} color="white" className="hidden cursor-pointer lg:flex -ml-6" />
             </div>
             <div className="flex flex-row h-full w-auto justify-start items-center mt-2">
                 <Menu className="flex stroke-white mr-5 cursor-pointer lg:hidden" />

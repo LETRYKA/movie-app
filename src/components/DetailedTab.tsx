@@ -79,7 +79,7 @@ const DetailedTab = (props: any) => {
             </Card>
           </TabsContent>
           <TabsContent value="reviews">
-            <Card className='bg-transparent border-0'>
+            <Card className='bg-transparent border-0 shadow-none'>
               {/* <Card className='bg-[#101116] border-[#353843]'> */}
               <CardHeader>
                 <CardTitle className='text-white'>Reviews</CardTitle>

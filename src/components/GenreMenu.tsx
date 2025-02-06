@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -21,6 +21,7 @@ import axios from 'axios';
 
 const GenreMenu = () => {
     const router = useRouter();
+    const params = useParams();
     const searchParams = useSearchParams();
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -67,6 +68,16 @@ const GenreMenu = () => {
     };
 
     useEffect(() => {
+        if (params.id) {
+            const genreParams = params.id.toString().split(",");
+            setSelectedGenreIds(genreParams);
+        }
+    }, []);
+
+
+    console.log(`ID BN`, selectedGenreIds)
+
+    useEffect(() => {
         fetchGenre();
     }, [searchedGenreIds]);
 
@@ -78,10 +89,10 @@ const GenreMenu = () => {
                     Genres
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="ml-52 mt-2 w-auto bg-[#101116] text-white border-[#353843]">
+            <DropdownMenuContent align='start' className="mt-2 w-auto bg-[#101116] text-white border-[#353843]">
                 <DropdownMenuLabel className="text-lg ml-2">Genres</DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-[#353843]" />
-                <DropdownMenuGroup className="w-[650px] flex flex-row flex-wrap gap-3 justify-start items-center py-4 px-7">
+                <DropdownMenuGroup className="w-[170px] sm:w-[240px] md:w-[320px] lg:w-[650px] h-auto flex flex-row flex-wrap gap-4 justify-start items-center py-6 px-7">
                     {genres.map((item) => {
                         const genreId = item.id.toString();
                         const isSelected = selectedGenreIds.includes(genreId);
