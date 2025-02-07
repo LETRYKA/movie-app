@@ -6,12 +6,7 @@ import {
     DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuLabel,
-    DropdownMenuPortal,
     DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
@@ -27,7 +22,6 @@ const GenreMenu = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [genres, setGenres] = useState([]);
     const [selectedGenreIds, setSelectedGenreIds] = useState<string[]>([]);
-    const searchedGenreIds = searchParams.get("genreId");
 
     const fetchGenre = async () => {
         setIsLoading(true);
@@ -38,11 +32,6 @@ const GenreMenu = () => {
                     headers: {
                         Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
                     },
-                    params: {
-                        language: "en-US",
-                        append_to_response: "images,credits,videos",
-                        include_image_language: "en",
-                    },
                 }
             );
             setGenres(genre.data.genres);
@@ -52,34 +41,49 @@ const GenreMenu = () => {
         } finally {
             setIsLoading(false);
         }
+
+
     };
 
     const genreHandler = (genreId: string) => {
-        const updateGenres = selectedGenreIds.includes(genreId)
+        let updateGenres = selectedGenreIds.includes(genreId)
             ? selectedGenreIds.filter((item) => item !== genreId)
             : [...selectedGenreIds, genreId];
 
         setSelectedGenreIds(updateGenres);
 
-        const queryParms = new URLSearchParams();
-        queryParms.set("genreId=", updateGenres.join(","));
-        router.push(`/genre/${updateGenres.join(",")}/1`);
+        const urlCheck = window.location.pathname.startsWith("/info/movie")
+            ? "/genre"
+            : window.location.pathname.startsWith("/genre")
+                ? "/genre"
+                : "/genre";
 
+        const genre = encodeURIComponent(updateGenres.join(","));
+        router.push(`${urlCheck}/${genre}/1`);
     };
+
+
+
+    useEffect(() => {
+        console.log("Selected Genres: ", selectedGenreIds);
+    }, [selectedGenreIds]);
 
     useEffect(() => {
         if (params.id) {
-            const genreParams = params.id.toString().split(",");
-            setSelectedGenreIds(genreParams);
+            if (window.location.pathname.startsWith("/genre")) {
+                const paramGenre = (params.id).split(",");
+                setSelectedGenreIds(paramGenre);
+            } else {
+                setSelectedGenreIds([]);
+            }
         }
-    }, []);
+    }, [params.id]);
 
 
-    console.log(`ID BN`, selectedGenreIds)
 
     useEffect(() => {
         fetchGenre();
-    }, [searchedGenreIds]);
+    }, []);
 
     return (
         <DropdownMenu>
@@ -100,10 +104,10 @@ const GenreMenu = () => {
                             <div key={item.name} className="w-auto group-hover:bg-red-600">
                                 <Badge
                                     onClick={() => genreHandler(genreId)}
-                                    className={`bg-[#242631] hover:bg-[#67BDFF] cursor-pointer ${isSelected ? "bg-[#67BDFF]" : ""}`}
-                                >
+                                    className={`bg-[#242631] hover:bg-[#67BDFF] cursor-pointer ${isSelected ? "bg-[#67BDFF] text-white" : "text-[#B3B3B3]"}`}>
                                     {item.name}
                                 </Badge>
+
                             </div>
                         );
                     })}

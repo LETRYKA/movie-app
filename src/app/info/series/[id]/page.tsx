@@ -9,6 +9,8 @@ import { useParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import HeroSkeleton from '@/components/skeleton/HeroSkeleton';
+import { info } from 'console';
+import Head from 'next/head';
 
 interface MovieResponse {
     id: number;
@@ -124,6 +126,12 @@ const Movie = (props: {}) => {
         }
     }, [infoMovie]);
 
+    useEffect(() => {
+        if (infoMovie) {
+            document.title = `${infoMovie.name} - Nextjs+` || "Nextjs+ | Movie App";
+        }
+    }, [infoMovie]);
+
     return (
         <div> {isLoading ? (<HeroSkeleton />) :
             (<div className='relative'>
@@ -174,7 +182,7 @@ const Movie = (props: {}) => {
                                 </div>
                                 <p className='text-white text-sm font-medium'>{releaseDate()} • {infoMovie?.number_of_seasons} Seasons</p>
                             </div>
-                            <p className='text-slate-400 text-sm font-medium mt-2'>
+                            <p className='text-slate-400 text-sm font-medium mt-2 text-center'>
                                 {infoMovie?.genres?.[0]?.name}
                                 {infoMovie?.genres?.[1]?.name && infoMovie?.genres?.[1]?.name.length > 0 ? ` | ${infoMovie.genres[1].name}` : ""}
                                 {infoMovie?.genres?.[2]?.name && infoMovie?.genres?.[2]?.name.length > 0 ? ` | ${infoMovie.genres[2].name}` : ""}

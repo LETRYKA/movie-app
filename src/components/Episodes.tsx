@@ -13,6 +13,7 @@ import axios from 'axios';
 const Episodes = (props: any) => {
     const { seriesData } = props;
     const [episodesData, setEpisodesData] = useState<DataType[]>([]);
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -45,6 +46,18 @@ const Episodes = (props: any) => {
     };
 
     useEffect(() => {
+        const handleResize = () => {
+            setIsSmallScreen(window.innerWidth < 640);
+        };
+        window.addEventListener('resize', handleResize);
+        handleResize();
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    useEffect(() => {
         if (seriesData) {
             fetchInfo();
         }
@@ -67,17 +80,17 @@ const Episodes = (props: any) => {
                             <TabsContent key={season.id} value={`season-${season.season_number}`}>
                                 <Card className="bg-transparent border-0 w-full shadow-none">
                                     <CardContent className="p-0">
-                                        <Carousel className="w-full max-w-full">
-                                            <CarouselContent className="-ml-1">
+                                        <Carousel orientation={`${isSmallScreen ? 'vertical' : 'horizontal'}`} className="w-full max-w-full">
+                                            <CarouselContent className={`-ml-1 ${isSmallScreen ? 'h-[1000px]' : 'h-auto'}`} >
                                                 {season.episodes.map((episode) => (
-                                                    <CarouselItem key={episode.id} className="sm:basis-[56%] md:basis-[35%] lg:basis-[27%] xl:basis-[23%] pl-2">
-                                                        <div className="p-1">
+                                                    <CarouselItem key={episode.id} className="pt-1 basis-1/5 sm:basis-[56%] md:basis-[35%] lg:basis-[27%] xl:basis-[23%] pl-2">
+                                                        <div className="p-1 sm:pt-2">
                                                             <Card
                                                                 onClick={() => router.push(`/watch/series/${seriesData.id}/${season.season_number}/${episode.episode_number}`)}
                                                                 style={{
                                                                     backgroundImage: `url(${process.env.TMDB_IMAGE_SERVICE_URL}/original${episode?.still_path})`,
                                                                 }}
-                                                                className="bg-slate-700 group transform-transition duration-300 ease-in-out hover:scale-105 w-full h-auto flex justify-center items-center aspect-[4/2] bg-cover bg-center border-[#353843] cursor-pointer">
+                                                                className="mt-0 sm:mt-2 bg-slate-700 group transform-transition duration-300 ease-in-out hover:scale-105 w-full h-auto flex justify-center items-center aspect-[4/2] bg-cover bg-center border-[#353843] cursor-pointer">
                                                                 <CardContent className="flex items-center justify-center p-6 relative w-full h-full">
                                                                     <Play strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-310 ease-in-out stroke-none fill-white w-8 h-8 opacity-0 group-hover:opacity-100" />
                                                                     <p className="absolute right-4 bottom-3 text-white text-sm font-medium bg-black/40 rounded-lg py-1 px-2">
@@ -99,7 +112,8 @@ const Episodes = (props: any) => {
                                                     </CarouselItem>
                                                 ))}
                                             </CarouselContent>
-                                            <div className="absolute w-28 h-60 bg-fade-gradient-hr right-0 -top-5 z-10"></div>
+                                            <div className={`${isSmallScreen ? `flex` : 'hidden'} absolute w-full h-32 bg-fade-gradient-v bottom-0 z-10`}></div>
+                                            <div className={`${isSmallScreen ? `hidden` : 'flex'} absolute w-28 h-60 bg-fade-gradient-hr right-0 -top-5 z-10`}></div>
                                             <CarouselNext />
                                         </Carousel>
                                     </CardContent>
@@ -107,8 +121,9 @@ const Episodes = (props: any) => {
                             </TabsContent>
                         ))}
                     </Tabs>
-                </div>)}
-        </div>
+                </div>)
+            }
+        </div >
     );
 };
 

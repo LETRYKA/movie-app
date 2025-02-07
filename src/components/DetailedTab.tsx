@@ -10,6 +10,7 @@ import axios from 'axios';
 const DetailedTab = (props: any) => {
   const { movieData, slideTitle, series } = props;
   const [detailedMovieData, setDetailedMovieData] = useState([]);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,6 +48,18 @@ const DetailedTab = (props: any) => {
   }
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 640);
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
     if (movieData) {
       fetchInfo();
     }
@@ -55,7 +68,7 @@ const DetailedTab = (props: any) => {
   return (
     <div> {isLoading ? (<DetailedTabSkeleton />) :
       (<div className='relative w-full flex justify-center items-center px-8 sm:px-10 lg:px-24 mb-20 z-10 bg-[#1b1d29]'>
-        <Tabs defaultValue="casts" className="w-full">
+        <Tabs defaultValue={`${isSmallScreen ? '' : 'casts'}`} className="w-full">
           <TabsList className="grid w-full sm:w-[400px] grid-cols-2 bg-[#101116] text-white">
             <TabsTrigger value="casts">Casts</TabsTrigger>
             <TabsTrigger value="reviews">Reviews</TabsTrigger>
