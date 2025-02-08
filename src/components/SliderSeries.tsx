@@ -91,7 +91,7 @@ const SliderSeries = (props: SliderSeriesProps) => {
                         <Carousel className="w-full relative">
                             <CarouselContent className='pl-2 pt-2'>
                                 {detailedMovieData.map((tv) => (
-                                    <CarouselItem key={tv.id} onClick={() => router.push(`/info/series/${tv.id}`)} className={`${type ? 'basis-[80%]' : 'basis-[40%]'} ${type ? 'sm:basis-[50%]' : 'sm:basis-[23%]'} ${type ? 'md:basis-[35%]' : 'md:basis-[23%]'} ${type ? 'lg:basis-[27%]' : 'lg:basis-[18%]'} ${type ? 'xl:basis-[19%]' : 'xl:basis-[13%]'}`}>
+                                    <CarouselItem key={tv.id} onClick={() => router.push(`/info/series/${tv.id}`)} className={`${type ? 'basis-[70%]' : 'basis-[40%]'} ${type ? 'sm:basis-[50%]' : 'sm:basis-[28%]'} ${type ? 'md:basis-[35%]' : 'md:basis-[23%]'} ${type ? 'lg:basis-[27%]' : 'lg:basis-[18%]'} ${type ? 'xl:basis-[19%]' : 'xl:basis-[13%]'}`}>
                                         <div className="p-1">
                                             <Card className={`${type ? ('h-auto') : ('h-auto')} ${type ? 'aspect-[4/2]' : 'aspect-[7/10]'} bg-slate-700 overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105`} style={{ backgroundImage: type ? `url(${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${tv?.images?.backdrops?.[0]?.file_path || tv?.backdrop_path})` : `url(${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${tv?.images?.posters?.[0]?.file_path || tv?.backdrop_path})` }} >
                                                 <CardContent className="card flex relative items-center justify-center h-full">
