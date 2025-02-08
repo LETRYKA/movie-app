@@ -18,7 +18,7 @@ export type DataType = {
     };
     updated_at: string;
   }>;
-  backdrop_path: string;
+  media_type: string;
   credits: {
     cast: Array<{
       adult: boolean;

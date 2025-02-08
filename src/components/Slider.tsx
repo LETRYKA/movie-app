@@ -82,7 +82,7 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; category: strin
                                         onClick={() => router.push(`/info/movie/${movie.id}`)}
                                         className="basis-[80%] sm:basis-[50%] md:basis-[35%] lg:basis-[27%] xl:basis-[19%] ml-1 mt-2">
                                         <Card
-                                            className="aspect-[4/2] h-auto overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105"
+                                            className="bg-slate-700 aspect-[4/2] h-auto overflow-hidden cursor-pointer border border-[#353843] bg-cover bg-center transform transition-transform duration-300 ease-in-out hover:scale-105"
                                             style={{
                                                 backgroundImage: `url(${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${movie?.images?.backdrops?.[0]?.file_path || movie.backdrop_path || 'default.jpg'})`,
                                             }}>

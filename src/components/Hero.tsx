@@ -1,16 +1,16 @@
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import { MovieDetailType } from '@/types/MovieDetailType';
 import { Skeleton } from "@/components/ui/skeleton";
 import HeroSkeleton from "./skeleton/HeroSkeleton";
 import { Button } from "@/components/ui/button";
 import Autoplay from "embla-carousel-autoplay";
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { DataType } from "@/types/DataType";
 import { Play, Info } from 'lucide-react';
 import axios from 'axios';
 
-const Hero = (props: { movieData: Movie[] }) => {
-    const [detailedMovieData, setDetailedMovieData] = useState<MovieDetailType[]>([]);
+const Hero = (props) => {
+    const [detailedMovieData, setDetailedMovieData] = useState<DataType[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const { movieData } = props;
     const router = useRouter();

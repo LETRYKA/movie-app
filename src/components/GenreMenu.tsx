@@ -44,7 +44,6 @@ const GenreMenu = () => {
 
 
     };
-
     const genreHandler = (genreId: string) => {
         let updateGenres = selectedGenreIds.includes(genreId)
             ? selectedGenreIds.filter((item) => item !== genreId)
@@ -62,17 +61,11 @@ const GenreMenu = () => {
         router.push(`${urlCheck}/${genre}/1`);
     };
 
-
-
-    useEffect(() => {
-        console.log("Selected Genres: ", selectedGenreIds);
-    }, [selectedGenreIds]);
-
     useEffect(() => {
         if (params.id) {
             if (window.location.pathname.startsWith("/genre")) {
-                const paramGenre = (params.id).split(",");
-                setSelectedGenreIds(paramGenre);
+                const decodedIds = decodeURIComponent(params.id).split(",");
+                setSelectedGenreIds(decodedIds);
             } else {
                 setSelectedGenreIds([]);
             }

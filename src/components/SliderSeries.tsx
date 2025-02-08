@@ -4,32 +4,32 @@ import { ChevronRight, Star, Play } from 'lucide-react';
 import { Card, CardContent } from "./ui/card";
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { DataType } from "@/types/DataType";
 import axios from 'axios';
 
-const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
-const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
-const TMDB_API_KEY = process.env.TMDB_API_KEY;
+interface SliderSeriesProps {
+    movieData: DataType[];
+    slideTitle: string;
+    type: boolean;
+    category: string;
+}
 
 interface Movie {
     id: number;
-    title: string;
-    posterPath: string;
-    vote_average: number;
+    name: string;
+    media_type: string;
     backdrop_path: string;
-    name?: string;
-    media_type: 'movie' | 'tv';
-    number_of_episodes?: number;
-    genres?: Array<{ name: string }>;
+    vote_average: number;
+    genres?: { name: string }[];
     images?: {
-        backdrops?: Array<{ file_path: string }>;
-        posters?: Array<{ file_path: string }>;
+        backdrops?: { file_path: string }[];
+        posters?: { file_path: string }[];
     };
-    last_air_date: number;
-    slideTitle: string;
-    type?: boolean
+    number_of_episodes?: number;
+    last_air_date?: string;
 }
 
-const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; type?: boolean; category: string; }) => {
+const SliderSeries = (props: SliderSeriesProps) => {
     const { movieData, slideTitle, type, category } = props;
     const [detailedMovieData, setDetailedMovieData] = useState<Movie[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -51,7 +51,6 @@ const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; type?: bo
                     },
                 })
             );
-            // await new Promise((resolve) => setTimeout(resolve, 30000))
             const responses = await Promise.all(requests);
             const tvDetailedData = responses.map((res) => res.data);
             setDetailedMovieData(tvDetailedData);
@@ -65,7 +64,7 @@ const SliderSeries = (props: { movieData: Movie[]; slideTitle: string; type?: bo
 
     const releaseDate = (tv: Movie) => {
         const get = tv.last_air_date;
-        const response = get.toString().split('-', 1);
+        const response = get?.toString().split('-', 1);
         return response ? response[0] : "";
     }
 
