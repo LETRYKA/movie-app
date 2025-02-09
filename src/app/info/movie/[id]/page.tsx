@@ -145,6 +145,13 @@ const Movie = (props: {}) => {
         }
     }, [showTrailer]);
 
+    useEffect(() => {
+        if (infoMovie) {
+            document.title = `${infoMovie.title} - Nextjs+` || "Nextjs+ | Movie App";
+        }
+    }, [infoMovie]);
+
+
     return (
         <div> {isLoading ? (<HeroSkeleton />) :
             (<div className='relative'>

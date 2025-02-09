@@ -64,8 +64,8 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; category: strin
                     <div className="w-full flex justify-start flex-col overflow-hidden">
                         <div className="flex flex-row justify-between">
                             <div className="h-6 ml-2 mb-5 flex flex-row justify-center items-center">
-                                <div className="w-[2px] h-full bg-red-500"></div>
-                                <h1 className="text-xl text-white font-semibold ml-2">{slideTitle}</h1>
+                                <div className="w-[2px] h-full bg-[--destructive]"></div>
+                                <h1 className="text-xl text-[--white] font-semibold ml-2">{slideTitle}</h1>
                             </div>
                             <h1
                                 onClick={() => router.push(`/more/${category}/1`)}
@@ -90,16 +90,16 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; category: strin
                                         </Card>
 
                                         <div className="mt-3 flex flex-col">
-                                            <p className="text-white text-start text-lg font-medium">{movie.title}</p>
+                                            <p className="text-[--white] text-start text-lg font-medium">{movie.title}</p>
                                             <div className="flex flex-row -mt-[2px]">
-                                                <p className="text-white text-start text-sm font-medium flex flex-row items-center">
-                                                    <Star className="fill-[#f5c518] w-[14px] stroke-none mr-1" />{' '}
+                                                <p className="text-[--white] text-start text-sm font-medium flex flex-row items-center">
+                                                    <Star className="fill-[--ring] w-[14px] stroke-none mr-1" />{' '}
                                                     {(movie.vote_average).toFixed(1)}
                                                 </p>
                                                 <p className="text-slate-500 text-start text-base font-medium flex flex-row items-center ml-2">
                                                     |{' '}
                                                     <span className="ml-2 text-sm">
-                                                        {movie?.genres?.[0]?.name || 'Genre N/A'}
+                                                        {movie?.genres?.[0]?.name || ''}
                                                     </span>
                                                 </p>
                                             </div>

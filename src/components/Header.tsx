@@ -62,7 +62,6 @@ const Header = (props: any) => {
             }
         }
     }
-
     const handleKeyDown = (event, inputValue) => {
         if (event.key === "Enter") {
             searchHandler(inputValue);
@@ -77,7 +76,7 @@ const Header = (props: any) => {
     return (
         <div className="w-full h-20 bg-gradient-to-b from-[#0E1012]/50 to-[black]/0 flex justify-between z-30 pr-10 pl-10 lg:pl-24 lg:pr-24">
             <div className="flex flex-row h-full w-auto justify-start items-center gap-10 mt-2 z-10">
-                <a href="/home"><img src="/imgs/logo.png" width={79} height={48} /></a>
+                <a href="/home"><img src="/imgs/logo.png" width={90} /></a>
                 <GenreMenu />
                 {/* <Select onValueChange={(value) => router.push(`/genre/${value}/1`)}>
                     <SelectTrigger className="hidden w-[180px] lg:flex">

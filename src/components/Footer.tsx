@@ -13,7 +13,7 @@ const Footer = (props: any) => {
                 <li>DMCA Policy</li>
             </ul>
             <p className="w-[70%] lg:w-2/6 text-center text-white text-xs sm:text-sm font-ligth mt-10">Deze site linkt naar content van derden en host geen bestanden. Auteursrechtkwesties dienen te worden gericht aan de betreffende provider.</p>
-            <p className="w-7/12 text-center text-white text-xs sm:text-sm font-ligth mt-10">© Nextjs+. Developed by LETRYKA</p>
+            <p className="w-7/12 text-center text-white text-xs sm:text-sm font-ligth mt-10">© Sphere+ | Developed by ARYKA</p>
         </div>
     );
 

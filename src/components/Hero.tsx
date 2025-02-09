@@ -57,7 +57,7 @@ const Hero = (props) => {
                                 <Skeleton className="w-full h-[20%] sm:h-[10%] bg-gray-700 rounded-md" />
                             </div>
                         ) : (
-                            detailedMovieData.slice(6, 10).map((movie, i) => (
+                            detailedMovieData.slice(15, 20).map((movie, i) => (
                                 <CarouselItem key={i} className="m-0 p-0">
                                     <div className="relative w-full pr-14 pl-14 sm:p-0 h-[600px] sm:h-[867px] bg-fixed bg-cover bg-top flex justify-center sm:justify-start items-center"
                                         style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie?.backdrop_path || '/default.jpg'})`, }}>
@@ -68,10 +68,10 @@ const Hero = (props) => {
                                                 className="w-[60%] mb-8 sm:w-96" />
                                             <p className="hidden sm:flex text-sm sm:text-base text-white w-full sm:w-[40%]">{movie?.overview || 'No overview available'}</p>
                                             <div className="flex flex-row gap-4 mt-8">
-                                                <Button
+                                                <Button variant="secondary"
                                                     onClick={() => router.push(`/watch/movie/${movie.id}`)}
                                                     variant="outline"
-                                                    className="pt-5 pb-5 pl-8 pr-8 text-base font-bold text-[#1A1D29] flex items-center">
+                                                    className="pt-5 pb-5 pl-8 pr-8 text-base font-bold flex items-center">
                                                     <Play className="fill-[#1A1D29]" />PLAY
                                                 </Button>
                                                 <Button
