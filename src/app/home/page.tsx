@@ -114,7 +114,7 @@ export default function Home() {
     <div>
       {errorMessage && <div className="error-message text-red-500">{errorMessage}</div>}
       <Hero movieData={playingMovieData} />
-      <div className="ml-[5.5%]">
+      <div className="ml-[4%]">
         <Slider movieData={popularMovieData} slideTitle="Trending movies" category="popular" />
       </div>
       <div className="w-full flex justify-center items-center mb-12 mt-12 px-8 sm:px-10 lg:px-32">
@@ -127,16 +127,16 @@ export default function Home() {
           <CatCard onClick={() => router.push(`/collection/10/star`)} logo={"/imgs/star.jpg"} video={"/imgs/star-v.mp4"} />
         </div>
       </div>
-      <div className="mt-12 ml-[5.5%]">
+      <div className="mt-12 ml-[4%]">
         <Slider movieData={topRatedMovieData} slideTitle="Top Rated Movies" category="top_rated" />
       </div>
-      <div className="mt-12 ml-[5.5%]">
+      <div className="mt-12 ml-[4%]">
         <SliderSeries movieData={trendingSeriesData} slideTitle="Trending Series" category="trending" />
       </div>
-      <div className="mt-12 ml-[5.5%]">
+      <div className="mt-12 ml-[4%]">
         <SliderSeries movieData={topRatedSeriesData} slideTitle="Top Rated Series" category="top_rated" />
       </div>
-      <div className="mt-12 mb-20 ml-[5.5%]">
+      <div className="mt-12 mb-20 ml-[4%]">
         <SliderSeries movieData={trendingKD} slideTitle="Kdramas" category="kdrama" type={true} />
       </div>
     </div>

@@ -2,7 +2,7 @@ import { type Config } from "tailwindcss";
 import tailwindAnimate from "tailwindcss-animate";
 
 const config: Config = {
-	darkMode: "class",
+	darkMode: "class",  // Enable dark mode by class
 	content: [
 		"./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
 		"./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -21,7 +21,7 @@ const config: Config = {
 					"linear-gradient(90deg, rgba(27,29,41,0) 40%, rgba(27,29,41,1) 100%)",
 			},
 			colors: {
-				background: "hsl(var(--background))",
+				background: "#1b1d29",
 				foreground: "hsl(var(--foreground))",
 				card: {
 					DEFAULT: "hsl(var(--card))",
@@ -36,7 +36,7 @@ const config: Config = {
 					foreground: "hsl(var(--primary-foreground))",
 				},
 				secondary: {
-					DEFAULT: "hsl(var(--secondary))",
+					DEFAULT: "#67BDFF", // Secondary color (activated buttons)
 					foreground: "hsl(var(--secondary-foreground))",
 				},
 				muted: {
@@ -54,6 +54,9 @@ const config: Config = {
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
 				ring: "hsl(var(--ring))",
+				widget: "#242631",
+				footer: "#090B13",
+				star: "#ffdb93",
 				chart: {
 					1: "hsl(var(--chart-1))",
 					2: "hsl(var(--chart-2))",

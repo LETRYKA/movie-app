@@ -1,4 +1,5 @@
 "use client"
+import HeroSkeleton from '@/components/skeleton/HeroSkeleton';
 import { Play, Plus, Star, UsersRound } from 'lucide-react';
 import DetailedTab from '@/components/DetailedTab';
 import { Button } from '@/components/ui/button';
@@ -6,11 +7,8 @@ import CardComp from '@/components/CardComp';
 import Episodes from '@/components/Episodes';
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import Link from "next/link";
 import axios from 'axios';
-import HeroSkeleton from '@/components/skeleton/HeroSkeleton';
-import { info } from 'console';
-import Head from 'next/head';
 
 interface MovieResponse {
     id: number;
@@ -35,7 +33,6 @@ const Movie = (props: {}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [onLoad, setOnLoad] = useState(false);
     const params = useParams();
-    const router = useRouter();
 
     const fetchInfo = async () => {
         try {
@@ -144,7 +141,7 @@ const Movie = (props: {}) => {
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
-                        className='z-50' />
+                        className='z-50 rounded-2xl' />
                     <div onClick={() => setShowTrailer(false)} className='absolute w-full h-full bg-black z-0 opacity-50'></div>
                 </div>)}
                 {/* Page */}
@@ -167,20 +164,20 @@ const Movie = (props: {}) => {
                             <img src={`${process.env.TMDB_IMAGE_SERVICE_URL}/w780/${infoMovie?.images?.logos?.[1]?.file_path || infoMovie?.images?.logos?.[0]?.file_path}`} className="w-80 -mt-4 sm:w-96 mb-8" />
                             <div className='flex flex-col sm:flex-row justify-start items-center gap-2'>
                                 <div className='flex flex-row justify-start items-center gap-2'>
-                                    {/* <div className='flex justify-center items-center w-0 h-0 bg-[#32343e] p-3 pl-5 pr-5 rounded-md'>
-                                        <p className='text-white text-sm font-semibold'>{infoMovie?.release_dates?.results?.[41]?.release_dates?.[0]?.certification}+</p>
+                                    {/* <div className='flex justify-center items-center w-0 h-0 bg-[--widget-background] p-3 pl-5 pr-5 rounded-md'>
+                                        <p className='[--text-color] text-sm font-semibold'>{infoMovie?.release_dates?.results?.[41]?.release_dates?.[0]?.certification}+</p>
                                     </div> */}
-                                    <div className='flex flex-row justify-center items-center h-0 bg-[#32343e] p-3 px-2 rounded-md'>
-                                        <p className='text-white text-sm font-medium flex flex-row justify-center items-center'><Star className='fill-[#f5c518] stroke-none w-3 h-3 mr-1' /> {infoMovie && (infoMovie?.vote_average).toFixed(1)}</p>
+                                    <div className='flex flex-row justify-center items-center h-0 bg-[--widget-background] p-3 px-2 rounded-md'>
+                                        <p className='[--text-color] text-sm font-medium flex flex-row justify-center items-center'><Star className='fill-[#f5c518] stroke-none w-3 h-3 mr-1' /> {infoMovie && (infoMovie?.vote_average).toFixed(1)}</p>
                                     </div>
-                                    <div className='flex justify-center items-center w-0 h-0 bg-[#32343e] p-3 pl-5 pr-5 rounded-md'>
-                                        <p className='text-white text-sm font-bold'>HD</p>
+                                    <div className='flex justify-center items-center w-0 h-0 bg-[--widget-background] p-3 pl-5 pr-5 rounded-md'>
+                                        <p className='[--text-color] text-sm font-bold'>HD</p>
                                     </div>
-                                    <div className='flex justify-center items-center w-0 h-0 bg-[#32343e] p-3 pl-5 pr-5 rounded-md'>
-                                        <p className='text-white text-sm font-medium'>CC</p>
+                                    <div className='flex justify-center items-center w-0 h-0 bg-[--widget-background] p-3 pl-5 pr-5 rounded-md'>
+                                        <p className='[--text-color] text-sm font-medium'>CC</p>
                                     </div>
                                 </div>
-                                <p className='text-white text-sm font-medium'>{releaseDate()} • {infoMovie?.number_of_seasons} Seasons</p>
+                                <p className='[--text-color] text-sm font-medium'>{releaseDate()} • {infoMovie?.number_of_seasons} Seasons</p>
                             </div>
                             <p className='text-slate-400 text-sm font-medium mt-2 text-center'>
                                 {infoMovie?.genres?.[0]?.name}
@@ -188,12 +185,14 @@ const Movie = (props: {}) => {
                                 {infoMovie?.genres?.[2]?.name && infoMovie?.genres?.[2]?.name.length > 0 ? ` | ${infoMovie.genres[2].name}` : ""}
                             </p>
                             <div className="flex flex-row gap-4 mt-8 mb-12">
-                                <Button onClick={() => router.push(`/watch/series/${infoMovie?.id}/1/1`)} variant="outline" className="pt-5 pb-5 pl-8 pr-8 text-base font-bold text-[#1A1D29] flex items-center"><Play className="fill-[#1A1D29]" />PLAY</Button>
-                                <Button onClick={() => { setShowTrailer(true); window.scrollTo({ top: 0, behavior: "smooth" }) }} variant="outline" className="hidden sm:flex pt-5 pb-5 pl-8 pr-8 text-base font-bold text-[white] items-center bg-transparent hover:bg-[black]/40 hover:text-[white]">TRAILER</Button>
-                                <Button variant="outline" className="pt-5 pb-5 pl-3 pr-3 text-base font-bold text-[white] flex items-center bg-transparent hover:bg-[black]/40 hover:text-[white] rounded-full"><Plus /></Button>
-                                <Button variant="outline" className="hidden sm:flex pt-5 pb-5 pl-3 pr-3 text-base font-bold text-[white] items-center bg-transparent hover:bg-[black]/40 hover:text-[white] rounded-full"><UsersRound /></Button>
+                                <Link href={`/watch/series/${infoMovie?.id}/1/1`}>
+                                    <Button className="pt-5 pb-5 pl-8 pr-8 text-base font-bold flex items-center border group hover:text-[--text-color]">  <Play className="fill-[--main-background] group-hover:fill-[--text-color] stroke-none" />PLAY</Button>
+                                </Link>
+                                <Button onClick={() => { setShowTrailer(true); window.scrollTo({ top: 0, behavior: "smooth" }) }} className="hidden sm:flex pt-5 pb-5 pl-8 pr-8 text-base font-bold items-center border hover:text-[--text-color]">TRAILER</Button>
+                                <Button variant="outline" className="hidden bg-transparent sm:flex pt-5 pb-5 pl-3 pr-3 text-base font-bold items-center rounded-full"><Plus /></Button>
+                                <Button variant="outline" className="hidden bg-transparent sm:flex pt-5 pb-5 pl-3 pr-3 text-base font-bold items-center rounded-full"><UsersRound /></Button>
                             </div>
-                            <p className="hidden sm:flex text-sm sm:text-base text-slate-400 w-[80%] lg:w-[47%] mt-7 overflow-hidden h-[100px] md:h-auto">{infoMovie?.overview}</p>
+                            <p className="hidden sm:flex text-sm sm:text-base text-slate-400 w-[80%] lg:w-[47%] overflow-hidden h-[100px] md:h-auto">{infoMovie?.overview}</p>
                         </div>
                         <div className="absolute w-full h-full bg-custom-gradient z-0"></div>
                     </div>

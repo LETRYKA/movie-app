@@ -67,11 +67,11 @@ const DetailedTab = (props: any) => {
 
   return (
     <div> {isLoading ? (<DetailedTabSkeleton />) :
-      (<div className='relative w-full flex justify-center items-center px-8 sm:px-10 lg:px-24 mb-20 z-10 bg-[#1b1d29]'>
+      (<div className='relative w-full flex justify-center items-center px-8 sm:px-10 lg:px-24 mb-20'>
         <Tabs defaultValue={`${isSmallScreen ? '' : 'casts'}`} className="w-full">
-          <TabsList className="grid w-full sm:w-[400px] grid-cols-2 bg-[#101116] text-white">
-            <TabsTrigger value="casts">Casts</TabsTrigger>
-            <TabsTrigger value="reviews">Reviews</TabsTrigger>
+          <TabsList className="grid w-full sm:w-[400px] grid-cols-2 bg-[--darker-background] text-white">
+            <TabsTrigger className="data-[state='active']:bg-[white]" value="casts">Casts</TabsTrigger>
+            <TabsTrigger className="data-[state='active']:bg-[white]" value="reviews">Reviews</TabsTrigger>
           </TabsList>
           <TabsContent value="casts">
             <Card className='bg-transparent border-0 shadow-none'>
@@ -100,7 +100,7 @@ const DetailedTab = (props: any) => {
               <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                 {detailedMovieData?.reviews?.results?.slice(0, 2).map((movie, index) => (
                   <div key={movie.id} className='w-full'>
-                    <div className='w-full h-auto border border-[#353843] rounded-lg flex flex-col justfiy-center items-center'>
+                    <div className='w-full h-auto border border-[--main-border] rounded-lg flex flex-col justfiy-center items-center'>
                       <div className='w-[90%] lg:w-[95%] mt-4 flex flex-row justify-between'>
                         <div className='flex flex-row gap-3'>
                           <div className='bg-cover bg-center w-10 h-10 rounded-full' style={{ backgroundImage: `url(https://tr.rbxcdn.com/180DAY-4ab626f2df7ffe788a3b06500d127a99/420/420/Hat/Webp/noFilter)` }}></div>
@@ -109,11 +109,11 @@ const DetailedTab = (props: any) => {
                             <p className='text-slate-400 font-medium text-sm'>{reviewDate(movie)}</p>
                           </div>
                         </div>
-                        {movie.author_details?.rating ? (<p className='flex flex-row items-center font-bold text-white text-base'><Star className='fill-[#f5c518] stroke-none w-4 mr-1' /> {(movie.author_details?.rating)}<span className='text-slate-500 font-medium ml-1 text-sm'>/10</span></p>)
+                        {movie.author_details?.rating ? (<p className='flex flex-row items-center font-bold text-white text-base'><Star className='fill-[--star-color] stroke-none w-4 mr-1' /> {(movie.author_details?.rating)}<span className='text-slate-500 font-medium ml-1 text-sm'>/10</span></p>)
                           : (<p className='text-slate-500 font-medium ml-1 text-sm'>No rating</p>)
                         }
                       </div>
-                      <div className='w-[90%] lg:w-[95%] my-5 h-auto border border-[#353843] rounded-lg p-5'>
+                      <div className='w-[90%] lg:w-[95%] my-5 h-auto border border-[--main-border] rounded-lg p-5'>
                         <p className='text-slate-400 text-sm leading-relaxed'>{movie.content}</p>
                       </div>
                     </div>

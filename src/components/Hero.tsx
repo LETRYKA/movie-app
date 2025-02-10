@@ -66,19 +66,17 @@ const Hero = (props) => {
                                                 src={`https://image.tmdb.org/t/p/w780/${movie?.images?.logos?.[0]?.file_path || movie?.backdrop_path}`}
                                                 alt={`${movie?.title || 'Movie'} logo`}
                                                 className="w-[60%] mb-8 sm:w-96" />
-                                            <p className="hidden sm:flex text-sm sm:text-base text-white w-full sm:w-[40%]">{movie?.overview || 'No overview available'}</p>
+                                            <p className="hidden sm:flex text-sm sm:text-base text-[--text-color] w-full sm:w-[40%]">{movie?.overview || 'No overview available'}</p>
                                             <div className="flex flex-row gap-4 mt-8">
-                                                <Button variant="secondary"
+                                                <Button
                                                     onClick={() => router.push(`/watch/movie/${movie.id}`)}
-                                                    variant="outline"
-                                                    className="pt-5 pb-5 pl-8 pr-8 text-base font-bold flex items-center">
-                                                    <Play className="fill-[#1A1D29]" />PLAY
+                                                    className="pt-5 pb-5 pl-8 pr-8 text-base font-bold flex items-center border group hover:text-[--text-color]">
+                                                    <Play className="fill-[--main-background] group-hover:fill-[--text-color] stroke-none" />PLAY
                                                 </Button>
                                                 <Button
                                                     onClick={() => router.push(`/info/movie/${movie.id}`)}
-                                                    variant="outline"
-                                                    className="pt-5 pb-5 pl-8 pr-8 text-base font-bold text-[white] flex items-center bg-transparent hover:bg-[black]/40 hover:text-[white]">
-                                                    <Info className="stroke-[white]" />INFO
+                                                    className="pt-5 pb-5 pl-8 pr-8 text-base font-bold flex items-center border group hover:text-[--text-color]">
+                                                    <Info className="stroke-[--main-background] group-hover:stroke-[--text-color]" />INFO
                                                 </Button>
                                             </div>
                                         </div>

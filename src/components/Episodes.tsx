@@ -4,9 +4,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import EpisodesSkeleton from "./skeleton/EpisodesSkeleton";
 import { Card, CardContent } from "@/components/ui/card";
 import { DataType } from "@/types/DataType";
-import { useRouter } from "next/navigation";
 import { useState, useEffect } from 'react';
 import { Play } from 'lucide-react';
+import Link from "next/link";
 import axios from 'axios';
 
 
@@ -16,7 +16,6 @@ const Episodes = (props: any) => {
     const [isSmallScreen, setIsSmallScreen] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const router = useRouter();
 
     const fetchInfo = async () => {
         try {
@@ -66,11 +65,11 @@ const Episodes = (props: any) => {
     return (
         <div>
             {isLoading ? (<EpisodesSkeleton />) :
-                (<div className="relative w-full flex justify-center items-center mb-20 px-8 sm:px-10 lg:px-24 bg-[#1b1d29] z-20">
+                (<div className="relative w-full flex justify-center items-center mb-20 px-8 sm:px-10 lg:px-24 z-20">
                     <Tabs defaultValue="season-1" className="w-full">
                         {episodesData.map((season, index) => (
-                            <TabsList key={season._id} className="ml-2 mb-2 bg-[#101116] text-white">
-                                <TabsTrigger value={`season-${season.season_number}`}>
+                            <TabsList key={season._id} className="ml-2 mb-2 bg-[--darker-background] text-white">
+                                <TabsTrigger value={`season-${season.season_number}`} className="data-[state='active']:bg-[white]">
                                     {season.name || `Season ${season.season_number}`}
                                 </TabsTrigger>
                             </TabsList>
@@ -85,19 +84,20 @@ const Episodes = (props: any) => {
                                                 {season.episodes.map((episode) => (
                                                     <CarouselItem key={episode.id} className="pt-1 basis-1/5 sm:basis-[56%] md:basis-[35%] lg:basis-[27%] xl:basis-[23%] pl-2">
                                                         <div className="p-1 sm:pt-2">
-                                                            <Card
-                                                                onClick={() => router.push(`/watch/series/${seriesData.id}/${season.season_number}/${episode.episode_number}`)}
-                                                                style={{
-                                                                    backgroundImage: `url(${process.env.TMDB_IMAGE_SERVICE_URL}/original${episode?.still_path})`,
-                                                                }}
-                                                                className="mt-0 sm:mt-2 bg-slate-700 group transform-transition duration-300 ease-in-out hover:scale-105 w-full h-auto flex justify-center items-center aspect-[4/2] bg-cover bg-center border-[#353843] cursor-pointer">
-                                                                <CardContent className="flex items-center justify-center p-6 relative w-full h-full">
-                                                                    <Play strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-310 ease-in-out stroke-none fill-white w-8 h-8 opacity-0 group-hover:opacity-100" />
-                                                                    <p className="absolute right-4 bottom-3 text-white text-sm font-medium bg-black/40 rounded-lg py-1 px-2">
-                                                                        {episode.runtime} min
-                                                                    </p>
-                                                                </CardContent>
-                                                            </Card>
+                                                            <Link href={`/watch/series/${seriesData.id}/${season.season_number}/${episode.episode_number}`}>
+                                                                <Card
+                                                                    style={{
+                                                                        backgroundImage: `url(${process.env.TMDB_IMAGE_SERVICE_URL}/original${episode?.still_path})`,
+                                                                    }}
+                                                                    className="mt-0 sm:mt-2 bg-slate-700 group transform-transition duration-300 ease-in-out hover:scale-105 w-full h-auto flex justify-center items-center aspect-[4/2] bg-cover bg-center border-[--main-border] cursor-pointer">
+                                                                    <CardContent className="flex items-center justify-center p-6 relative w-full h-full">
+                                                                        <Play strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-310 ease-in-out stroke-none fill-white w-8 h-8 opacity-0 group-hover:opacity-100" />
+                                                                        <p className="absolute right-4 bottom-3 text-white text-sm font-medium bg-black/40 rounded-lg py-1 px-2">
+                                                                            {episode.runtime} min
+                                                                        </p>
+                                                                    </CardContent>
+                                                                </Card>
+                                                            </Link>
                                                             <div className="mt-2 flex flex-col">
                                                                 <p className="text-white text-start text-base font-bold">
                                                                     Episode {episode.episode_number}

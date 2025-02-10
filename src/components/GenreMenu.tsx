@@ -80,13 +80,13 @@ const GenreMenu = () => {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger asChild className='bg-transparent'>
                 <Button variant="outline">
                     <Clapperboard width={18} className="mr-2" />
                     Genres
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align='start' className="mt-2 w-auto bg-[#101116] text-white border-[#353843]">
+            <DropdownMenuContent align='start' className="mt-2 w-auto bg-[--darker-background] text-white border-[#353843]">
                 <DropdownMenuLabel className="text-lg ml-2">Genres</DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-[#353843]" />
                 <DropdownMenuGroup className="w-[170px] sm:w-[240px] md:w-[320px] lg:w-[650px] h-auto flex flex-row flex-wrap gap-4 justify-start items-center py-6 px-7">
@@ -97,7 +97,7 @@ const GenreMenu = () => {
                             <div key={item.name} className="w-auto group-hover:bg-red-600">
                                 <Badge
                                     onClick={() => genreHandler(genreId)}
-                                    className={`bg-[#242631] hover:bg-[#67BDFF] cursor-pointer ${isSelected ? "bg-[#67BDFF] text-white" : "text-[#B3B3B3]"}`}>
+                                    className={`bg-[--widget-background] hover:bg-[--secondary-active] cursor-pointer ${isSelected ? "bg-[--secondary-active] text-white" : "text-[--text-color]"}`}>
                                     {item.name}
                                 </Badge>
 

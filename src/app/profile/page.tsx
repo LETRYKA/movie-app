@@ -1,33 +1,35 @@
-import { ArrowLeft } from 'lucide-react';
+import React from 'react'
+import Watchlist from './_watchlist'
+import { ImageUp } from 'lucide-react';
 
-const Profile = (props: any) => {
-    const { } = props;
+const Profile = () => {
+	return (
+		<div className='w-full h-full'>
+			<div className='w-full h-full flex justify-center items-center mt-28'>
+				<div className='w-[80%] h-screen rounded-2xl overflow-hidden'>
+					<div className='relative w-full h-60 bg-pink-400 rounded-xl group'>
+						<div className='opacity-0 transition-all duration-250 ease-in-out group-hover:opacity-100 absolute bg-black/20 px-3 py-1 rounded-lg right-4 bottom-4 flex justify-center items-center text-sm cursor-pointer'><ImageUp className='w-4 mr-2' />Add cover photo</div>
+					</div>
+					<div className='flex flex-row -mt-10 ml-14 justify-cent items-center'>
+						<div className='w-32 h-32 relative rounded-full overflow-hidden flex justify-center items-center bg-[--main-background]'>
+							<div className='w-28 h-28 group relative rounded-full overflow-hidden bg-cover bg-center bg-[url(https://github.com/shadcn.png)]'>
+								<div className='opacity-0 transition-all duration-250 ease-in-out group-hover:opacity-100 w-full h-full bg-black/40 flex justify-center items-center cursor-pointer'>
+									<ImageUp />
+								</div>
+							</div>
+						</div>
+						<div className='flex flex-col ml-4 mt-5'>
+							<h1 className='text-[--text-color] text-xl font-semibold'>Dummy User</h1>
+							<p className='text-slate-500 text-sm font-medium'>@dummyuser</p>
+						</div>
+					</div>
+					<div className='mt-12'>
+						<Watchlist />
+					</div>
+				</div>
+			</div>
+		</div>
+	)
+}
 
-    return (
-        <div className="w-full h-auto p-20 flex justify-center items-center flex-col bg-[#121317]">
-            <div className='flex justify-start flex-col mt-20 pr-10 pl-10 lg:p-0'>
-                <a href='/home'>
-                    <p className="text-[#67BDFF] text-base font-light cursor-pointer flex flex-row"><ArrowLeft width={16} className='mr-2' /> Back to Homepage</p>
-                </a>
-                <h1 className="text-white text-2xl font-semibold mt-4">My profile details</h1>
-                <div className="w-auto lg:w-[614px] h-auto rounded-xl overflow-hidden border border-[#2f3033] mt-6">
-                    <div className="w-full h-64 bg-[url(/imgs/sub.png)] bg-cover bg-center"></div>
-                    <div className="w-full h-auto flex justify-between items-center p-8">
-                        <div className="flex flex-col">
-                            <h1 className="text-white text-base font-semibold">Sphere+</h1>
-                            <p className="text-white text-base font-light mt-1">MON 10'000$</p>
-                            <p className="text-[#C8C9CB] text-xs font-light mt-2">Subscription will be ends in October 31st of 2025</p>
-                        </div>
-                        <div className="flex flex-col text-end">
-                            <p className="text-[#67BDFF] text-base font-light cursor-pointer">Switch to Lifetime Plan</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <h1 className="text-[#FC6666] text-lg font-semibold mt-16 mb-20 cursor-pointer">LOG OUT</h1>
-        </div>
-    );
-
-};
-
-export default Profile;
+export default Profile

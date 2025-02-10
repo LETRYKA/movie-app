@@ -1,6 +1,6 @@
 "use client";
 import { useParams, useRouter } from "next/navigation";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Server } from "lucide-react";
 import React, { useState } from "react";
 import {
     Select,
@@ -44,7 +44,7 @@ const Watch = () => {
                     </SelectTrigger>
                     <SelectContent className="bg-[#101116] text-slate-200 border-[#353843]">
                         <SelectGroup>
-                            <SelectLabel>Choose Server</SelectLabel>
+                            <SelectLabel className="flex flex-row justify-start items-center"><Server className="w-3 mr-2" />Choose Server</SelectLabel>
                             <hr className="mt-1 mb-2 border-t-[#353843]" />
                             {servers.map((server) => (
                                 <SelectItem key={server.id} value={server.url}>
