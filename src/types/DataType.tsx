@@ -10,7 +10,7 @@ export type DataType = {
     profile_path: string;
   }>;
   reviews: Array<{
-    results: Array<{}>
+    results: Array<{}>;
     id: string;
     author: string;
     content: string;
@@ -60,6 +60,22 @@ export type DataType = {
   content: string;
   homepage: string;
   id: number;
+  runtime: number;
+  release_date: string;
+  release_dates: {
+    results: Array<{
+      iso_3166_1: string;
+      release_dates: Array<{
+        certification: string;
+        descriptors: string[];
+        iso_639_1: string;
+        note: string;
+        release_date: string;
+        type: number;
+      }>;
+    }>;
+  };
+  revenue: number;
   _id: number;
   images: {
     backdrops: Array<{

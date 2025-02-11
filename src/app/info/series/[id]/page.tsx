@@ -1,30 +1,18 @@
 "use client"
+
 import HeroSkeleton from '@/components/skeleton/HeroSkeleton';
 import { Play, Plus, Star, UsersRound } from 'lucide-react';
 import { Episodes, DetailedTab, CardComp } from "@/components"
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import { DataType } from '@/types/DataType';
 import Link from "next/link";
 import axios from 'axios';
 
-interface MovieResponse {
-    id: number;
-    backdrop_path: string;
-    release_date: string;
-    runtime: number;
-    genres: { name: string }[];
-    images: { logos: { file_path: string }[] };
-    release_dates: { results: { iso_3166_1: string, release_dates: { certification: string }[] }[] };
-    videos: { results: { type: string, key: string }[] };
-    overview: string;
-    number_of_seasons: number;
-    last_air_date: number;
-}
-
 const Movie = (props: {}) => {
     const { } = props;
-    const [infoMovie, setInfoMovie] = useState<MovieResponse | null>(null);
+    const [infoMovie, setInfoMovie] = useState<DataType>();
     const [similarMovies, setSimilarMovies] = useState<any[]>([]);
     const [showTrailer, setShowTrailer] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");

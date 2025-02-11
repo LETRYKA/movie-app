@@ -2,9 +2,9 @@
 import { useRouter, useParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { DataType } from '@/types/DataType'
+import { CardComp } from "@/components"
 import axios from 'axios'
 import React from 'react'
-import CardComp from '@/components/CardComp'
 import {
     Pagination,
     PaginationContent,

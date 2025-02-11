@@ -1,6 +1,6 @@
 import { ArrowLeft } from 'lucide-react';
 
-const Subscription = (props: any) => {
+const Subscription = (props: {}) => {
     const { } = props;
 
     return (

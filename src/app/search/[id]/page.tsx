@@ -23,10 +23,6 @@ const SearchPage = () => {
         return '';
     }
 
-    useEffect(() => {
-        setInputValue(searchSpellCheck());
-    }, []);
-
     const searchHandler = (inputValue: any) => {
         if (inputValue) {
             if (inputValue.length > 0) {
@@ -38,11 +34,25 @@ const SearchPage = () => {
         }
     }
 
-    const handleKeyDown = (event, inputValue) => {
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>, inputValue: string) => {
         if (event.key === "Enter") {
             searchHandler(inputValue);
         }
     };
+
+    useEffect(() => {
+        setInputValue(searchSpellCheck());
+    }, []);
+
+    useEffect(() => {
+        const searchDelay = setTimeout(() => {
+            if (inputValue.length > 0) {
+                router.push(`/search/${inputValue}`);
+            }
+        }, 500);
+
+        return () => clearTimeout(searchDelay);
+    }, [inputValue]);
 
     console.log(inputValue)
 
