@@ -2,14 +2,15 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import DetailedTabSkeleton from "./skeleton/DetailedTabSkeleton"
+import { DataType } from "@/types/DataType"
 import { useState, useEffect } from 'react'
 import { Star } from 'lucide-react'
 import React from 'react'
 import axios from 'axios';
 
-export const DetailedTab = (props: any) => {
+export const DetailedTab = (props: { movieData: DataType; slideTitle: string; series: boolean; }) => {
   const { movieData, slideTitle, series } = props;
-  const [detailedMovieData, setDetailedMovieData] = useState([]);
+  const [detailedMovieData, setDetailedMovieData] = useState<DataType>();
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +42,7 @@ export const DetailedTab = (props: any) => {
 
   console.log(detailedMovieData)
 
-  const reviewDate = (movie) => {
+  const reviewDate = (movie: DataType) => {
     const get = movie.updated_at
     const slice = get.split('T', 1)
     return slice
@@ -98,7 +99,7 @@ export const DetailedTab = (props: any) => {
                 <CardTitle className='text-white'>Reviews</CardTitle>
               </CardHeader>
               <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-                {detailedMovieData?.reviews?.results?.slice(0, 2).map((movie, index) => (
+                {detailedMovieData?.reviews?.results?.slice(0, 2).map((movie: DataType, index: number) => (
                   <div key={movie.id} className='w-full'>
                     <div className='w-full h-auto border border-[--main-border] rounded-lg flex flex-col justfiy-center items-center'>
                       <div className='w-[90%] lg:w-[95%] mt-4 flex flex-row justify-between'>

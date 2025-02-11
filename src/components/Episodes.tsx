@@ -10,7 +10,7 @@ import Link from "next/link";
 import axios from 'axios';
 
 
-export const Episodes = (props: any) => {
+export const Episodes = (props: { seriesData: DataType }) => {
     const { seriesData } = props;
     const [episodesData, setEpisodesData] = useState<DataType[]>([]);
     const [isSmallScreen, setIsSmallScreen] = useState(false);

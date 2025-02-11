@@ -1,4 +1,4 @@
-export const CatCard = (props: any) => {
+export const CatCard = (props: { logo: string; video: string; onClick: () => void }) => {
     const { logo, video, onClick } = props;
 
     return (

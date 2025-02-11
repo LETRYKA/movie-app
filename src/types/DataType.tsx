@@ -10,6 +10,7 @@ export type DataType = {
     profile_path: string;
   }>;
   reviews: Array<{
+    results: Array<{}>
     id: string;
     author: string;
     content: string;
@@ -18,6 +19,7 @@ export type DataType = {
     };
     updated_at: string;
   }>;
+  updated_at: string;
   title: string;
   media_type: string;
   credits: {
@@ -54,6 +56,8 @@ export type DataType = {
     id: number;
     name: string;
   }>;
+  author: string;
+  content: string;
   homepage: string;
   id: number;
   _id: number;
