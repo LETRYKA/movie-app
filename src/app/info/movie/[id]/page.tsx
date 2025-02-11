@@ -1,11 +1,10 @@
 "use client"
 import HeroSkeleton from '@/components/skeleton/HeroSkeleton';
 import { Play, Plus, Star, UsersRound } from 'lucide-react';
-import DetailedTab from '@/components/DetailedTab';
+import { DetailedTab, CardComp } from '@/components';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import CardComp from "@/components/CardComp"
 import Link from "next/link";
 import axios from 'axios';
 

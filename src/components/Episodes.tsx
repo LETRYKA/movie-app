@@ -10,7 +10,7 @@ import Link from "next/link";
 import axios from 'axios';
 
 
-const Episodes = (props: any) => {
+export const Episodes = (props: any) => {
     const { seriesData } = props;
     const [episodesData, setEpisodesData] = useState<DataType[]>([]);
     const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -65,22 +65,22 @@ const Episodes = (props: any) => {
     return (
         <div>
             {isLoading ? (<EpisodesSkeleton />) :
-                (<div className="relative w-full flex justify-center items-center mb-20 px-8 sm:px-10 lg:px-24 z-20">
+                (<div className="relative w-full flex justify-center items-center mb-20 px-8 sm:pl-10 lg:pl-24 z-20">
                     <Tabs defaultValue="season-1" className="w-full">
                         {episodesData.map((season, index) => (
                             <TabsList key={season._id} className="ml-2 mb-2 bg-[--darker-background] text-white">
-                                <TabsTrigger value={`season-${season.season_number}`} className="data-[state='active']:bg-[white]">
+                                <TabsTrigger value={`season-${season.season_number}`} className="data-[state='active']:bg-[#FFFFFF]">
                                     {season.name || `Season ${season.season_number}`}
                                 </TabsTrigger>
                             </TabsList>
                         ))}
 
                         {episodesData.map((season, index) => (
-                            <TabsContent key={season.id} value={`season-${season.season_number}`}>
+                            <TabsContent key={season.id} value={`season-${season.season_number}`} className="w-full">
                                 <Card className="bg-transparent border-0 w-full shadow-none">
                                     <CardContent className="p-0">
-                                        <Carousel orientation={`${isSmallScreen ? 'vertical' : 'horizontal'}`} className="w-full max-w-full">
-                                            <CarouselContent className={`-ml-1 ${isSmallScreen ? 'h-[1000px]' : 'h-auto'}`} >
+                                        <Carousel orientation={`${isSmallScreen ? 'vertical' : 'horizontal'}`} className={`w-full max-w-full ${isSmallScreen ? `[mask-image:linear-gradient(to_bottom,#000_85%,transparent_100%)]` : `[mask-image:linear-gradient(to_right,#000_85%,transparent_100%)]`}`}>
+                                            <CarouselContent className={`-ml-1 pt-10 sm:pt-0 ${isSmallScreen ? 'h-[1000px]' : 'h-auto'}`} >
                                                 {season.episodes.map((episode) => (
                                                     <CarouselItem key={episode.id} className="pt-1 basis-1/5 sm:basis-[56%] md:basis-[35%] lg:basis-[27%] xl:basis-[23%] pl-2">
                                                         <div className="p-1 sm:pt-2">
@@ -112,9 +112,7 @@ const Episodes = (props: any) => {
                                                     </CarouselItem>
                                                 ))}
                                             </CarouselContent>
-                                            <div className={`${isSmallScreen ? `flex` : 'hidden'} absolute w-full h-32 bg-fade-gradient-v bottom-0 z-10`}></div>
-                                            <div className={`${isSmallScreen ? `hidden` : 'flex'} absolute w-28 h-60 bg-fade-gradient-hr right-0 -top-5 z-10`}></div>
-                                            <CarouselNext />
+                                            <CarouselNext className="mr-24" />
                                         </Carousel>
                                     </CardContent>
                                 </Card>
@@ -126,5 +124,3 @@ const Episodes = (props: any) => {
         </div >
     );
 };
-
-export default Episodes;

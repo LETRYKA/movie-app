@@ -73,7 +73,7 @@ const Genre = () => {
             </div>
             <div className='w-[80%] mt-10 mb-52'>
                 <Pagination className="w-auto float-right">
-                    <PaginationContent className="bg-foregroud text-background">
+                    <PaginationContent>
                         <PaginationItem>
                             <PaginationPrevious className={`${currentPage && (currentPage < 2 && `opacity-50 hover:bg-transparent hover:text-white hover:cursor-default`)}`}
                                 href='#'
@@ -84,8 +84,7 @@ const Genre = () => {
                                 <PaginationLink
                                     href='#'
                                     onClick={() => handlePageChange(pageNum + 1)}
-                                    isActive={currentPage === pageNum + 1}
-                                    className='text-gray-500'>
+                                    isActive={currentPage === pageNum + 1}>
                                     {(pageNum + 1)}
                                 </PaginationLink>
                             </PaginationItem>

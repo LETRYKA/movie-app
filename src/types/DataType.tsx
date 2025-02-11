@@ -18,6 +18,7 @@ export type DataType = {
     };
     updated_at: string;
   }>;
+  title: string;
   media_type: string;
   credits: {
     cast: Array<{

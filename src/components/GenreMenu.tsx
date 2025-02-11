@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -9,18 +9,18 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Clapperboard } from 'lucide-react';
+import { DataType } from '@/types/DataType';
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { Clapperboard } from 'lucide-react';
 import axios from 'axios';
 
-const GenreMenu = () => {
+export const GenreMenu = (props: DataType[]) => {
     const router = useRouter();
     const params = useParams();
-    const searchParams = useSearchParams();
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [genres, setGenres] = useState([]);
+    const [genres, setGenres] = useState<{ id: number; name: string }[]>([]);
     const [selectedGenreIds, setSelectedGenreIds] = useState<string[]>([]);
 
     const fetchGenre = async () => {
@@ -64,7 +64,7 @@ const GenreMenu = () => {
     useEffect(() => {
         if (params.id) {
             if (window.location.pathname.startsWith("/genre")) {
-                const decodedIds = decodeURIComponent(params.id).split(",");
+                const decodedIds = decodeURIComponent(Array.isArray(params.id) ? params.id.join(",") : params.id).split(",");
                 setSelectedGenreIds(decodedIds);
             } else {
                 setSelectedGenreIds([]);
@@ -109,5 +109,3 @@ const GenreMenu = () => {
         </DropdownMenu>
     );
 };
-
-export default GenreMenu;

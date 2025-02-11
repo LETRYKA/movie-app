@@ -9,10 +9,10 @@ import { DataType } from "@/types/DataType";
 import { Play, Info } from 'lucide-react';
 import axios from 'axios';
 
-const Hero = (props) => {
+export const Hero = (props: { movieData: DataType[] }) => {
+    const { movieData } = props;
     const [detailedMovieData, setDetailedMovieData] = useState<DataType[]>([]);
     const [isLoading, setIsLoading] = useState(false);
-    const { movieData } = props;
     const router = useRouter();
 
     const fetchDetailedData = async () => {
@@ -90,5 +90,3 @@ const Hero = (props) => {
         </div>
     );
 };
-
-export default Hero;

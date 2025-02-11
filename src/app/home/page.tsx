@@ -1,11 +1,8 @@
 'use client';
 
-import SliderSeries from "@/components/SliderSeries";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import CatCard from "@/components/catCard";
-import Slider from "@/components/Slider";
-import Hero from "@/components/Hero";
+import { Slider, SliderSeries, Hero, CatCard } from "@/components"
 import axios from 'axios';
 
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -110,6 +107,12 @@ export default function Home() {
     fetchData();
   }, []);
 
+  const catMovieCard = [{
+    path: "",
+    img: "",
+    video: "",
+  }]
+
   return (
     <div>
       {errorMessage && <div className="error-message text-red-500">{errorMessage}</div>}
@@ -119,6 +122,7 @@ export default function Home() {
       </div>
       <div className="w-full flex justify-center items-center mb-12 mt-12 px-8 sm:px-10 lg:px-32">
         <div className="w-full grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-1 sm:gap-4">
+
           <CatCard onClick={() => router.push(`/collection/106768/disney`)} logo={"/imgs/disney.jpg"} video={"/imgs/disney-vv.mp4"} />
           <CatCard onClick={() => router.push(`/collection/10/star-wars`)} logo={"/imgs/starwars.jpg"} video={"/imgs/starwars-v.mp4"} />
           <CatCard onClick={() => router.push(`/collection/86311/marvel`)} logo={"/imgs/marvel.jpg"} video={"/imgs/marvel-v.mp4"} />

@@ -7,31 +7,9 @@ import { DataType } from "@/types/DataType";
 import Link from "next/link";
 import axios from 'axios';
 
-interface SliderSeriesProps {
-    movieData: DataType[];
-    slideTitle: string;
-    type: boolean;
-    category: string;
-}
-
-interface Movie {
-    id: number;
-    name: string;
-    media_type: string;
-    backdrop_path: string;
-    vote_average: number;
-    genres?: { name: string }[];
-    images?: {
-        backdrops?: { file_path: string }[];
-        posters?: { file_path: string }[];
-    };
-    number_of_episodes?: number;
-    last_air_date?: string;
-}
-
-const SliderSeries = (props: SliderSeriesProps) => {
+export const SliderSeries = (props: { movieData: DataType[]; slideTitle: string; type: boolean; category: string; }) => {
     const { movieData, slideTitle, type, category } = props;
-    const [detailedMovieData, setDetailedMovieData] = useState<Movie[]>([]);
+    const [detailedMovieData, setDetailedMovieData] = useState<DataType[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const fetchDetailedData = async () => {
@@ -61,7 +39,7 @@ const SliderSeries = (props: SliderSeriesProps) => {
         }
     };
 
-    const releaseDate = (tv: Movie) => {
+    const releaseDate = (tv: DataType) => {
         const get = tv.last_air_date;
         const response = get?.toString().split('-', 1);
         return response ? response[0] : "";
@@ -88,7 +66,7 @@ const SliderSeries = (props: SliderSeriesProps) => {
                                 </h1>
                             </Link>
                         </div>
-                        <Carousel className="w-full relative">
+                        <Carousel className="w-full relative [mask-image:linear-gradient(to_right,#000_85%,transparent_100%)]">
                             <CarouselContent className='pl-2 pt-2'>
                                 {detailedMovieData.map((tv) => (
                                     <CarouselItem key={tv.id} className={`${type ? 'basis-[70%]' : 'basis-[40%]'} ${type ? 'sm:basis-[50%]' : 'sm:basis-[28%]'} ${type ? 'md:basis-[35%]' : 'md:basis-[23%]'} ${type ? 'lg:basis-[27%]' : 'lg:basis-[18%]'} ${type ? 'xl:basis-[19%]' : 'xl:basis-[13%]'}`}>
@@ -132,11 +110,8 @@ const SliderSeries = (props: SliderSeriesProps) => {
                             </CarouselContent>
                             <CarouselNext className="mr-14 sm:mr-20 -mt-10 sm:-mt-14 md:-mt-20 lg:-mt-10 xl:-mt-5 z-20" />
                         </Carousel>
-                        <div className={`hidden sm:flex absolute w-24 ${type ? 'h-[19%]' : 'h-[35%]'} bg-fade-gradient-hr mt-11 sm:mr-0 right-0 z-10`}></div>
                     </div>
                 </div>)}
         </div>
     );
 };
-
-export default SliderSeries;

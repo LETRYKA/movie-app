@@ -8,7 +8,7 @@ import Link from "next/link";
 import React from 'react'
 import axios from 'axios';
 
-const CardComp = (props: any) => {
+export const CardComp = (props: any) => {
     const { movieData, slideTitle, series, search, vertical } = props;
     const [detailedMovieData, setDetailedMovieData] = useState<DataType[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -174,5 +174,3 @@ const CardComp = (props: any) => {
         </div >
     )
 }
-
-export default CardComp

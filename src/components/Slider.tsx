@@ -3,28 +3,16 @@ import SSlider from '@/components/skeleton/SliderSkeleton'
 import { ChevronRight, Star } from 'lucide-react';
 import { Card, CardContent } from "./ui/card";
 import { useState, useEffect } from 'react';
+import { DataType } from "@/types/DataType";
 import Link from "next/link";
 import axios from 'axios';
 
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
-const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
-interface Movie {
-    id: number;
-    title: string;
-    posterPath: string;
-    vote_average: number;
-    backdrop_path: string;
-    genres?: Array<{ name: string }>;
-    images?: {
-        backdrops?: Array<{ file_path: string }>;
-    };
-}
-
-const Slider = (props: { movieData: Movie[]; slideTitle: string; category: string; }) => {
+export const Slider = (props: { movieData: DataType[]; slideTitle: string; category: string; }) => {
     const { movieData, slideTitle, category } = props;
-    const [detailedMovieData, setDetailedMovieData] = useState<Movie[]>([]);
+    const [detailedMovieData, setDetailedMovieData] = useState<DataType[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const fetchDetailedData = async () => {
@@ -74,7 +62,7 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; category: strin
                             </Link>
                         </div>
 
-                        <Carousel className="w-full relative">
+                        <Carousel className="w-full relative [mask-image:linear-gradient(to_right,#000_85%,transparent_100%)]">
                             <CarouselContent className="pl-2">
                                 {detailedMovieData.map((movie) => (
                                     <CarouselItem
@@ -116,5 +104,3 @@ const Slider = (props: { movieData: Movie[]; slideTitle: string; category: strin
         </div >
     );
 };
-
-export default Slider;

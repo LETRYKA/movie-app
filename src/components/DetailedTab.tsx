@@ -7,7 +7,7 @@ import { Star } from 'lucide-react'
 import React from 'react'
 import axios from 'axios';
 
-const DetailedTab = (props: any) => {
+export const DetailedTab = (props: any) => {
   const { movieData, slideTitle, series } = props;
   const [detailedMovieData, setDetailedMovieData] = useState([]);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -70,8 +70,8 @@ const DetailedTab = (props: any) => {
       (<div className='relative w-full flex justify-center items-center px-8 sm:px-10 lg:px-24 mb-20'>
         <Tabs defaultValue={`${isSmallScreen ? '' : 'casts'}`} className="w-full">
           <TabsList className="grid w-full sm:w-[400px] grid-cols-2 bg-[--darker-background] text-white">
-            <TabsTrigger className="data-[state='active']:bg-[white]" value="casts">Casts</TabsTrigger>
-            <TabsTrigger className="data-[state='active']:bg-[white]" value="reviews">Reviews</TabsTrigger>
+            <TabsTrigger className="data-[state='active']:bg-[#FFFFFF]" value="casts">Casts</TabsTrigger>
+            <TabsTrigger className="data-[state='active']:bg-[#FFFFFF]" value="reviews">Reviews</TabsTrigger>
           </TabsList>
           <TabsContent value="casts">
             <Card className='bg-transparent border-0 shadow-none'>
@@ -127,5 +127,3 @@ const DetailedTab = (props: any) => {
     </div>
   )
 }
-
-export default DetailedTab

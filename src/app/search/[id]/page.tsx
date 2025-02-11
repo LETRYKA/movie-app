@@ -2,8 +2,8 @@
 import React from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
+import { CardComp } from "@/components"
 import { Search } from 'lucide-react';
-import CardComp from '@/components/CardComp';
 
 const SearchPage = () => {
     const [inputValue, setInputValue] = useState('');

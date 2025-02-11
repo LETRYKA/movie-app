@@ -1,10 +1,10 @@
 "use client"
 
 import React from 'react'
-import CardComp from '@/components/CardComp'
 import { DataType } from '@/types/DataType'
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
+import { CardComp } from "@/components"
 import axios from 'axios'
 
 

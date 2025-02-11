@@ -1,5 +1,4 @@
-
-const CatCard = (props: any) => {
+export const CatCard = (props: any) => {
     const { logo, video, onClick } = props;
 
     return (
@@ -16,5 +15,3 @@ const CatCard = (props: any) => {
     );
 
 };
-
-export default CatCard;

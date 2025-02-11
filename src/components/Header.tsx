@@ -1,20 +1,20 @@
 "use client"
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Search, Clapperboard, Menu } from 'lucide-react';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import GenreMenu from "./GenreMenu";
-import axios from "axios";
+import { DataType } from "@/types/DataType";
+import { GenreMenu } from "@/components"
 import Link from "next/link";
+import axios from "axios";
 
-const Header = (props: any) => {
+const Header = (props: DataType[]) => {
     const { } = props;
     const [errorMessage, setErrorMessage] = useState('');
     const [showInput, setShowInput] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [inputValue, setInputValue] = useState();
+    const [inputValue, setInputValue] = useState('');
     const [genreData, setGenreData] = useState([])
     const [menuToggle, setMenuToggle] = useState(false);
     const router = useRouter();
@@ -53,7 +53,7 @@ const Header = (props: any) => {
         setShowInput(prev => !prev);
     };
 
-    const searchHandler = (inputValue: any) => {
+    const searchHandler = (inputValue: string) => {
         if (inputValue) {
             if (inputValue.length > 0) {
                 router.push(`/search/${inputValue}`)
@@ -64,7 +64,7 @@ const Header = (props: any) => {
             }
         }
     }
-    const handleKeyDown = (event, inputValue) => {
+    const handleKeyDown = (event: any, inputValue: string) => {
         if (event.key === "Enter") {
             searchHandler(inputValue);
             inputShow()
@@ -84,17 +84,6 @@ const Header = (props: any) => {
             <div className="flex flex-row h-full w-auto justify-start items-center gap-10 mt-2 z-10">
                 <a href="/home"><img src="/imgs/logo.png" width={90} /></a>
                 <GenreMenu />
-                {/* <Select onValueChange={(value) => router.push(`/genre/${value}/1`)}>
-                    <SelectTrigger className="hidden w-[180px] lg:flex">
-                        <Clapperboard width={18} className="mr-2" />
-                        <SelectValue placeholder="Genre" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {genreData.map((genre, i) => (
-                            <SelectItem key={i} onSelect={() => router.push(`/genre/${genre.id}/${genre.name}`)} value={genre.id}>{genre.name}</SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select> */}
                 <input onKeyDown={(e) => handleKeyDown(e, inputValue)} type="text" placeholder="Search" onChange={inputHandler} className={`bg-transparent outline-none border-b-2 text-[--text-color] pb-1 transition-all duration-500 -ml-2 ${showInput ? 'w-72' : 'w-0'}`}></input>
                 <Search onClick={() => (inputShow(), searchHandler(inputValue))} color="white" className="hidden cursor-pointer lg:flex -ml-6" />
             </div>
