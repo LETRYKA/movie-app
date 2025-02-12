@@ -83,14 +83,16 @@ const Header = (props: DataType[]) => {
         <div className="w-full h-20 bg-gradient-to-b from-[#0E1012]/50 to-[black]/0 flex justify-between z-30 pr-10 pl-10 lg:pl-24 lg:pr-24">
             <div className="flex flex-row h-full w-auto justify-start items-center gap-10 mt-2 z-10">
                 <a href="/home"><img src="/imgs/logo.png" width={90} /></a>
-                <GenreMenu />
-                <input onKeyDown={(e) => handleKeyDown(e, inputValue)} type="text" placeholder="Search" onChange={inputHandler} className={`bg-transparent outline-none border-b-2 text-[--text-color] pb-1 transition-all duration-500 -ml-2 ${showInput ? 'w-72' : 'w-0'}`}></input>
-                <Search onClick={() => (inputShow(), searchHandler(inputValue))} color="white" className="hidden cursor-pointer lg:flex -ml-6" />
+                <div className="hidden sm:flex">
+                    <GenreMenu />
+                </div>
+                <input onKeyDown={(e) => handleKeyDown(e, inputValue)} type="text" placeholder="Search" onChange={inputHandler} className={`bg-transparent outline-none border-b-2 text-[--text-color] pb-1 transition-all duration-500 -ml-2 ${showInput ? 'w-52' : 'w-0'}`}></input>
+                <Search onClick={() => (inputShow(), searchHandler(inputValue))} color="white" className="flex cursor-pointer -ml-6" />
             </div>
             <div className="flex flex-row h-full w-auto justify-start items-center mt-2">
                 <Menu className="flex stroke-[--text-color] mr-5 cursor-pointer lg:hidden" />
                 <p className="hidden text-base text-[--text-color] mr-4 lg:flex z-10">User</p>
-                <Avatar onClick={handlerMenu} className="relative cursor-pointer">
+                <Avatar onClick={handlerMenu} className="relative cursor-pointer hidden sm:flex">
                     <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback>U</AvatarFallback>
                 </Avatar>

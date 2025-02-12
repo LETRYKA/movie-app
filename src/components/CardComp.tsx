@@ -9,66 +9,9 @@ import React from 'react'
 import axios from 'axios';
 
 export const CardComp = (props: any) => {
-    const { movieData, slideTitle, series, search, vertical } = props;
+    const { movieData, slideTitle, series, search, vertical, isSearchLoading } = props;
     const [detailedMovieData, setDetailedMovieData] = useState<DataType[]>([]);
     const [isLoading, setIsLoading] = useState(false);
-
-    const searchDetailedData = async () => {
-        try {
-            setIsLoading(true);
-            // Fetch TV By Search
-            const tvResponse = await axios.get(
-                `${process.env.TMDB_BASE_URL}/search/tv?query=${movieData}&language=en-US&page=1`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
-                    },
-                }
-            );
-
-            // Fetch Movies By Search
-            const movieResponse = await axios.get(
-                `${process.env.TMDB_BASE_URL}/search/movie?query=${movieData}&language=en-US&page=1`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
-                    },
-                }
-            );
-
-            // Storing in array both results
-            let searchResults = [
-                ...tvResponse.data.results.map((item: any) => ({ ...item, type: 'tv' })),
-                ...movieResponse.data.results.map((item: any) => ({ ...item, type: 'movie' }))
-            ];
-
-            // Detaileddata
-            const detailedData = searchResults.map(async (item) => {
-                const details = await axios.get(
-                    `${process.env.TMDB_BASE_URL}/${item.type}/${item.id}?language=en-US&append_to_response=credits,videos,reviews`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
-                        },
-                        params: {
-                            language: "en-US",
-                            append_to_response: "images, type",
-                            include_image_language: "en",
-                        },
-                    }
-                );
-                return details.data;
-            });
-            const detailedResults = await Promise.all(detailedData);
-            setDetailedMovieData(detailedResults)
-            console.log("Detailed Data:", detailedResults);
-
-        } catch (error) {
-            console.error("Error fetching details:", error);
-        } finally {
-            setIsLoading(false);
-        }
-    };
 
     const fetchDetailedData = async () => {
         try {
@@ -133,12 +76,12 @@ export const CardComp = (props: any) => {
 
     if (search) {
         useEffect(() => {
-            searchDetailedData();
+            setDetailedMovieData(movieData)
         }, [movieData]);
     }
 
     return (
-        <div> {isLoading ? (<CardCompSkeleton vertical={vertical} />) :
+        <div> {isLoading || isSearchLoading ? (<CardCompSkeleton vertical={vertical} />) :
             (<div className='w-30p'>
                 <h1 className="text-xl text-[--text-color] font-semibold mb-3">{slideTitle}</h1>
                 <div className={`grid ${vertical ? "grid-cols-2" : "grid-cols-1"}

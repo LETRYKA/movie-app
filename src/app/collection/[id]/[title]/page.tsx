@@ -32,7 +32,6 @@ const page = () => {
             );
             setCollectionData(response.data.results);
             setIsLoading(false);
-            console.log(`Movies from studio ${studioId}`, response.data.results);
         } catch (err) {
             setIsLoading(false);
             setErrorMessage("Failed to fetch movies by studio.");

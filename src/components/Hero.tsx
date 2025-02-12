@@ -49,7 +49,6 @@ export const Hero = (props: { movieData: DataType[] }) => {
         <div>
             {isLoading ? (<HeroSkeleton />) :
                 (<Carousel className="relative h-[600px] sm:h-[867px]" plugins={[Autoplay({ delay: 6000 })]}>
-                    <div className="bg-fade-gradient-v absolute bottom-0 w-full -mt-10 h-40 z-10"></div>
                     <CarouselContent className="flex">
                         {isLoading ? (
                             <div className="flex flex-col gap-2">
@@ -61,7 +60,7 @@ export const Hero = (props: { movieData: DataType[] }) => {
                                 <CarouselItem key={i} className="m-0 p-0">
                                     <div className="relative w-full pr-14 pl-14 sm:p-0 h-[600px] sm:h-[867px] bg-fixed bg-cover bg-top flex justify-center sm:justify-start items-center"
                                         style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie?.backdrop_path || '/default.jpg'})`, }}>
-                                        <div className="sm:ml-[8%] z-10 mt-60 sm:mt-16">
+                                        <div className="sm:ml-[8%] mt-60 sm:mt-16 z-30">
                                             <img
                                                 src={`https://image.tmdb.org/t/p/w780/${movie?.images?.logos?.[0]?.file_path || movie?.backdrop_path}`}
                                                 alt={`${movie?.title || 'Movie'} logo`}
@@ -80,6 +79,7 @@ export const Hero = (props: { movieData: DataType[] }) => {
                                                 </Button>
                                             </div>
                                         </div>
+                                        <div className="bg-fade-gradient-v absolute bottom-0 w-full -mt-10 h-40 z-10"></div>
                                         <div className="absolute w-full h-full bg-custom-gradient z-0"></div>
                                     </div>
                                 </CarouselItem>

@@ -4,11 +4,15 @@ import { useParams, useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { CardComp } from "@/components"
 import { Search } from 'lucide-react';
+import axios from 'axios'
 
 const SearchPage = () => {
     const [inputValue, setInputValue] = useState('');
     const params = useParams()
     const router = useRouter()
+    const [isSearchLoading, setIsSearchLoading] = useState(false)
+    const [searchData, setSearchData] = useState<any[]>([])
+
 
     const inputHandler = (e: any) => {
         setInputValue(e.target.value)
@@ -22,6 +26,63 @@ const SearchPage = () => {
         }
         return '';
     }
+
+    const searchDetailedData = async () => {
+        try {
+            setIsSearchLoading(true);
+            // Fetch TV By Search
+            const tvResponse = await axios.get(
+                `${process.env.TMDB_BASE_URL}/search/tv?query=${searchSpellCheck()}&language=en-US&page=1`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
+                    },
+                }
+            );
+
+            // Fetch Movies By Search
+            const movieResponse = await axios.get(
+                `${process.env.TMDB_BASE_URL}/search/movie?query=${searchSpellCheck()}&language=en-US&page=1`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
+                    },
+                }
+            );
+
+            // Storing in array both results
+            let searchResults = [
+                ...tvResponse.data.results.map((item: any) => ({ ...item, type: 'tv' })),
+                ...movieResponse.data.results.map((item: any) => ({ ...item, type: 'movie' }))
+            ];
+
+            // Detaileddata
+            const detailedData = searchResults.map(async (item) => {
+                const details = await axios.get(
+                    `${process.env.TMDB_BASE_URL}/${item.type}/${item.id}?language=en-US&append_to_response=credits,videos,reviews`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
+                        },
+                        params: {
+                            language: "en-US",
+                            append_to_response: "images, type",
+                            include_image_language: "en",
+                        },
+                    }
+                );
+                return details.data;
+            });
+            const detailedResults = await Promise.all(detailedData);
+            setSearchData(detailedResults)
+            console.log("Detailed Data:", detailedResults);
+
+        } catch (error) {
+            console.error("Error fetching details:", error);
+        } finally {
+            setIsSearchLoading(false);
+        }
+    };
 
     const searchHandler = (inputValue: any) => {
         if (inputValue) {
@@ -41,6 +102,7 @@ const SearchPage = () => {
     };
 
     useEffect(() => {
+        searchDetailedData();
         setInputValue(searchSpellCheck());
     }, []);
 
@@ -66,7 +128,10 @@ const SearchPage = () => {
                 <p className='text-slate-500 mt-4'>Results of your search: <span className='text-white font-bold'>{`"${searchSpellCheck()}"`}</span></p>
             </div>
             <div className='w-[80%] h-auto mt-10 mb-20'>
-                <CardComp movieData={searchSpellCheck()} slideTitle="" search={true} />
+                {isSearchLoading && searchData.length <= 0 ? (<div className='w-full h-96 flex justify-center items-center'><p className='text-slate-400'>Your search did not match any movies.</p></div>) :
+                    (<div>
+                        <CardComp movieData={searchData} slideTitle="" search={true} isSearchLoading={isSearchLoading} /></div>)
+                }
             </div>
         </div>
     )
