@@ -107,14 +107,14 @@ const Header = () => {
 
                 <div className={`absolute ${menuToggle ? `flex` : `hidden`} top-20 right-24 rounded-lg bg-[--darker-background] flex-col justify-start items-start`}>
                     <div className="pl-5 pr-14 py-5">
-                        <div className="w-full flex flex-row gap-3 justify-center items-center cursor-pointer group">
+                        <div className="w-full flex flex-row gap-3 justify-start items-center cursor-pointer group">
                             <Avatar className="w-9 h-9">
                                 <AvatarImage src="https://ih1.redbubble.net/image.618410924.2644/flat,750x1000,075,t.u12.jpg" />
                                 <AvatarFallback>U</AvatarFallback>
                             </Avatar>
                             <p className="text-white/70 text-sm transition-all group-hover:ml-1">Default</p>
                         </div>
-                        <div className="w-full flex flex-row gap-3 justify-center items-center mt-4 cursor-pointer group">
+                        <div className="w-full flex flex-row gap-3 justify-start items-center mt-4 cursor-pointer group">
                             <Avatar className="w-9 h-9">
                                 <AvatarImage src="https://cdn-icons-png.flaticon.com/512/399/399281.png" />
                                 <AvatarFallback>U</AvatarFallback>
