@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const withPWA = require('next-pwa');
+
 const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
@@ -16,7 +18,11 @@ const nextConfig: NextConfig = {
     STREAM_SEVENX: process.env.VITE_STREAM_SEVENX || "",
     STREAM_BINGE: process.env.VITE_STREAM_BINGE || "",
   },
+  pwa: {
+    dest: 'public',
+    register: true,
+    skipWaiting: true,
+  },
 };
 
-
-export default nextConfig;
+export default withPWA(nextConfig);
