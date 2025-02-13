@@ -36,7 +36,6 @@ const Header = () => {
             );
             setGenreData(genre.data.genres);
             setIsLoading(false);
-            console.log(`DATA`, genre.data.genres)
         } catch (err) {
             setIsLoading(false);
             setErrorMessage("Failed to fetch popular movies.");
@@ -99,7 +98,7 @@ const Header = () => {
             </div>
             <div className="flex flex-row h-full w-auto justify-start items-center mt-2">
                 <Menu className="flex stroke-[--text-color] mr-5 cursor-pointer lg:hidden" />
-                <p className="hidden text-base text-[--text-color] mr-4 lg:flex z-10">User</p>
+                <p className="hidden text-base text-[--text-color] mr-4 lg:flex z-10">Hello!</p>
                 <Avatar onClick={handlerMenu} className="relative cursor-pointer hidden sm:flex">
                     <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback>U</AvatarFallback>

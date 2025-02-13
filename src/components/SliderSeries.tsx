@@ -31,7 +31,6 @@ export const SliderSeries = (props: { movieData: DataType[]; slideTitle: string;
             const responses = await Promise.all(requests);
             const tvDetailedData = responses.map((res) => res.data);
             setDetailedMovieData(tvDetailedData);
-            console.log(`Detailed Data:`, tvDetailedData)
         } catch (error) {
             console.error("Error fetching TV series details:", error);
         } finally {

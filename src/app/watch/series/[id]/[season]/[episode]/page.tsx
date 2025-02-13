@@ -29,8 +29,6 @@ const WatchSeries = () => {
 
     const { season, episode } = params;
 
-    console.log(params.episode, params.season);
-
     return (
         <div className="relative w-full h-screen flex justify-center items-center">
             <iframe className="w-full h-full" src={`${selectedServer}/${params.id}/${params.season}/${params.episode}`} allowFullScreen title="Video Embed"></iframe>

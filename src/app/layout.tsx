@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
-import MainLayout from '@/components/MainLayout'
+import MainLayout from '@/components/FullPageLayout'
 import "@/app/globals.css";
+import FullPageLayout from '@/components/FullPageLayout';
 
 export const metadata: Metadata = {
   title: 'Sphere+',
@@ -31,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className="h-full">
-        <MainLayout>{children}</MainLayout>
+        <FullPageLayout>{children}</FullPageLayout>
       </body>
     </html>
   );

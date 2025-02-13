@@ -101,7 +101,6 @@ const Genre = () => {
             );
             setTvData(kdrama.data.results);
             setTotalPages(kdrama.data.total_pages);
-            console.log(currentPage)
             setIsLoading(false);
         } catch (err) {
             setIsLoading(false);
@@ -113,8 +112,6 @@ const Genre = () => {
     const handlePageChange = (pageNumber: number) => {
         router.push(`/more/series/${category}/${pageNumber}`);
     };
-
-    console.log(`MOVIE DATA`, tvData)
 
     useEffect(() => {
         if (category === "top_rated") {

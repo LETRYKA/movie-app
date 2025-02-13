@@ -36,7 +36,6 @@ const Movie = (props: {}) => {
                 }
             );
             setInfoMovie(response.data);
-            console.log(`vid`, response.data)
         } catch (err) {
             setIsLoading(false);
             setErrorMessage("Failed to fetch movie details.");
@@ -196,9 +195,9 @@ const Movie = (props: {}) => {
                             </p>
                             <div className="flex flex-row gap-4 mt-8">
                                 <Link href={`/watch/movie/${infoMovie?.id}`}>
-                                    <Button className="pt-5 pb-5 pl-8 pr-8 text-base font-bold flex items-center border group hover:text-[--text-color]">  <Play className="fill-[--main-background] group-hover:fill-[--text-color] stroke-none" />PLAY</Button>
+                                    <Button className="pt-5 pb-5 pl-8 pr-8 text-base font-bold flex items-center bg-white text-black border hover:bg-transparent group hover:text-[--text-color]">  <Play className="fill-[--main-background] group-hover:fill-[--text-color] stroke-none" />PLAY</Button>
                                 </Link>
-                                <Button onClick={() => { setShowTrailer(true); window.scrollTo({ top: 0, behavior: "smooth" }) }} className="hidden sm:flex pt-5 pb-5 pl-8 pr-8 text-base font-bold items-center border hover:text-[--text-color]">TRAILER</Button>
+                                <Button onClick={() => { setShowTrailer(true); window.scrollTo({ top: 0, behavior: "smooth" }) }} className="hidden sm:flex pt-5 pb-5 pl-8 pr-8 text-base font-bold items-center bg-white text-black border hover:bg-transparent hover:text-[--text-color]">TRAILER</Button>
                                 <Button variant="outline" className="hidden bg-transparent sm:flex pt-5 pb-5 pl-3 pr-3 text-base font-bold items-center rounded-full"><Plus /></Button>
                                 <Button variant="outline" className="hidden bg-transparent sm:flex pt-5 pb-5 pl-3 pr-3 text-base font-bold items-center rounded-full"><UsersRound /></Button>
                             </div>

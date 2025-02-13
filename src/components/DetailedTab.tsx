@@ -40,8 +40,6 @@ export const DetailedTab = (props: { movieData: DataType; slideTitle: string; se
     }
   };
 
-  console.log(detailedMovieData)
-
   const reviewDate = (movie: DataType) => {
     const get = movie.updated_at
     const slice = get.split('T', 1)

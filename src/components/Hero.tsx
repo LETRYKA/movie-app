@@ -69,12 +69,12 @@ export const Hero = (props: { movieData: DataType[] }) => {
                                             <div className="flex flex-row gap-4 mt-8">
                                                 <Button
                                                     onClick={() => router.push(`/watch/movie/${movie.id}`)}
-                                                    className="pt-5 pb-5 pl-8 pr-8 text-base font-bold flex items-center border group hover:text-[--text-color]">
+                                                    className="pt-5 pb-5 pl-8 pr-8 text-base font-bold flex items-center border bg-white text-black group hover:bg-transparent hover:text-[--text-color]">
                                                     <Play className="fill-[--main-background] group-hover:fill-[--text-color] stroke-none" />PLAY
                                                 </Button>
                                                 <Button
                                                     onClick={() => router.push(`/info/movie/${movie.id}`)}
-                                                    className="pt-5 pb-5 pl-8 pr-8 text-base font-bold flex items-center border group hover:text-[--text-color]">
+                                                    className="pt-5 pb-5 pl-8 pr-8 text-base font-bold flex items-center border bg-white text-black group hover:bg-transparent hover:text-[--text-color]">
                                                     <Info className="stroke-[--main-background] group-hover:stroke-[--text-color]" />INFO
                                                 </Button>
                                             </div>

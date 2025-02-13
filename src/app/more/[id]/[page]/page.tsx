@@ -49,7 +49,6 @@ const Genre = () => {
             );
             setGenreData(genre.data.results);
             setTotalPages(genre.data.total_pages);
-            console.log(genre.data.total_pages)
             setIsLoading(false);
         } catch (err) {
             setIsLoading(false);
