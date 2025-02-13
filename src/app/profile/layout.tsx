@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex flex-col">
-        <Header className="sticky z-30" />
+        <Header />
         <div className="flex-1 -mt-20">{children}</div>
         <Footer />
       </body>

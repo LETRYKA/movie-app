@@ -208,7 +208,7 @@ const Movie = (props: {}) => {
                     </div>
                 </div>
                 <div className=''>
-                    {infoMovie && <DetailedTab movieData={infoMovie} />}
+                    {infoMovie && <DetailedTab movieData={infoMovie} slideTitle={''} series={false} />}
                 </div>
                 <div className='px-8 sm:px-10 lg:px-24 mb-20'>
                     <CardComp movieData={similarMovies} slideTitle="Similar Movies" />

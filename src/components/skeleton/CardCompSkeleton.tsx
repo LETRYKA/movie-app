@@ -15,7 +15,7 @@ const CardCompSkeleton = (props: any) => {
                 ${vertical ? "sm:grid-cols-3" : "sm:grid-cols-2"}
                 ${vertical ? "lg:grid-cols-4" : "lg:grid-cols-3"}
                 ${vertical ? "2xl:grid-cols-5" : "2xl:grid-cols-4"} gap-6`}>
-                {Array(8).fill().map((_, index) => (
+                {Array(8).fill(null).map((_, index) => (
                     <div
                         key={index}
                         className={`${vertical ? "aspect-[7/10]" : "aspect-[4/2]"} h-auto cursor-pointer bg-slate-800 shadow-md bg-cover bg-center relative overflow-hidden border-[#353843] rounded-lg`}>

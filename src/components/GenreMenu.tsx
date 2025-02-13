@@ -15,8 +15,7 @@ import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import axios from 'axios';
 
-export const GenreMenu = (props: DataType[]) => {
-    const { } = props;
+export const GenreMenu = () => {
     const router = useRouter();
     const params = useParams();
     const [isLoading, setIsLoading] = useState(false);

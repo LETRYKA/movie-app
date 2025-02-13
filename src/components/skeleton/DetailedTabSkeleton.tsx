@@ -21,7 +21,7 @@ const DetailedTabSkeleton = () => {
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-2 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-4 mb-3">
-                            {Array(6).fill().map((_, index) => (
+                            {Array(6).fill(null).map((_, index) => (
                                 <div key={index} className="flex flex-row justify-start items-center gap-3">
                                     <Skeleton className="w-12 h-12 bg-gray-700 rounded-full" />
                                     <div className="flex flex-col">

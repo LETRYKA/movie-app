@@ -10,7 +10,7 @@ import axios from 'axios';
 
 export const DetailedTab = (props: { movieData: DataType; slideTitle: string; series: boolean; }) => {
   const { movieData, slideTitle, series } = props;
-  const [detailedMovieData, setDetailedMovieData] = useState<DataType>();
+  const [detailedMovieData, setDetailedMovieData] = useState<any>();
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -80,7 +80,7 @@ export const DetailedTab = (props: { movieData: DataType; slideTitle: string; se
                 <CardTitle className='text-white'>Top Casts</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-4 mb-3">
-                {detailedMovieData?.credits?.cast?.slice(0, 6).map((movie, index) => (
+                {detailedMovieData?.credits?.cast?.slice(0, 6).map((movie: any) => (
                   <div key={movie.id} className='flex flex-row justify-start items-center gap-3'>
                     <div className='bg-cover bg-center w-12 h-12 aspect-square rounded-full' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.profile_path})` }}></div>
                     <div className='flex flex-col'>
@@ -99,7 +99,7 @@ export const DetailedTab = (props: { movieData: DataType; slideTitle: string; se
                 <CardTitle className='text-white'>Reviews</CardTitle>
               </CardHeader>
               <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-                {detailedMovieData?.reviews?.results?.slice(0, 2).map((movie: DataType, index: number) => (
+                {detailedMovieData?.reviews?.results.slice(0, 2).map((movie: DataType) => (
                   <div key={movie.id} className='w-full'>
                     <div className='w-full h-auto border border-[--main-border] rounded-lg flex flex-col justfiy-center items-center'>
                       <div className='w-[90%] lg:w-[95%] mt-4 flex flex-row justify-between'>

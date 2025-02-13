@@ -1,4 +1,5 @@
 export type DataType = {
+  author_details: any;
   adult: boolean;
   backdrop_path: string;
   created_by: Array<{
@@ -9,16 +10,17 @@ export type DataType = {
     original_name: string;
     profile_path: string;
   }>;
-  reviews: Array<{
-    results: Array<{}>;
-    id: string;
-    author: string;
-    content: string;
-    author_details: {
-      rating?: number;
-    };
-    updated_at: string;
-  }>;
+  reviews: {
+    results: Array<{
+      id: string;
+      author: string;
+      content: string;
+      author_details: {
+        rating?: number;
+      };
+      updated_at: string;
+    }>;
+  }[];
   updated_at: string;
   title: string;
   media_type: string;

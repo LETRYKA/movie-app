@@ -16,7 +16,7 @@ const SliderSeriesSkeleton = (props: any) => {
                 </div>
                 <Carousel className="w-full relative">
                     <CarouselContent className="pl-2 pt-2">
-                        {Array(10).fill().map((_, index) => (
+                        {Array(10).fill(null).map((_, index) => (
                             <CarouselItem key={index} className={`${type ? 'basis-[80%]' : 'basis-[36%]'} ${type ? 'sm:basis-[50%]' : 'sm:basis-[23%]'} ${type ? 'md:basis-[35%]' : 'md:basis-[23%]'} ${type ? 'lg:basis-[27%]' : 'lg:basis-[18%]'} ${type ? 'xl:basis-[19%]' : 'xl:basis-[13%]'}`}>
                                 <div className="p-1">
                                     <Skeleton className={`${type ? 'aspect-[4/2]' : 'aspect-[7/10]'} w-full bg-gray-700 rounded-md`} />

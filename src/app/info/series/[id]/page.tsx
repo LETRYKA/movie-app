@@ -184,9 +184,9 @@ const Movie = (props: {}) => {
                     </div>
                 </div>
                 <div className='w-full overflow-hidden'>
-                    <Episodes seriesData={infoMovie} />
+                    {infoMovie && <Episodes seriesData={infoMovie} />}
                 </div>
-                <DetailedTab movieData={infoMovie} series={true} />
+                {infoMovie && <DetailedTab movieData={infoMovie} series={true} slideTitle={''} />}
                 <div className='px-8 sm:px-10 lg:px-24 mb-20'>
                     <CardComp movieData={similarMovies} series={true} slideTitle="Similar Movies" />
                 </div>
