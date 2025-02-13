@@ -53,21 +53,20 @@ const Header = (props: DataType[]) => {
         setShowInput(prev => !prev);
     };
 
+
     const searchHandler = (inputValue: string) => {
         if (inputValue) {
             if (inputValue.length > 0) {
-                router.push(`/search/${inputValue}`)
-                setInputValue("")
-            }
-            else {
-                return
+                router.push(`/search?id=${inputValue}`);
+                setInputValue("");
             }
         }
     }
+
     const handleKeyDown = (event: any, inputValue: string) => {
         if (event.key === "Enter") {
             searchHandler(inputValue);
-            inputShow()
+            inputShow();
         }
     };
 
@@ -86,8 +85,18 @@ const Header = (props: DataType[]) => {
                 <div className="hidden sm:flex">
                     <GenreMenu />
                 </div>
-                <input onKeyDown={(e) => handleKeyDown(e, inputValue)} type="text" placeholder="Search" onChange={inputHandler} className={`bg-transparent outline-none border-b-2 text-[--text-color] pb-1 transition-all duration-500 -ml-2 ${showInput ? 'w-52' : 'w-0'}`}></input>
-                <Search onClick={() => (inputShow(), searchHandler(inputValue))} color="white" className="flex cursor-pointer -ml-6" />
+                <input
+                    onKeyDown={(e) => handleKeyDown(e, inputValue)}
+                    type="text"
+                    placeholder="Search"
+                    onChange={inputHandler}
+                    className={`bg-transparent outline-none border-b-2 text-[--text-color] pb-1 transition-all duration-500 -ml-2 ${showInput ? 'w-20 sm:w-52' : 'w-0'}`}
+                />
+                <Search
+                    onClick={() => (inputShow(), searchHandler(inputValue))}
+                    color="white"
+                    className="flex cursor-pointer -ml-6"
+                />
             </div>
             <div className="flex flex-row h-full w-auto justify-start items-center mt-2">
                 <Menu className="flex stroke-[--text-color] mr-5 cursor-pointer lg:hidden" />
@@ -99,14 +108,14 @@ const Header = (props: DataType[]) => {
 
                 <div className={`absolute ${menuToggle ? `flex` : `hidden`} top-20 right-24 rounded-lg bg-[--darker-background] flex-col justify-start items-start`}>
                     <div className="pl-5 pr-14 py-5">
-                        <div className="w-full flex flex-row gap-3 justfiy-center items-center cursor-pointer group">
+                        <div className="w-full flex flex-row gap-3 justify-center items-center cursor-pointer group">
                             <Avatar className="w-9 h-9">
                                 <AvatarImage src="https://ih1.redbubble.net/image.618410924.2644/flat,750x1000,075,t.u12.jpg" />
                                 <AvatarFallback>U</AvatarFallback>
                             </Avatar>
                             <p className="text-white/70 text-sm transition-all group-hover:ml-1">Default</p>
                         </div>
-                        <div className="w-full flex flex-row gap-3 justfiy-center items-center mt-4 cursor-pointer group">
+                        <div className="w-full flex flex-row gap-3 justify-center items-center mt-4 cursor-pointer group">
                             <Avatar className="w-9 h-9">
                                 <AvatarImage src="https://cdn-icons-png.flaticon.com/512/399/399281.png" />
                                 <AvatarFallback>U</AvatarFallback>
@@ -132,7 +141,6 @@ const Header = (props: DataType[]) => {
             </div>
         </div>
     );
-
 };
 
 export default Header;

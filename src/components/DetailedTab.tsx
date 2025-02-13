@@ -82,7 +82,7 @@ export const DetailedTab = (props: { movieData: DataType; slideTitle: string; se
               <CardContent className="space-y-2 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-4 mb-3">
                 {detailedMovieData?.credits?.cast?.slice(0, 6).map((movie, index) => (
                   <div key={movie.id} className='flex flex-row justify-start items-center gap-3'>
-                    <div className='bg-cover bg-center w-12 h-12 rounded-full' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.profile_path})` }}></div>
+                    <div className='bg-cover bg-center w-12 h-12 aspect-square rounded-full' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.profile_path})` }}></div>
                     <div className='flex flex-col'>
                       <p className='text-white font-semibold text-sm'>{movie.character}</p>
                       <p className='text-slate-400 font-medium text-xs'>{movie.name}</p>

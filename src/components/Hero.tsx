@@ -56,7 +56,7 @@ export const Hero = (props: { movieData: DataType[] }) => {
                                 <Skeleton className="w-full h-[20%] sm:h-[10%] bg-gray-700 rounded-md" />
                             </div>
                         ) : (
-                            detailedMovieData.slice(15, 20).map((movie, i) => (
+                            detailedMovieData.slice(16, 24).map((movie, i) => (
                                 <CarouselItem key={i} className="m-0 p-0">
                                     <div className="relative w-full pr-14 pl-14 sm:p-0 h-[600px] sm:h-[867px] bg-fixed bg-cover bg-top flex justify-center sm:justify-start items-center"
                                         style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie?.backdrop_path || '/default.jpg'})`, }}>
