@@ -9,8 +9,7 @@ import { GenreMenu } from "@/components"
 import Link from "next/link";
 import axios from "axios";
 
-const Header = (props: DataType[]) => {
-    const { } = props;
+const Header = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [showInput, setShowInput] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
