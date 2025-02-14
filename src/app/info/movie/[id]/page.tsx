@@ -155,7 +155,7 @@ const Movie = (props: {}) => {
                 </div>)}
                 {/* Page */}
                 <div className='h-[800px] sm:h-auto'>
-                    <div className="relative w-full sm:overflow-hidden pr-14 pl-14 sm:p-0 h-[600px] sm:h-[967px] bg-cover bg-top md:bg-fixed flex justify-center sm:justify-start bg-pos items-center" style={{ backgroundImage: `url(${process.env.TMDB_IMAGE_SERVICE_URL}/original/${infoMovie?.backdrop_path})` }}>
+                    <div className="relative w-full sm:overflow-hidden pr-14 pl-14 sm:p-0 h-[600px] sm:h-[967px] bg-cover bg-top md:bg-fixed flex justify-center sm:justify-start items-center" style={{ backgroundImage: `url(${process.env.TMDB_IMAGE_SERVICE_URL}/original/${infoMovie?.backdrop_path})` }}>
                         {!onLoad && (
                             <div></div>
                         )}

@@ -89,7 +89,10 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+    padding-top: env(safe-area-inset-top);
+    background-color: #1b1d29;
   }
 }

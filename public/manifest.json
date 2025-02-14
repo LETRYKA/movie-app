@@ -1,11 +1,11 @@
 {
 	"name": "Sphere+",
 	"short_name": "Sphere+",
-	"description": "Sphere+ Progressive Web App",
+	"description": "",
 	"start_url": "/",
 	"display": "standalone",
-	"background_color": "#ffffff",
-	"theme_color": "#000000",
+	"background_color": "#1b1d29",
+	"theme_color": "#1b1d29",
 	"orientation": "portrait",
 	"icons": [
 		{
@@ -20,5 +20,28 @@
 			"type": "image/png",
 			"purpose": "any maskable"
 		}
-	]
+	],
+	"scope": "/",
+	"id": "/",
+	"dir": "ltr",
+	"lang": "en",
+	"categories": [
+		"utilities",
+		"productivity",
+		"lifestyle"
+	],
+	"screenshots": [
+		{
+			"src": "/imgs/screenshot1.png",
+			"sizes": "750x1334",
+			"type": "image/png"
+		},
+		{
+			"src": "/imgs/screenshot2.png",
+			"sizes": "1125x2436",
+			"type": "image/png"
+		}
+	],
+	"related_applications": [],
+	"prefer_related_applications": false
 }

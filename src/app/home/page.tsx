@@ -1,6 +1,7 @@
 'use client';
 
 import { Slider, SliderSeries, Hero, CatCard } from "@/components";
+import { Analytics } from "@vercel/analytics/react"
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from 'axios';
@@ -107,6 +108,7 @@ export default function Home() {
       <div className="mt-12 mb-20 ml-[4%]">
         <SliderSeries movieData={trendingKD} slideTitle="Kdramas" category="kdrama" type={true} />
       </div>
+      <Analytics />
     </div>
   );
 }

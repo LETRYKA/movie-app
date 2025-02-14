@@ -2,12 +2,6 @@
 
 ###
 ```bash
-npm install @supabase/supabase-js @supabase/ssr
-```
-###
-
-###
-```bash
 npm install embla-carousel-autoplay --save
 ```
 ###

@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import MainLayout from '@/components/FullPageLayout'
+import MainLayout from '@/components/MainLayout'
 import "@/app/globals.css";
 import FullPageLayout from '@/components/FullPageLayout';
 
@@ -11,17 +11,17 @@ export const metadata: Metadata = {
     width: 'device-width',
     initialScale: 1,
     maximumScale: 1,
-    viewportFit: 'cover',
+    viewportFit: 'cover', // Ensures app extends behind notch
   },
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
+    statusBarStyle: 'black-translucent', // Makes status bar area blend in
     title: 'Sphere+',
   },
   formatDetection: {
     telephone: false,
   },
-  themeColor: '#000000',
+  themeColor: '#1b1d29',
 }
 
 export default function RootLayout({
@@ -31,7 +31,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full">
-      <body className="h-full">
+      <body className="h-full bg-[#1b1d29] pt-[env(safe-area-inset-top)]">
         <FullPageLayout>{children}</FullPageLayout>
       </body>
     </html>

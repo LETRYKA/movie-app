@@ -31,7 +31,6 @@ export const CardComp = (props: any) => {
             const responses = await Promise.all(requests);
             const movieDetailedData = responses.map((res) => res.data);
             setDetailedMovieData(movieDetailedData);
-            console.log(movieDetailedData)
 
         } catch (error) {
             console.error(error);
@@ -44,10 +43,8 @@ export const CardComp = (props: any) => {
         let get = "";
         if (movie.type && movie.type.length) {
             get = movie.last_air_date
-            console.log('test')
         } else {
             get = movie?.release_date
-            console.log('test2')
         }
         const response = get?.split('-', 1)
         return response;
