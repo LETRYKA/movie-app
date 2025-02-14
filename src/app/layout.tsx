@@ -4,25 +4,23 @@ import "@/app/globals.css";
 import FullPageLayout from '@/components/FullPageLayout';
 
 export const metadata: Metadata = {
-  title: 'Sphere+',
-  description: 'Sphere+ Progressive Web App',
-  manifest: '/manifest.json',
+  title: "Sphere+",
+  description: "",
+  manifest: "/manifest.json",
   viewport: {
-    width: 'device-width',
+    width: "device-width",
     initialScale: 1,
     maximumScale: 1,
-    viewportFit: 'cover', // Ensures app extends behind notch
+    viewportFit: "cover"
   },
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'black-translucent', // Makes status bar area blend in
-    title: 'Sphere+',
+    statusBarStyle: "black-translucent",
+    title: "Sphere+"
   },
-  formatDetection: {
-    telephone: false,
-  },
-  themeColor: '#1b1d29',
-}
+  themeColor: "#1b1d29"
+};
+
 
 export default function RootLayout({
   children,

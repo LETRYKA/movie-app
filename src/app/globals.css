@@ -90,8 +90,12 @@ body {
     @apply border-border;
   }
 
+  html,
   body {
     @apply bg-background text-foreground;
+    height: 100%;
+    margin: 0;
+    padding: 0;
     padding-top: env(safe-area-inset-top);
     background-color: #1b1d29;
   }
