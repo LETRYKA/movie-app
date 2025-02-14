@@ -1,9 +1,11 @@
 import { Metadata } from 'next'
+import MainLayout from '@/components/FullPageLayout'
 import "@/app/globals.css";
+import FullPageLayout from '@/components/FullPageLayout';
 
 export const metadata: Metadata = {
   title: 'Sphere+',
-  description: '',
+  description: 'Sphere+ Progressive Web App',
   manifest: '/manifest.json',
   viewport: {
     width: 'device-width',
@@ -13,17 +15,24 @@ export const metadata: Metadata = {
   },
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'black-translucent',
+    statusBarStyle: 'default',
     title: 'Sphere+',
   },
-  themeColor: '#1b1d29',
+  formatDetection: {
+    telephone: false,
+  },
+  themeColor: '#000000',
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en" className="h-full w-full">
-      <body className="h-full w-full bg-[#1b1d29] pt-[env(safe-area-inset-top)]">
-        {children}
+    <html lang="en" className="h-full">
+      <body className="h-full">
+        <FullPageLayout>{children}</FullPageLayout>
       </body>
     </html>
   );

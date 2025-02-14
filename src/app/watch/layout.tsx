@@ -3,7 +3,7 @@ import FullPageLayout from "@/components/FullPageLayout";
 
 export const metadata: Metadata = {
   title: 'Watch - Sphere+',
-  description: 'Watch your favorite content on Sphere+',
+  description: '',
 }
 
 export default function WatchLayout({ children }: { children: React.ReactNode }) {
