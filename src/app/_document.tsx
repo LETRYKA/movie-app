@@ -9,7 +9,7 @@ export default function Document() {
 				<meta name="apple-mobile-web-app-capable" content="yes" />
 				<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 			</Head>
-			<body className="h-full bg-[#1b1d29] pt-[env(safe-area-inset-top)]">
+			<body className="h-full w-full bg-[#1b1d29] pt-[env(safe-area-inset-top)]">
 				<Main />
 				<NextScript />
 			</body>
