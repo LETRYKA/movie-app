@@ -16,7 +16,7 @@ const Watch = () => {
     const params = useParams();
     const router = useRouter();
     const id = params.id;
-    const [selectedServer, setSelectedServer] = useState(`${process.env.NEXT_PUBLIC_STREAM_VIDLINK}/movie/`);
+    const [selectedServer, setSelectedServer] = useState(`${process.env.NEXT_PUBLIC_STREAM_BINGE}/movie/`);
 
     const servers = [
         { id: "ONE", url: `${process.env.NEXT_PUBLIC_STREAM_VIDLINK}/movie/`, name: "Server 1" },
@@ -40,7 +40,7 @@ const Watch = () => {
             <div className="absolute top-3 right-3 sm:right-7 sm:top-6">
                 <Select onValueChange={(value) => setSelectedServer(value)}>
                     <SelectTrigger className="w-[180px] border-[#353843] text-white bg-black/10 backdrop-blur-md">
-                        <SelectValue placeholder="Server 1" />
+                        <SelectValue placeholder="Server 5" />
                     </SelectTrigger>
                     <SelectContent className="bg-[#101116] text-slate-200 border-[#353843]">
                         <SelectGroup>
