@@ -97,10 +97,10 @@ export default function Home() {
         </div>
       </div>
       <div className="mt-12 ml-[4%]">
-        <Slider movieData={topRatedMovieData} slideTitle="Top Rated Movies" category="top_rated" />
+        <SliderSeries movieData={trendingSeriesData} slideTitle="Trending Series" category="trending" type={false} />
       </div>
       <div className="mt-12 ml-[4%]">
-        <SliderSeries movieData={trendingSeriesData} slideTitle="Trending Series" category="trending" type={false} />
+        <Slider movieData={topRatedMovieData} slideTitle="Top Rated Movies" category="top_rated" />
       </div>
       <div className="mt-12 ml-[4%]">
         <SliderSeries movieData={topRatedSeriesData} slideTitle="Top Rated Series" category="top_rated" type={false} />
